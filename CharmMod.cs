@@ -21,9 +21,22 @@ namespace CharmMod
             HKBlessing.Instance,
             HuntersMark.Instance,
             PowerfulDash.Instance,
+            HealthyShell.Instance,
+            DoubleDash.Instance,
+            SoulSpeed.Instance,
+            SoulSpell.Instance,
+            SoulHunger.Instance,
+            RavenousSoul.Instance,
+            SoulSwitch.Instance,
+            GeoSwitch.Instance,
             WealthyAmulet.Instance,
-            TripleJump.Instance
+            SoulSlow.Instance,
+            SlowTime.Instance,
+            SpeedTime.Instance
         };
+
+        public int NewCharms = Charms.Count; //STARTS AT 0 (almost definately)
+        public int OldCharms = 40; //STARTS AT 1 (for some reason)
 
         internal static CharmMod Instance;
 
@@ -73,7 +86,9 @@ namespace CharmMod
             On.PlayMakerFSM.OnEnable += EditFSMs;
             On.PlayerData.CountCharms += CountOurCharms;
             ModHooks.NewGameHook += GiveCharms;
-            ModHooks.HeroUpdateHook += SetDefaultNotchCosts;
+            ModHooks.HeroUpdateHook += OnUpdate;
+            ModHooks.SoulGainHook += GrantAllOurCharmsOnSoul;
+            
             StartTicking();
             if (ModHooks.GetMod("DebugMod") != null)
             {
@@ -84,7 +99,6 @@ namespace CharmMod
             }
         }
         // breaks infinite loop when reading equippedCharm_X
-        private bool Equipped(Charm c) => c.Settings(Settings).Equipped;
 
         private Dictionary<(string Key, string Sheet), Func<string>> TextEdits = new();
 
@@ -101,7 +115,8 @@ namespace CharmMod
         {
             GrantAllOurCharms();
         }
-        public override string GetVersion() => "6.3.2";
+
+        public override string GetVersion() => "8.30.3";
 
         internal SaveSettings Settings = new();
 
@@ -149,9 +164,39 @@ namespace CharmMod
             }
             return orig;
         }
-        private void SetDefaultNotchCosts()
+        private void OnUpdate()
         {
-            GrantAllOurCharms();
+            //give charms when certain things are done.
+
+            if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.colosseumSilverCompleted) Slowfall.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasShadowDash) PowerfulDash.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasNailArt) SturdyNail.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasHuntersMark) HuntersMark.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasDreamGate) SoulHunger.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasDreamNail) SoulSlow.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey) BetterCDash.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedHollowKnight) HKBlessing.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasKingsBrand) HealthyShell.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedHollowKnightPrime) GlassCannon.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.bankerAccountPurchased) WealthyAmulet.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.colosseumGoldCompleted) RavenousSoul.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.canOvercharm) DoubleDash.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.collectorDefeated) SoulSpell.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.grubsCollected > 10) SlowTime.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.fatGrubKing) SpeedTime.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.mageLordDreamDefeated) GeoSwitch.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedMageLord) SoulSwitch.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.nailsmithConvoArt) SoulSpeed.Instance.Settings(Settings).Got = true;
+
+            //end
+            //ik it is messy, but what else is there to do. Also, if u are seeing this code and think that there is a more appropriate time to give the charm, DM me on discord. I am BubkisLord#5187
+
+
+            if (PlayerData.instance.maxHealth < 1)
+            {
+                HeroController.instance.AddToMaxHealth(1);
+            }
             foreach (Charm charm in CharmMod.Charms)
             {
                 charm.Settings(this.Settings).Cost = charm.DefaultCost;
@@ -216,25 +261,6 @@ namespace CharmMod
             self.SetInt("charmsOwned", self.GetInt("charmsOwned") + Charms.Count(c => c.Settings(Settings).Got));
         }
 
-        private void RandomizeNotchCosts(int seed)
-        {
-            // This log statement is here to help diagnose a possible bug where charms cost more than
-            // they ever should.
-            Log("Randomizing notch costs");
-            var rng = new System.Random(seed);
-            var total = Charms.Select(x => x.DefaultCost).Sum();
-            for (var i = 0; i < total; i++)
-            {
-                var possiblePicks = Charms.Select(x => x.Settings(Settings)).Where(s => s.Cost < 6).ToList();
-                if (possiblePicks.Count == 0)
-                {
-                    break;
-                }
-                var pick = rng.Next(possiblePicks.Count);
-                possiblePicks[pick].Cost++;
-            }
-        }
-
         internal static void UpdateNailDamage()
         {
             IEnumerator WaitThenUpdate()
@@ -253,9 +279,27 @@ namespace CharmMod
             }
         }
 
-        public void OnLoadLocal(SaveSettings s)
+        public int GrantAllOurCharmsOnSoul(int soulamount)
         {
-            ((ILocalSettings<SaveSettings>)Instance).OnLoadLocal(s);
+            foreach (var charm in Charms)
+            {
+                charm.Settings(Settings).Got = true;
+            }
+            return soulamount;
+        }
+
+        public int GiveSpecificCharm(int numberino)
+        {
+            Charms[numberino].Settings(Settings).Got = true;
+            return numberino;
+        }
+
+        public void TakeAllOurCharms()
+        {
+            foreach (var charm in Charms)
+            {
+                charm.Settings(Settings).Got = false;
+            }
         }
 
         SaveSettings ILocalSettings<SaveSettings>.OnSaveLocal()
@@ -264,6 +308,11 @@ namespace CharmMod
         }
 
         public SaveSettings OnSaveLocal()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnLoadLocal(SaveSettings s)
         {
             throw new NotImplementedException();
         }

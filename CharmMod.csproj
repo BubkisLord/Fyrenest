@@ -80,7 +80,7 @@
       <HintPath>$(HollowKnightRefs)/Mods/SFCore/SFCore.dll</HintPath>
     </Reference>
     <Reference Include="ItemChanger">
-      <HintPath>$(HollowKnightRefs)/Mods/ItemChanger/ItemChanger.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Hollow Knight\Hollow Knight_Data\Managed\Mods\ItemChanger\ItemChanger.dll</HintPath>
     </Reference>
     <Reference Include="MenuChanger">
       <HintPath>$(HollowKnightRefs)/Mods/MenuChanger/MenuChanger.dll</HintPath>

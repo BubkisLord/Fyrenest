@@ -11,7 +11,17 @@ namespace CharmMod
         public CharmSettings GlassCannon = new();
         public CharmSettings WealthyAmulet = new();
         public CharmSettings PowerfulDash = new();
-        public CharmSettings TripleJump = new();
+        public CharmSettings DoubleDash = new();
+        public CharmSettings SoulSpeed = new();
+        public CharmSettings SoulSpell = new();
+        public CharmSettings SoulHunger = new();
+        public CharmSettings RavenousSoul = new();
+        public CharmSettings SoulSwitch = new();
+        public CharmSettings HealthyShell = new();
+        public CharmSettings GeoSwitch = new();
+        public CharmSettings SoulSlow = new();
+        public CharmSettings SlowTime = new();
+        public CharmSettings SpeedTime = new();
 
         public bool[] gotCharms = new[] { true, true, true, true };
         public bool[] newCharms = new[] { false, false, false, false };
