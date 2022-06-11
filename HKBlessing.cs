@@ -7,7 +7,7 @@ namespace CharmMod
         public static readonly HKBlessing Instance = new();
         public override string Sprite => "HKBlessing.png";
         public override string Name => "Hollow Knight's Blessing";
-        public override string Description => "Desc";
+        public override string Description => "Contains the blessing of The Hollow Knight.\n\nMakes lifeblood charms more powerful.";
         public override int DefaultCost => 2;
         public override string Scene => "Ruins2_11";
         public override float X => 0f;
@@ -20,10 +20,10 @@ namespace CharmMod
         public override void Hook()
         {
             ModHooks.BlueHealthHook += BlueHPRestored;
+            ModHooks.HeroUpdateHook += OnUpdate;
         }
 
 
-        //This snippet makes the lifeblood charms twice as effective.
         public int BlueHPRestored() {
             if (Equipped())
             {
@@ -34,6 +34,14 @@ namespace CharmMod
             }
             else
                 return 0;
+        }
+        public void OnUpdate()
+        {
+            if (PlayerData.instance.GetBool("equippedCharm_27") && Equipped())
+            {
+                PlayerData.instance.SetInt("joniHealthBlue", (int)((float)PlayerData.instance.maxHealth * 1.7f));
+                PlayerData.instance.MaxHealth();
+            }
         }
     }
 }

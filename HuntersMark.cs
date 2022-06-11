@@ -10,7 +10,7 @@ namespace CharmMod
         public static readonly HuntersMark Instance = new();
         public override string Sprite => "HuntersMark.png";
         public override string Name => "The Hunter's Mark";
-        public override string Description => "Desc";
+        public override string Description => "Unlocks all journal entries.\n\nI know, its bad, I was running out of ideas, and haven't bothered to delete it.";
         public override int DefaultCost => 0;
         public override string Scene => "Ruins2_11";
         public override float X => 0f;

@@ -9,7 +9,7 @@ namespace CharmMod
         public static readonly Quickfall Instance = new();
         public override string Sprite => "Quickfall.png";
         public override string Name => "Quickfall";
-        public override string Description => "Desc";
+        public override string Description => "This charm falls faster than it should when dropped.\n\nWhen worn, the bearer falls at a very fast rate.";
         public override int DefaultCost => 1;
         public override string Scene => "Ruins2_11";
         public override float X => 0f;
@@ -40,7 +40,7 @@ namespace CharmMod
             }
             // Keep normal gravity after going through upwards transitions, so that the player does not fall
             // through spikes in some rooms before they gain control.
-            rb.gravityScale = (Equipped() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION) ? 2.4f : 0.79f;
+            rb.gravityScale = (Equipped() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION) ? 4.4f : 0.79f;
         }
     }
 }

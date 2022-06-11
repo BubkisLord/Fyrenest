@@ -9,7 +9,7 @@ namespace CharmMod
         public static readonly Slowfall Instance = new();
         public override string Sprite => "Slowfall.png";
         public override string Name => "Slowfall";
-        public override string Description => "Desc";
+        public override string Description => "This charm falls slower than it should when dropped.\n\nWhen worn, the bearer falls at a very slow rate.";
         public override int DefaultCost => 1;
         public override string Scene => "Ruins2_11";
         public override float X => 0f;

@@ -1,5 +1,3 @@
-using Modding;
-
 namespace CharmMod
 {
     internal class SturdyNail : Charm
@@ -7,7 +5,7 @@ namespace CharmMod
         public static readonly SturdyNail Instance = new();
         public override string Sprite => "SturdyNail.png";
         public override string Name => "Sturdy Nail";
-        public override string Description => "Desc";
+        public override string Description => "This strong charm allows the bearer to slash with more powerful strikes.\n\nGreatly increases the strength of the bearer's nail.";
         public override int DefaultCost => 2;
         public override string Scene => "Ruins2_11";
         public override float X => 0f;
@@ -26,7 +24,7 @@ namespace CharmMod
         {
             if (intName == "nailDamage" && Equipped())
             {
-                damage = damage * 2;
+                damage *= 2;
             }
             return damage;
         }
