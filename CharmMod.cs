@@ -6,10 +6,11 @@ global using UnityEngine;
 global using SFCore;
 global using System.Collections.Generic;
 global using System.Linq;
+using Satchel.BetterMenus;
 
 namespace CharmMod
 {
-    public class CharmMod : Mod, ILocalSettings<SaveSettings>
+    public class CharmMod : Mod, ICustomMenuMod, IMod
     {
         private static List<Charm> Charms = new()
         {
@@ -32,12 +33,14 @@ namespace CharmMod
             WealthyAmulet.Instance,
             SoulSlow.Instance,
             SlowTime.Instance,
-            SpeedTime.Instance
+            SpeedTime.Instance,
+            ZoteBorn.Instance,
+            SlyDeal.Instance,
+            ElderStone.Instance
         };
 
         public int NewCharms = Charms.Count; //STARTS AT 0 (almost definately)
         public int OldCharms = 40; //STARTS AT 1 (for some reason)
-
         internal static CharmMod Instance;
 
         private Dictionary<string, Func<bool, bool>> BoolGetters = new();
@@ -87,8 +90,8 @@ namespace CharmMod
             On.PlayerData.CountCharms += CountOurCharms;
             ModHooks.NewGameHook += GiveCharms;
             ModHooks.HeroUpdateHook += OnUpdate;
-            ModHooks.SoulGainHook += GrantAllOurCharmsOnSoul;
-            
+            ModHooks.LanguageGetHook += LanguageGet;
+
             StartTicking();
             if (ModHooks.GetMod("DebugMod") != null)
             {
@@ -98,8 +101,201 @@ namespace CharmMod
                 });
             }
         }
-        // breaks infinite loop when reading equippedCharm_X
+        private int charmSelect = 0;
+        public string LanguageGet(string key, string sheetTitle, string orig)
+        {
+            //Check for the key and sheet for MainMenu "Yes" text
+            if (key == "HU_DEFEAT" && sheetTitle == "Ghosts")
+            {
+                return "My mind... it clears. Have we been sleeping? No, not you, little knight. ...I remember... ...those proud lords, were they truly monsters? Their eyes, bright and clear. Why, why did you tell me to fear them so? They were going to help...  ...it was I who brought the madness... ...finally, you have stopped, you cruel voice...    ...who are you?...";
+            }
 
+            if (key == "TOWN" && sheetTitle == "Map Zones")
+            {
+                return "Elderbug The Amazing's Domain";
+            }
+
+            if (key == "CLIFFS" && sheetTitle == "Map Zones")
+            {
+                return "The Forgotten Edge";
+            }
+
+            if (key == "DISTANT_VILLAGE" && sheetTitle == "Map Zones")
+            {
+                return "Herrah's Den";
+            }
+
+            if (key == "BONE_FOREST" && sheetTitle == "Map Zones")
+            {
+                return "Bone Forest";
+            }
+
+            if (key == "TEST_AREA" && sheetTitle == "Map Zones")
+            {
+                return "Test area, TELL ME WHERE U FOUND THIS. Ping me @BubkisLord#5187 (discord)";
+            }
+
+            if (key == "DREAM_WORLD" && sheetTitle == "Map Zones")
+            {
+                return "Dream World";
+            }
+
+            if (key == "ELDERBUG_FLOWER" && sheetTitle == "Prompts")
+            {
+                return "Give him the Delicate Flower like a giga-chad?";
+            }
+
+            if (key == "ELDERBUG_INTRO_VISITEDCROSSROAD" && sheetTitle == "Elderbug")
+            {
+                return "WHAT THE HELL WAS THAT? THE ONLY VISITOR FOR YEARS JUST WALKS PAST ME? HOW DARE YOU! Go away!";
+            }
+
+            if (key == "ELDERBUG_DREAM" && sheetTitle == "Elderbug")
+            {
+                return "Hello? Is someone there? Who is that? Aah! What was that? That feeling. ...Like the cold, terrifying embrace of death...";
+            }
+
+            if (orig.Contains("Hollow Knight"))
+            {
+                return orig.Replace("Hollow Knight", "Infected Vessel");
+            }
+
+            if (orig.Contains("Pure Vessel"))
+            {
+                return orig.Replace("Pure Vessel", "Hollow Vessel");
+            }
+
+            if (orig.Contains("Mantis"))
+            {
+                return orig.Replace("Mantis", "Bubkis");
+            }
+
+            if (orig.Contains("mantis"))
+            {
+                return orig.Replace("mantis", "bubkis");
+            }
+
+            if (orig.Contains("The Forgotten Town"))
+            {
+                return orig.Replace("The Forgotten Town", "The Realm of Elderbug");
+            }
+            if (SlyDeal.Instance.Equipped() && sheetTitle == "Prices")
+            {
+                return "120";
+            }
+            if (ZoteBorn.Instance.Equipped() && sheetTitle == "Prices")
+            {
+                return "10000";
+            }
+
+            return orig;
+        }
+
+        public float grav = 0f;
+        public float gravsaved = 0f;
+
+        private Menu MenuRef;
+        public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? modtoggledelegates)
+        {
+            MenuRef ??= new Menu(
+                "CharmMod",
+                new Element[]
+                {
+                    new TextPanel("Health Changing", 1000, 60),
+                    new MenuButton("Reset health", "Make health to max health.", (_) => HealthReset()),
+                    new MenuButton("Add health", "Change health by 1.", (_) => AddHealth()),
+                    new MenuButton("Take health", "Change health by -1.", (_) => TakeHealth()),
+                    new TextPanel("Max Health Changing", 1000, 60),
+                    new MenuButton("Reset Max Health", "Sets max health to 5", (_) => MaxHealthReset()),
+                    new MenuButton("Add Max Health", "Increase max health by one. (Equip and de-equip the slow soul charm to update)", (_) => AddMaxHealth()),
+                    new MenuButton("Take Max Health", "Decrease max health by one. (Equip and de-equip the slow soul charm to update)", (_) => TakeMaxHealth()),
+                    new TextPanel("Soul Changing", 1000, 60),
+                    new MenuButton("Reset Soul", "Make soul the max soul amount.", (_) => HeroController.instance.AddMPCharge(PlayerData.instance.MPReserveMax)),
+                    new MenuButton("Add Soul", "Add one charge of soul.", (_) => HeroController.instance.AddMPCharge(33)),
+                    new MenuButton("Take Soul", "Take one charge of soul.", (_) => HeroController.instance.TakeMP(33)),
+                    new TextPanel("Charms", 1000, 60),
+                    new MenuButton("Select Specific Charm", "Current Charm Selected: Quickfall", (_) => {
+                        //find element by Id
+                        Element elem = MenuRef.Find("Select Specific Charm");
+                        MenuButton buttonElem = elem as MenuButton;
+                        buttonElem.Name = "Select Specific Charm"; //change name
+                        CharmMod.Instance.FindSelectedCharm(charmSelect);
+                        var SelectedCharm =  Charms[charmSelect];
+                        string SelCharm = SelectedCharm.ToString();
+                        string FinalSelcharm = SelCharm.Replace("CharmMod.", "");
+                        buttonElem.Description = "Current selected charm: "+FinalSelcharm; //change description
+                        buttonElem.Update();
+
+                        SelectCharm(1); //trigger code
+                    }),
+                    new MenuButton("Give Specific Charm", "Pick the charm", (_) => GiveSpecificCharm(charmSelect)),
+                    new MenuButton("Give Charms", "Get all CharmMod charms.", (_) => CharmMod.Instance.GrantAllOurCharms()),
+                    new MenuButton("Take Charms", "Take all CharmMod charms.", (_) => CharmMod.Instance.TakeAllOurCharms()),
+                }
+            );
+            return MenuRef.GetMenuScreen(modListMenu);
+        }
+
+        public int SelectCharm(int bubkis)
+        {
+            if (charmSelect > Charms.Count)
+            {
+                charmSelect = 0;
+            }
+            charmSelect += bubkis;
+            return bubkis;
+        }
+
+        public void AddHealth()
+        {
+            HeroController.instance.AddHealth(1);
+        }
+        public void TakeHealth()
+        {
+            HeroController.instance.TakeHealth(1);
+        }
+        public void AddMaxHealth()
+        {
+            HeroController.instance.AddToMaxHealth(1);
+            PlayerData.instance.MaxHealth();
+            HeroController.instance.MaxHealth();
+            SoulSlow.Instance.Settings(CharmMod.Instance.Settings).Equipped = true;
+            SoulSlow.Instance.Settings(CharmMod.Instance.Settings).Equipped = false;
+        }
+
+        public void TakeMaxHealth()
+        {
+            HeroController.instance.AddToMaxHealth(-1);
+            PlayerData.instance.MaxHealth();
+            HeroController.instance.MaxHealth();
+            SoulSlow.Instance.Settings(CharmMod.Instance.Settings).Equipped = true;
+            SoulSlow.Instance.Settings(CharmMod.Instance.Settings).Equipped = false;
+        }
+        public void MaxHealthReset()
+        {
+            var CurrentMaxHp = PlayerData.instance.maxHealth;
+            var WantedMaxHp = 5;
+            var MaxHpChangeAmount = WantedMaxHp - CurrentMaxHp;
+            HeroController.instance.AddToMaxHealth(MaxHpChangeAmount);
+            PlayerData.instance.MaxHealth();
+            HeroController.instance.MaxHealth();
+            SoulSlow.Instance.Settings(CharmMod.Instance.Settings).Equipped = true;
+            SoulSlow.Instance.Settings(CharmMod.Instance.Settings).Equipped = false;
+        }
+
+        public void HealthReset()
+        {
+            var hp = PlayerData.instance.health;
+            var maxhp = PlayerData.instance.maxHealth;
+            var changeamount = maxhp - hp;
+            HeroController.instance.AddHealth(changeamount);
+        }
+        public int FindSelectedCharm(int charmNumberino)
+        {
+            var _SelectedCharm = Charms[charmNumberino];
+            return charmNumberino;
+        }
+        
         private Dictionary<(string Key, string Sheet), Func<string>> TextEdits = new();
 
         internal void AddTextEdit(string key, string sheetName, string text)
@@ -120,7 +316,7 @@ namespace CharmMod
 
         internal SaveSettings Settings = new();
 
-
+        public bool ToggleButtonInsideMenu => throw new NotImplementedException();
 
         private bool ReadCharmBools(string boolName, bool value)
         {
@@ -279,15 +475,6 @@ namespace CharmMod
             }
         }
 
-        public int GrantAllOurCharmsOnSoul(int soulamount)
-        {
-            foreach (var charm in Charms)
-            {
-                charm.Settings(Settings).Got = true;
-            }
-            return soulamount;
-        }
-
         public int GiveSpecificCharm(int numberino)
         {
             Charms[numberino].Settings(Settings).Got = true;
@@ -300,21 +487,6 @@ namespace CharmMod
             {
                 charm.Settings(Settings).Got = false;
             }
-        }
-
-        SaveSettings ILocalSettings<SaveSettings>.OnSaveLocal()
-        {
-            return ((ILocalSettings<SaveSettings>)Instance).OnSaveLocal();
-        }
-
-        public SaveSettings OnSaveLocal()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnLoadLocal(SaveSettings s)
-        {
-            throw new NotImplementedException();
         }
     }
 }

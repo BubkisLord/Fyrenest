@@ -22,6 +22,9 @@ namespace CharmMod
         public CharmSettings SoulSlow = new();
         public CharmSettings SlowTime = new();
         public CharmSettings SpeedTime = new();
+        public CharmSettings ZoteBorn = new();
+        public CharmSettings SlyDeal = new();
+        public CharmSettings ElderStone = new();
 
         public bool[] gotCharms = new[] { true, true, true, true };
         public bool[] newCharms = new[] { false, false, false, false };
