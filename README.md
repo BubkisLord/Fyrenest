@@ -1,13 +1,9 @@
-CharmMod - A mod that adds over 20 new charms!
+Fyrenest - A mod that adds over 20 new charms!
+
+This mod IS COMPATIBLE with ItemChanger, Transcendance, Benchwarp, Randomizer and more!
 Currently, you cannot pick up charms via randomizer,
 but you can gain them when you get the requirements through randomizer.
-eg. you get shadow dash from a rancid egg. Now u also have Powerful Dash
-
-THIS MOD IS NOT COMPATIBLE WITH SOME MODS LIKE ITEMCHANGER OR TRANSCENDANCE. (maybe benchwarp and others too. experiment, idk what exactly)
-YOU WILL KNOW IT IS NOT COMPATIBLE IF YOUR TITLE SCREEN IS JUST A TITLE AND HAS NO BUTTONS.
-IK THIS IS A PROBLEM. AND I AM TRYING TO FIGURE OUT WHAT'S WRONG.
-(but is compatible with More Healing mod (adds more healing charms.))
-
+eg. you get shadow dash from a rancid egg. Now u also have Powerful Dash.
 
    -- WHAT THE CHARMS DO --
 
@@ -26,7 +22,7 @@ Healthy Shell -> gives you 1 mask periodically (but takes 11 soul to balance). i
 Glass Cannon -> You die in 1 hit, but one-shot everything. (nail damage is set to 6000)
 Wealthy Amulet -> gives 10 geo per hit, but costs 100 geo to heal. can be used with sly deal
 Opportunistic Defeat -> Get geo and soul when hit.
-Spell Soul -> Makes spells BIG. (can be used with )
+Spell Soul -> Makes spells BIG. (can be used with shaman stone, for even more destructive results. (don't wear with shaman amp from transcendance bc it is not tested and may go bad..))
 Slowtime -> Slows down time. (self explanatory)
 Speedtime -> Speeds up time. (self explanatory)
 Soul Switch -> Takes health periodically, and gives u soul back. (for spell based builds)
