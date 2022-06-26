@@ -6,27 +6,9 @@ global using UnityEngine;
 global using SFCore;
 global using System.Collections.Generic;
 global using System.Linq;
-global using Satchel.BetterMenus;
-global using RandomizerMod.Menu;
-global using RandomizerMod.Settings;
-global using RandomizerMod.Logging;
-global using RandomizerMod.RC;
-global using RandomizerCore;
-global using RandomizerCore.Logic;
-global using RandomizerCore.LogicItems;
 using ItemChanger;
-using ItemChanger.Containers;
-using ItemChanger.Extensions;
-using ItemChanger.Items;
 using ItemChanger.Tags;
-using ItemChanger.Placements;
-using ItemChanger.Locations;
-using ItemChanger.Modules;
 using ItemChanger.UIDefs;
-using ItemChanger.StartDefs;
-using ItemChanger.FsmStateActions;
-using ItemChanger.Components;
-using System.Reflection;
 
 namespace Fyrenest
 {

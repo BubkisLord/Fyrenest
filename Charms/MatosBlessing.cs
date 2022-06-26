@@ -16,8 +16,6 @@ namespace Fyrenest
         public override CharmSettings Settings(SaveSettings s) => s.DefendersMark;
 
         public bool isCycloning;
-        public bool isDashSlashing;
-        public bool isGreatSlashing;
 
         public override void Hook()
         {
