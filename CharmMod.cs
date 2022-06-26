@@ -14,7 +14,6 @@ namespace Fyrenest
 {
     public class Fyrenest : Mod, IMod
     {
-
         public override string GetVersion() => "2.10.41.38";
 
         private static List<Charm> Charms = new()

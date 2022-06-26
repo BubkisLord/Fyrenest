@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oldfi\\Desktop\\windows\\CharmMod\\CharmMod\\CharmMod.csproj": {}
+    "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oldfi\\Desktop\\windows\\CharmMod\\CharmMod\\CharmMod.csproj": {
+    "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oldfi\\Desktop\\windows\\CharmMod\\CharmMod\\CharmMod.csproj",
+        "projectUniqueName": "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj",
         "projectName": "Fyrenest",
-        "projectPath": "C:\\Users\\oldfi\\Desktop\\windows\\CharmMod\\CharmMod\\CharmMod.csproj",
+        "projectPath": "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj",
         "packagesPath": "C:\\Users\\oldfi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oldfi\\Desktop\\windows\\CharmMod\\CharmMod\\obj\\",
+        "outputPath": "C:\\Users\\oldfi\\CharmMod\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\oldfi\\AppData\\Roaming\\NuGet\\NuGet.Config",
