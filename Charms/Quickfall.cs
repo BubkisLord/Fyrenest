@@ -21,10 +21,10 @@ namespace Fyrenest
 
         public override void Hook()
         {
-            ModHooks.HeroUpdateHook += ChangeGravity;
+            ModHooks.CharmUpdateHook += ChangeGravity;
         }
 
-        private void ChangeGravity()
+        private void ChangeGravity(PlayerData playerData, HeroController hero)
         {
             if (HeroController.instance == null)
             {
@@ -40,7 +40,11 @@ namespace Fyrenest
             }
             // Keep normal gravity after going through upwards transitions, so that the player does not fall
             // through spikes in some rooms before they gain control.
-            rb.gravityScale = (Equipped() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION) ? 4.4f : 0.79f;
+            if(Equipped() && !Slowfall.Instance.Equipped()) rb.gravityScale =  4.4f;
+            if(Equipped() && Slowfall.Instance.Equipped()) rb.gravityScale =  0.79f;
+            if(!Equipped() && Slowfall.Instance.Equipped()) rb.gravityScale =  0.25f;
+            if(!Equipped() && !Slowfall.Instance.Equipped()) rb.gravityScale =  0.79f;
+            return;
         }
     }
 }

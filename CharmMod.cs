@@ -32,6 +32,7 @@ namespace Fyrenest
 {
     public class Fyrenest : Mod, IMod
     {
+
         public override string GetVersion() => "2.10.41.36";
 
         private static List<Charm> Charms = new()
@@ -65,6 +66,7 @@ namespace Fyrenest
         public bool Enabled = true;
         public int NewCharms = Charms.Count; //STARTS AT 1
         public int OldCharms = 40; //STARTS AT 1
+
         internal static Fyrenest Instance;
 
         private Dictionary<string, Func<bool, bool>> BoolGetters = new();
@@ -202,6 +204,7 @@ namespace Fyrenest
         {
             HeroController.instance.RegainControl();
             Time.timeScale = 1.0f;
+            HeroController.instance.CharmUpdate();
             orig(self);
         }
         private int ReadCharmCosts(string intName, int value)
