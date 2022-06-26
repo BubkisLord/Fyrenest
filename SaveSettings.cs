@@ -1,4 +1,4 @@
-namespace CharmMod
+namespace Fyrenest
 {
     public class SaveSettings
     {
@@ -6,12 +6,12 @@ namespace CharmMod
         public CharmSettings Slowfall = new();
         public CharmSettings SturdyNail = new();
         public CharmSettings BetterCDash = new();
-        public CharmSettings HuntersMark = new();
+        public CharmSettings MarkofStrength = new();
         public CharmSettings HKBlessing = new();
         public CharmSettings GlassCannon = new();
         public CharmSettings WealthyAmulet = new();
         public CharmSettings PowerfulDash = new();
-        public CharmSettings DoubleDash = new();
+        public CharmSettings OpportunisticDefeat = new();
         public CharmSettings SoulSpeed = new();
         public CharmSettings SoulSpell = new();
         public CharmSettings SoulHunger = new();
@@ -25,10 +25,8 @@ namespace CharmMod
         public CharmSettings ZoteBorn = new();
         public CharmSettings SlyDeal = new();
         public CharmSettings ElderStone = new();
-
-        public bool[] gotCharms = new[] { true, true, true, true };
-        public bool[] newCharms = new[] { false, false, false, false };
-        public bool[] equippedCharms = new[] { false, false, false, false };
-        public int[] charmCosts = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        public CharmSettings GiantNail = new();
+        public CharmSettings SoulDisciple = new();
+        public CharmSettings DefendersMark = new();
     }
 }

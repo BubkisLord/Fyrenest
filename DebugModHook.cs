@@ -1,7 +1,7 @@
 global using System.Reflection;
 global using MonoMod.RuntimeDetour;
 
-namespace CharmMod
+namespace Fyrenest
 {
     // This needs to be in its own class because for some reason the Hook constructor would do reflection on the
     // Transcendence class, see methods with signatures that reference Randomizer and MenuChanger, and throw an

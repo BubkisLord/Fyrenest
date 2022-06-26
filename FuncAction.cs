@@ -1,6 +1,6 @@
 using HutongGames.PlayMaker;
 
-namespace CharmMod
+namespace Fyrenest
 {
     internal class FuncAction : FsmStateAction
     {

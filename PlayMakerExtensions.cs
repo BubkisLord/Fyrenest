@@ -1,6 +1,6 @@
 global using HutongGames.PlayMaker;
 
-namespace CharmMod
+namespace Fyrenest
 {
     internal static class PlayMakerExtensions
     {

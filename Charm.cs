@@ -1,4 +1,4 @@
-namespace CharmMod
+namespace Fyrenest
 {
     internal abstract class Charm
     {

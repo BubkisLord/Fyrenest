@@ -1,0 +1,2568 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SFCore</name>
+    </assembly>
+    <members>
+        <member name="T:SFCore.SCustomAchievement">
+            <summary>
+                Structure of data for a single achievement.
+            </summary>
+        </member>
+        <member name="F:SFCore.SCustomAchievement.key">
+            <summary>
+                The achievement key used to award the achievement.
+            </summary>
+        </member>
+        <member name="F:SFCore.SCustomAchievement.sprite">
+            <summary>
+                The sprite used for the achievement.
+            </summary>
+        </member>
+        <member name="F:SFCore.SCustomAchievement.titleConvo">
+            <summary>
+                The title language key for the achievement.
+            </summary>
+        </member>
+        <member name="F:SFCore.SCustomAchievement.textConvo">
+            <summary>
+                The text language key for the achievement.
+            </summary>
+        </member>
+        <member name="F:SFCore.SCustomAchievement.hidden">
+            <summary>
+                A flag to indicate whether or not to display the text when the achievement is not yet acquired.
+            </summary>
+        </member>
+        <member name="T:SFCore.AchievementHelper">
+            <summary>
+                Achievement helper class for easily adding custom achievements.
+                The mod using this needs to handle the following:
+                - titleConvo Language string(s)
+                - textConvo Language string(s)
+            </summary>
+        </member>
+        <member name="M:SFCore.AchievementHelper.#cctor">
+            <summary>
+                Constructs the helper, hooks needed methods.
+            </summary>
+        </member>
+        <member name="M:SFCore.AchievementHelper.unusedInit">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="M:SFCore.AchievementHelper.AddAchievement(System.String,UnityEngine.Sprite,System.String,System.String,System.Boolean)">
+            <summary>
+                Adds an achievement to the private list of custom achievements.
+            </summary>
+            <param name="key">Achievement key, determines if an achievement is unlocked</param>
+            <param name="sprite">Sprite of the achievement</param>
+            <param name="titleConvo">Language key of the achievement title</param>
+            <param name="textConvo">Language key of the achievement description</param>
+            <param name="hidden">Determines if the achievement is hidden until unlocked</param>
+        </member>
+        <member name="M:SFCore.AchievementHelper.InitAchievements(AchievementsList)">
+            <summary>
+                Adds the contents of customAchievements to the given AchievementsList
+            </summary>
+            <param name="list">Achievement list which the custom achievements get added to</param>
+        </member>
+        <member name="M:SFCore.AchievementHelper.OnUIManagerRefreshAchievementsList(On.UIManager.orig_RefreshAchievementsList,UIManager)">
+            <summary>
+                On hook that initializes achievements and achivements in the menu and unhooks itself afterwards.
+            </summary>
+        </member>
+        <member name="T:SFCore.CharmHelper">
+            <summary>
+                Charm helper class for easily adding custom charms.
+                The mod using this needs to handle the following:
+                - "CHARM_NAME_{ID}" Language string(s)
+                - "CHARM_DESC_{ID}" Language string(s)
+                - "gotCharm_{ID}" PlayerData bool(s)
+                - "newCharm_{ID}" PlayerData bool(s)
+                - "equippedCharm_{ID}" PlayerData bool(s)
+                - "charmCost_{ID}" PlayerData int(s)
+            </summary>
+        </member>
+        <member name="F:SFCore.CharmHelper.CustomSprites">
+            <summary>
+                List of sprites to use for the charms.
+            </summary>
+        </member>
+        <member name="F:SFCore.CharmHelper.BuildEquippedCharms_Start_hook">
+            <summary>
+                A detour for a private method that has no body.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.#cctor">
+            <summary>
+                Constructs the mod and hooks important functions.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.unusedInit">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.AddSprites(UnityEngine.Sprite[])">
+            <summary>
+                Adds a list of sprites as charms.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.OnGameManagerStart(On.GameManager.orig_Start,GameManager)">
+            <summary>
+                On hook to indicate that the custom charms need to be readded.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.ClearModdedCharms">
+            <summary>
+                Adds custom charms to the charm board.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.Init">
+            <summary>
+                Adds custom charms to the charm board.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.OnPlayerDataCalculateNotchesUsed(On.PlayerData.orig_CalculateNotchesUsed,PlayerData)">
+            <summary>
+                Adds charm cost of custom charms to notches.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.InitBuildEquippedCharms(BuildEquippedCharms)">
+            <summary>
+                Initializes equipped charms.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.OnBuildEquippedCharmsStart_single">
+            <summary>
+                On hook to initialize charms and equipped charms.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.OnBuildEquippedCharmsStart(On.BuildEquippedCharms.orig_Start,BuildEquippedCharms)">
+            <summary>
+                On hook to initialize charms and equipped charms.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.AddToCharmFadeGroup(UnityEngine.GameObject,UnityEngine.GameObject)">
+            <summary>
+                Adds charm to fade group.
+            </summary>
+        </member>
+        <member name="M:SFCore.CharmHelper.SetInactive(UnityEngine.Object)">
+            <summary>
+                Makes a gameobject not be destroyed.
+            </summary>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper">
+            <summary>
+                Enviroment particle helper class for easily adding custom enviroment particles.
+            </summary>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.unusedInit">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper.CustomWalkAudioHook">
+            <summary>
+                Hook to add custom walk audio.
+            </summary>
+            <param name="self">active HeroController</param>
+            <returns>Tuple of the enviromentType you want to add and AudioClip of the sound you want</returns>
+        </member>
+        <member name="F:SFCore.EnviromentParticleHelper.AddCustomWalkAudioHook">
+            <summary>
+                Hook to add custom walk audio.
+            </summary>
+            <returns>Tuple of the enviromentType you want to add and AudioClip of the sound you want</returns>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper.CustomRunAudioHook">
+            <summary>
+                Hook to add custom run audio.
+            </summary>
+            <param name="self">active HeroController</param>
+            <returns>Tuple of the enviromentType you want to add and AudioClip of the sound you want</returns>
+        </member>
+        <member name="F:SFCore.EnviromentParticleHelper.AddCustomRunAudioHook">
+            <summary>
+                Hook to add custom run audio.
+            </summary>
+            <returns>Tuple of the enviromentType you want to add and AudioClip of the sound you want</returns>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper.CustomDashEffectsHook">
+            <summary>
+                Hook to add custom dash effects.
+            </summary>
+            <param name="self">active DashEffect</param>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the dash effects you want</returns>
+        </member>
+        <member name="F:SFCore.EnviromentParticleHelper.AddCustomDashEffectsHook">
+            <summary>
+                Hook to add custom dash effects.
+            </summary>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the dash effects you want</returns>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper.CustomHardLandEffectsHook">
+            <summary>
+                Hook to add custom hard land effects.
+            </summary>
+            <param name="self">active HardLandEffect</param>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the hard land effects you want</returns>
+        </member>
+        <member name="F:SFCore.EnviromentParticleHelper.AddCustomHardLandEffectsHook">
+            <summary>
+                Hook to add custom hard land effects.
+            </summary>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the hard land effects you want</returns>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper.CustomJumpEffectsHook">
+            <summary>
+                Hook to add custom jump effects.
+            </summary>
+            <param name="self">active JumpEffects</param>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the jump effects you want</returns>
+        </member>
+        <member name="F:SFCore.EnviromentParticleHelper.AddCustomJumpEffectsHook">
+            <summary>
+                Hook to add custom jump effects.
+            </summary>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the jump effects you want</returns>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper.CustomSoftLandEffectsHook">
+            <summary>
+                Hook to add custom soft land effects.
+            </summary>
+            <param name="self">active SoftLandEffect</param>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the soft land effects you want</returns>
+        </member>
+        <member name="F:SFCore.EnviromentParticleHelper.AddCustomSoftLandEffectsHook">
+            <summary>
+                Hook to add custom soft land effects.
+            </summary>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the soft land effects you want</returns>
+        </member>
+        <member name="T:SFCore.EnviromentParticleHelper.CustomRunEffectsHook">
+            <summary>
+                Hook to add custom run effects.
+            </summary>
+            <param name="runEffectsGo">active run effects GameObject</param>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the run effects you want</returns>
+        </member>
+        <member name="F:SFCore.EnviromentParticleHelper.AddCustomRunEffectsHook">
+            <summary>
+                Hook to add custom run effects.
+            </summary>
+            <returns>Tuple of the enviromentType you want to add and GameObject of the run effects you want</returns>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddWalkAudio(System.Int32,UnityEngine.AudioClip)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="walkAudio">The custom content</param>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddRunAudio(System.Int32,UnityEngine.AudioClip)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="runAudio">The custom content</param>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddDashEffects(System.Int32,UnityEngine.GameObject)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="dashEffects">The custom content</param>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddHardLandEffects(System.Int32,UnityEngine.GameObject)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="hardLandEffects">The custom content</param>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddJumpEffects(System.Int32,UnityEngine.GameObject)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="jumpEffects">The custom content</param>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddSoftLandEffects(System.Int32,UnityEngine.GameObject)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="softLandEffects">The custom content</param>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddRunEffects(System.Int32,UnityEngine.GameObject)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="runEffects">The custom content</param>
+        </member>
+        <member name="M:SFCore.EnviromentParticleHelper.AddRunEffects(System.Int32,System.String)">
+            <summary>
+                Adds custom walk audio.
+            </summary>
+            <param name="enviromentType">Enviroment type to add the custom content to</param>
+            <param name="runEffectsPrefab">Existing run effects you want to have in your custom enviroment</param>
+        </member>
+        <member name="T:SFCore.Generics.FullSettingsMod`2">
+            <summary>
+                Abstract class to avoid boilerplate code.
+                This adds easy SaveSettings and GlobalSettings functionality.
+            </summary>
+        </member>
+        <member name="P:SFCore.Generics.FullSettingsMod`2.GlobalSettings">
+            <summary>
+                The global settings for this mod. The settings load will only occur once
+                so a static field should be used to prevent loss of data
+            </summary>
+        </member>
+        <member name="M:SFCore.Generics.FullSettingsMod`2.OnLoadGlobal(`1)">
+            <summary>
+                Loads the saved GlobalSettings.
+            </summary>
+            <param name="s">The settings that are being loaded</param>
+        </member>
+        <member name="M:SFCore.Generics.FullSettingsMod`2.OnSaveGlobal">
+            <summary>
+                Returns the current SaveSettings to save them to the disk.
+            </summary>
+            <returns>The settings that are going to be saved.</returns>
+        </member>
+        <member name="P:SFCore.Generics.FullSettingsMod`2.SaveSettings">
+            <summary>
+                The save data specific to a certain savefile. This setting will be loaded each time a save is opened.
+            </summary>
+        </member>
+        <member name="M:SFCore.Generics.FullSettingsMod`2.OnLoadLocal(`0)">
+            <summary>
+                Loads the saved SaveSettings of the save.
+            </summary>
+            <param name="s">The settings that are being loaded</param>
+        </member>
+        <member name="M:SFCore.Generics.FullSettingsMod`2.OnSaveLocal">
+            <summary>
+                Returns the current SaveSettings to save them to the disk.
+            </summary>
+            <returns>The settings that are going to be saved.</returns>
+        </member>
+        <member name="M:SFCore.Generics.FullSettingsMod`2.#ctor">
+            <summary>
+                Constructor of this abstract class.
+            </summary>
+        </member>
+        <member name="M:SFCore.Generics.FullSettingsMod`2.#ctor(System.String)">
+            <summary>
+                Constructor of this abstract class.
+            </summary>
+            <param name="name">Name of the mod, how it's going to be displayed in the main and pause menus.</param>
+        </member>
+        <member name="T:SFCore.Generics.GlobalSettingsMod`1">
+            <summary>
+                Abstract class to avoid boilerplate code.
+                This adds easy GlobalSettings functionality.
+            </summary>
+        </member>
+        <member name="P:SFCore.Generics.GlobalSettingsMod`1.GlobalSettings">
+            <summary>
+                The global settings for this mod. The settings load will only occur once
+                so a static field should be used to prevent loss of data
+            </summary>
+        </member>
+        <member name="M:SFCore.Generics.GlobalSettingsMod`1.OnLoadGlobal(`0)">
+            <summary>
+                Loads the saved GlobalSettings.
+            </summary>
+            <param name="s">The settings that are being loaded</param>
+        </member>
+        <member name="M:SFCore.Generics.GlobalSettingsMod`1.OnSaveGlobal">
+            <summary>
+                Returns the current SaveSettings to save them to the disk.
+            </summary>
+            <returns>The settings that are going to be saved.</returns>
+        </member>
+        <member name="M:SFCore.Generics.GlobalSettingsMod`1.#ctor">
+            <summary>
+                Constructor of this abstract class.
+            </summary>
+        </member>
+        <member name="M:SFCore.Generics.GlobalSettingsMod`1.#ctor(System.String)">
+            <summary>
+                Constructor of this abstract class.
+            </summary>
+            <param name="name">Name of the mod, how it's going to be displayed in the main and pause menus.</param>
+        </member>
+        <member name="T:SFCore.Generics.SaveSettingsMod`1">
+            <summary>
+                Abstract class to avoid boilerplate code.
+                This adds easy SaveSettings functionality.
+            </summary>
+        </member>
+        <member name="P:SFCore.Generics.SaveSettingsMod`1.SaveSettings">
+            <summary>
+                The save data specific to a certain savefile. This setting will be loaded each time a save is opened.
+            </summary>
+        </member>
+        <member name="M:SFCore.Generics.SaveSettingsMod`1.OnLoadLocal(`0)">
+            <summary>
+                Loads the saved SaveSettings of the save.
+            </summary>
+            <param name="s">The settings that are being loaded</param>
+        </member>
+        <member name="M:SFCore.Generics.SaveSettingsMod`1.OnSaveLocal">
+            <summary>
+                Returns the current SaveSettings to save them to the disk.
+            </summary>
+            <returns>The settings that are going to be saved.</returns>
+        </member>
+        <member name="M:SFCore.Generics.SaveSettingsMod`1.#ctor">
+            <summary>
+                Constructor of this abstract class.
+            </summary>
+        </member>
+        <member name="M:SFCore.Generics.SaveSettingsMod`1.#ctor(System.String)">
+            <summary>
+                Constructor of this abstract class.
+            </summary>
+            <param name="name">Name of the mod, how it's going to be displayed in the main and pause menus.</param>
+        </member>
+        <member name="T:SFCore.InventoryPageType">
+            <summary>
+                Enum to determine type of the inventory page.
+            </summary>
+        </member>
+        <member name="F:SFCore.InventoryPageType.Empty">
+            <summary>
+                An empty inventory page.
+                See https://discord.com/channels/879125729936298015/880548951521103962/963340255661031464 for specifics.
+            </summary>
+        </member>
+        <member name="F:SFCore.InventoryPageType.Inventory">
+            <summary>
+                A shallow copy of the main inventory page.
+            </summary>
+        </member>
+        <member name="F:SFCore.InventoryPageType.Charms">
+            <summary>
+                A shallow copy of the Charms inventory page.
+            </summary>
+        </member>
+        <member name="F:SFCore.InventoryPageType.Journal">
+            <summary>
+                A shallow copy of the Hunters Journal inventory page.
+            </summary>
+        </member>
+        <member name="F:SFCore.InventoryPageType.Map">
+            <summary>
+                A shallow copy of the Map inventory page.
+            </summary>
+        </member>
+        <member name="T:SFCore.InventoryHelper">
+            <summary>
+                Helper class for easily adding new inventory pages.
+                The mod using this needs to handle the following:
+                - 1 name language string per page
+                - 0 to 1 PlayerData bools per page
+                - 0 to 1 events per item
+            </summary>
+        </member>
+        <member name="M:SFCore.InventoryHelper.unusedInit">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="M:SFCore.InventoryHelper.AddInventoryPage(SFCore.InventoryPageType,System.String,System.String,System.String,System.String,System.Action{UnityEngine.GameObject})">
+            <summary>
+                Adds an inventory page with a specified original.
+            </summary>
+            <param name="type">The original to copy</param>
+            <param name="name">The name of the new page</param>
+            <param name="convKey">The language key for the new page</param>
+            <param name="eventName">The event name to use to get to the new page. Needs to be unique</param>
+            <param name="isAvailablePdBool">The playerdata bool name that indicates wether or not this page is available</param>
+            <param name="callback">A callback so the mod can alter the given inventory page after it has been copied and made accessible</param>
+        </member>
+        <member name="T:SFCore.ItemType">
+            <summary>
+                Enum to determine type of item.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemType.Normal">
+            <summary>
+                A normal item with a single PD bool to indicate whether or not the item was acquired.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemType.OneTwo">
+            <summary>
+                An item with 2 PD bools to indicate whether or not one item or another was acquired, not both.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemType.OneTwoBoth">
+            <summary>
+                An item with 2 PD bools to indicate whether or not one, another or both items were acquired.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemType.Counted">
+            <summary>
+                An item with a single PD int to indicate whether or not and how many of an item were acquired.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemType.Flower">
+            <summary>
+                An item to mimic the delicate flower.
+                It has 2 sprites, 2 names and 4 descriptions.
+                The item counts as acquired when playerdataBool1 is true and either of playerdataBool2 and playerdataBool3 (playerdataInt) is false.
+                sprite1 is used when playerdataBool3 (playerdataInt) is false. Otherwise sprite2 is used.
+                nameConvo1 is used when playerdataBool3 (playerdataInt) is false. Otherwise nameConvo2 is used.
+                descConvo1 is used when both playerdataBool3 (playerdataInt) and playerdataBool2 are false.
+                descConvo2 is used when playerdataBool3 (playerdataInt) is true and playerdataBool2 is false.
+                descConvo3 (nameConvoBoth) is used when playerdataBool3 (playerdataInt) is false and playerdataBool2 is true.
+                descConvo4 (descConvoBoth) is used when both playerdataBool3 (playerdataInt) and playerdataBool2 are true.
+            </summary>
+        </member>
+        <member name="T:SFCore.ItemHelper">
+            <summary>
+                Item helper class for easily adding custom items.
+                The mod using this needs to handle the following:
+                - 0 to 3 PlayerData bools per item
+                - 0 to 1 PlayerData int per item
+                - 1 to 3 name language strings per item
+                - 1 to 4 description language strings per item
+            </summary>
+        </member>
+        <member name="T:SFCore.ItemHelper.Item">
+            <summary>
+                Data of one item.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.type">
+            <summary>
+                Type of the item.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.uniqueName">
+            <summary>
+                Unique name for FSM purposes.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.sprite1">
+            <summary>
+                Main sprite.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.sprite2">
+            <summary>
+                Alternative sprite.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.spriteBoth">
+            <summary>
+                Another alternative sprite.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.playerdataBool1">
+            <summary>
+                PlayerData bool.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.playerdataBool2">
+            <summary>
+                PlayerData bool.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.playerdataInt">
+            <summary>
+                PlayerData int, sometimes used for a bool.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.nameConvo1">
+            <summary>
+                Main name language key.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.nameConvo2">
+            <summary>
+                Alternative name language key.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.nameConvoBoth">
+            <summary>
+                Another alternative name language key, sometimes used for a description.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.descConvo1">
+            <summary>
+                Main description language key.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.descConvo2">
+            <summary>
+                Alternative description language key.
+            </summary>
+        </member>
+        <member name="F:SFCore.ItemHelper.Item.descConvoBoth">
+            <summary>
+                Another alternative description language key.
+            </summary>
+        </member>
+        <member name="M:SFCore.ItemHelper.unusedInit">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="M:SFCore.ItemHelper.AddNormalItem(UnityEngine.Sprite,System.String,System.String,System.String)">
+            <summary>
+                Adds a normal item. (e.g. King's Brand)
+                You either have it, or you don't.
+            </summary>
+            <param name="sprite">Sprite for the item</param>
+            <param name="playerdataBool">Bool used to determine if the item is acquired</param>
+            <param name="nameConvo">Language string for the name</param>
+            <param name="descConvo">Language string for the description</param>
+        </member>
+        <member name="M:SFCore.ItemHelper.AddOneTwoItem(UnityEngine.Sprite,UnityEngine.Sprite,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+                Adds a item of type OneTwo. (Not used ingame)
+                You either have one, the other or none.
+            </summary>
+            <param name="sprite1">Sprite for the item 1</param>
+            <param name="sprite2">Sprite for the item 2</param>
+            <param name="playerdataBool1">Bool used to determine if item 1 is acquired</param>
+            <param name="playerdataBool2">Bool used to determine if item 2 is acquired</param>
+            <param name="nameConvo1">Language string for name 1</param>
+            <param name="nameConvo2">Language string for name 2</param>
+            <param name="descConvo1">Language string for description 1</param>
+            <param name="descConvo2">Language string for description 2</param>
+        </member>
+        <member name="M:SFCore.ItemHelper.AddOneTwoBothItem(UnityEngine.Sprite,UnityEngine.Sprite,UnityEngine.Sprite,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+                Adds a item of type OneTwoBoth. (e.g. Map, Quill and Map and Quill)
+                You can have one, the other, both or none.
+            </summary>
+            <param name="sprite1">Sprite for the item 1</param>
+            <param name="sprite2">Sprite for the item 2</param>
+            <param name="spriteBoth">Sprite for the item both</param>
+            <param name="playerdataBool1">Bool used to determine if item 1 is acquired</param>
+            <param name="playerdataBool2">Bool used to determine if item 2 is acquired</param>
+            <param name="nameConvo1">Language string for name 1</param>
+            <param name="nameConvo2">Language string for name 2</param>
+            <param name="nameConvoBoth">Language string for name both</param>
+            <param name="descConvo1">Language string for description 1</param>
+            <param name="descConvo2">Language string for description 2</param>
+            <param name="descConvoBoth">Language string for description both</param>
+        </member>
+        <member name="M:SFCore.ItemHelper.AddCountedItem(UnityEngine.Sprite,System.String,System.String,System.String)">
+            <summary>
+                Adds a counted item. (e.g. Rancid Egg)
+                You either have at least one, or you don't.
+            </summary>
+            <param name="sprite">Sprite for the item</param>
+            <param name="playerdataInt">Int used to determine if and how much of the item is acquired</param>
+            <param name="nameConvo">Language string for the name</param>
+            <param name="descConvo">Language string for the description</param>
+        </member>
+        <member name="M:SFCore.ItemHelper.AddFlowerItem(UnityEngine.Sprite,UnityEngine.Sprite,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+                Adds a flower item. (e.g. the Delicate Flower)
+                You have it, it can be broken, but it won't be displayed if you have it from another source and it's broken.
+                (bool1 AND !(bool2 AND bool3)) and it will be displayed
+            </summary>
+            <param name="sprite">Sprite for the 'normal' item</param>
+            <param name="sprite2">Sprite for the 'broken' item</param>
+            <param name="playerdataBool1">Bool used to determine if the item is acquired</param>
+            <param name="playerdataBool2">Bool used to determine if the item is broken</param>
+            <param name="playerdataBool3">Bool used to determine if the item is from another source (e.g. Queen's Gardens flowers)</param>
+            <param name="nameConvo1">Language string for the 'normal' name</param>
+            <param name="nameConvo2">Language string for the 'broken' name</param>
+            <param name="descConvo1">Language string for the 'normal' description</param>
+            <param name="descConvo2">Language string for the 'broken' description</param>
+            <param name="descConvo3">Language string for the 'normal, other source' description</param>
+            <param name="descConvo4">Language string for the 'broken, other source' description</param>
+        </member>
+        <member name="T:SFCore.MenuStyleHelper">
+            <summary>
+                Menu style helper class for easily adding custom menu styles.
+                The mod using this needs to handle the following:
+                1 language string per menu style
+                up to 1 title logo index per menu style
+            </summary>
+        </member>
+        <member name="T:SFCore.MenuStyleHelper.Hook">
+            <summary>
+                Hook to add custom run audio.
+            </summary>
+            <param name="self">active MenuStyles</param>
+            <returns>
+                Tuple of:
+                - Language string of the name of the menu style
+                - GameObject of the menu style
+                - title logo index (use -1 if you're not sure)
+                - unlock key (use "" to have it unlocked by default)
+                - array of achievement keys needed to unlock the menu style (null to have it unlocked by default)
+                - CameraCurves of the colour correction to use when the style is used (null for default)
+                - AudioMixerSnapshot of the snapshot to use when the style is used (null for default)
+            </returns>
+        </member>
+        <member name="F:SFCore.MenuStyleHelper.AddMenuStyleHook">
+            <summary>
+                Hook to add custom run audio.
+            </summary>
+            <returns>
+                Tuple of:
+                - Language string of the name of the menu style
+                - GameObject of the menu style
+                - title logo index (use -1 if you're not sure)
+                - unlock key (use "" to have it unlocked by default)
+                - array of achievement keys needed to unlock the menu style (null to have it unlocked by default)
+                - CameraCurves of the colour correction to use when the style is used (null for default)
+                - AudioMixerSnapshot of the snapshot to use when the style is used (null for default)
+            </returns>
+        </member>
+        <member name="M:SFCore.MenuStyleHelper.unusedInit">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="M:SFCore.MenuStyleHelper.AddMenuStyle(System.String,UnityEngine.GameObject,System.Int32,System.String,System.String[],MenuStyles.MenuStyle.CameraCurves,UnityEngine.Audio.AudioMixerSnapshot)">
+            <summary>
+                Hook to add custom run audio.
+            </summary>
+            <param name="languageString">Language string of the name of the menu style</param>
+            <param name="styleGo">GameObject of the menu style</param>
+            <param name="titleIndex">Title logo index</param>
+            <param name="unlockKey">Unlock key</param>
+            <param name="achievementKeys">Array of achievement keys needed to unlock the menu style</param>
+            <param name="cameraCurves">CameraCurves of the colour correction to use when the style is used</param>
+            <param name="musicSnapshot">AudioMixerSnapshot of the snapshot to use when the style is used</param>
+        </member>
+        <member name="M:SFCore.MenuStyleHelper.AddMenuStyle(System.Func{MenuStyles,System.ValueTuple{System.String,UnityEngine.GameObject,System.Int32,System.String,System.String[],MenuStyles.MenuStyle.CameraCurves,UnityEngine.Audio.AudioMixerSnapshot}})">
+            <summary>
+                Hook to add custom run audio.
+            </summary>
+            <param name="callback">
+                Method that returns tuple of:
+                - Language string of the name of the menu style
+                - GameObject of the menu style
+                - title logo index (use -1 if you're not sure)
+                - unlock key (use "" to have it unlocked by default)
+                - array of achievement keys needed to unlock the menu style (null to have it unlocked by default)
+                - CameraCurves of the colour correction to use when the style is used
+                - AudioMixerSnapshot of the snapshot to use when the style is used (null for default)
+            </param>
+        </member>
+        <member name="T:SFCore.ModInterOp.MIOController">
+            <summary>
+                Class that handles mod interop.
+            </summary>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)">
+            <summary>
+                Adds a Delegate with a unique Identifier to the Mod Interop Enviroment.
+            </summary>
+            <param name="d">The Delegate that is going to be invoked.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+            <returns>True if the Delegate was added, False if the name was already used.</returns>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction(System.Action,System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with no arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``1(System.Action{``0},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 1 argument and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``2(System.Action{``0,``1},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 2 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``3(System.Action{``0,``1,``2},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 3 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``4(System.Action{``0,``1,``2,``3},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 4 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``5(System.Action{``0,``1,``2,``3,``4},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 5 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``6(System.Action{``0,``1,``2,``3,``4,``5},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 6 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``7(System.Action{``0,``1,``2,``3,``4,``5,``6},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 7 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 8 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``9(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 9 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``10(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 10 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``11(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 11 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``12(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 12 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``13(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 13 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``14(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 14 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``15(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 15 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddAction``16(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 16 arguments and no return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``1(System.Func{``0},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with no arguments but with a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``2(System.Func{``0,``1},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 1 argument and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``3(System.Func{``0,``1,``2},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 2 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``4(System.Func{``0,``1,``2,``3},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 3 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``5(System.Func{``0,``1,``2,``3,``4},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 4 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``6(System.Func{``0,``1,``2,``3,``4,``5},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 5 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``7(System.Func{``0,``1,``2,``3,``4,``5,``6},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 6 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``8(System.Func{``0,``1,``2,``3,``4,``5,``6,``7},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 7 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``9(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 8 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``10(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 9 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``11(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 10 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``12(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 11 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``13(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 12 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``14(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 13 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``15(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 14 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``16(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 15 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.AddFunc``17(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16},System.String)">
+            <inheritdoc cref='M:SFCore.ModInterOp.MIOController.AddDelegate(System.Delegate,System.String)' />
+            <param name="a">A method with 16 arguments and a return value.</param>
+            <param name="n">The unique name that is used to invoke the Delegate.</param>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.CallAction(System.String,System.Object[])">
+            <summary>
+                Invokes a Delegate of the Mod Interop Enviroment that has no return value.
+            </summary>
+            <param name="name">The unique name of the Delegate.</param>
+            <param name="params">The parameters that are given to the Delegate.</param>
+            <returns>True if the Delegate was invoked, False if the Delegate wasn't found.</returns>
+        </member>
+        <member name="M:SFCore.ModInterOp.MIOController.CallFunc``1(System.String,``0@,System.Object[])">
+            <summary>
+                Invokes a Delegate of the Mod Interop Enviroment that has a return value.
+            </summary>
+            <param name="name">The unique name of the Delegate.</param>
+            <param name="res">The return value of the Delegate.</param>
+            <param name="params">The parameters that are given to the Delegate.</param>
+            <returns>True if the Delegate was invoked, False if the Delegate wasn't found.</returns>
+        </member>
+        <member name="T:SFCore.MonoBehaviours.BlurPlanePatcher">
+            <summary>
+                Patching BlurPlane
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.BlurPlanePatcher.Start">
+            <summary>
+                Unity method.
+            </summary>
+        </member>
+        <member name="T:SFCore.MonoBehaviours.CueHolder">
+            <summary>
+                This class is for managing dynamically created MusicCue and AtmosCue instances
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.CueHolder.MusicCues">
+            <summary>
+                Map of MusicCues
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.CueHolder.AtmosCues">
+            <summary>
+                Map of AtmosCues
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CueHolder.GetMusicCue(System.String,UnityEngine.Audio.AudioMixerSnapshot,UnityEngine.AudioClip[],SFCore.MonoBehaviours.SceneManagerPatcher.MusicChannelSync[])">
+            <summary>
+                Get or add an entry to the MusicCue map.
+            </summary>
+            <param name="set">The set of MusicCue, will be used to determine if it should be added or retrieved from the map</param>
+            <param name="snapshot">The Snapshot to use in the cue</param>
+            <param name="clips">The audio clips for the cue</param>
+            <param name="syncs">Sync settings for the cue</param>
+            <returns>The MusicCue.</returns>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CueHolder.GetAtmosCue(System.String,UnityEngine.Audio.AudioMixerSnapshot,System.Boolean[])">
+            <summary>
+                Get or add an entry to the AtmosCue map.
+            </summary>
+            <param name="set">The set of AtmosCue, will be used to determine if it should be added or retrieved from the map</param>
+            <param name="snapshot">The Snapshot to use in the cue</param>
+            <param name="isChannelEnabled">Check if each channel is enabled</param>
+            <returns>The AtmosCue.</returns>
+        </member>
+        <member name="T:SFCore.MonoBehaviours.CustomItemList">
+            <summary>
+                Custom Item List for ItemHelper
+            </summary>
+        </member>
+        <member name="P:SFCore.MonoBehaviours.CustomItemList.Instance">
+            <summary>
+                Instance
+            </summary>
+        </member>
+        <member name="P:SFCore.MonoBehaviours.CustomItemList.List">
+            <summary>
+                Data List
+            </summary>
+        </member>
+        <member name="P:SFCore.MonoBehaviours.CustomItemList.ListInv">
+            <summary>
+                GameObject List
+            </summary>
+        </member>
+        <member name="P:SFCore.MonoBehaviours.CustomItemList.YDistance">
+            <summary>
+                Y Distance between each GameObject
+            </summary>
+        </member>
+        <member name="P:SFCore.MonoBehaviours.CustomItemList.ItemCount">
+            <summary>
+                Amount of Items
+            </summary>
+        </member>
+        <member name="P:SFCore.MonoBehaviours.CustomItemList.FirstNewItem">
+            <summary>
+                Index of new item
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.#ctor">
+            <summary>
+                Constructor
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.hasAtLeastOneItem">
+            <summary>
+                True if at least one item is gotten.
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.TotalItemAmount">
+            <summary>
+                Total item amount
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GotItemAmount">
+            <summary>
+                Amount of gotten items
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.BuildItemList">
+            <summary>
+                Build the inv list
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.UpdateItemList">
+            <summary>
+                Update the inv list
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GetItemCount">
+            <summary>
+                Gets ItemCount
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GetDescConvo(System.Int32)">
+            <summary>
+                Gets description for a specific item
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GetNameConvo(System.Int32)">
+            <summary>
+                Gets name for a specific item
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GetSprite(System.Int32)">
+            <summary>
+                Gets sprite for a specific item
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GetYDistance">
+            <summary>
+                Get y distance
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GetFirstNewItem">
+            <summary>
+                Get index of first new item
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.CustomItemList.GetPlayerDataKillsName(System.Int32)">
+            <summary>
+                Get amount of counted items
+            </summary>
+        </member>
+        <member name="T:SFCore.MonoBehaviours.PatchMusicRegions">
+            <summary>
+                Patching MusicRegion
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.useAlts">
+            <summary>
+                Use alternative background music.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.altMusic">
+            <summary>
+                State of alternative background music.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.SnapshotName">
+            <summary>
+                Snapshot Name.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.SnapshotIndex">
+            <summary>
+                Snapshot Index.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.MusicRegionSet">
+            <summary>
+                Music Region Set.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Main">
+            <summary>
+                Main.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Action">
+            <summary>
+                Action.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Sub">
+            <summary>
+                Sub.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Tension">
+            <summary>
+                Tension.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.MainAlt">
+            <summary>
+                Main Alt.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Extra">
+            <summary>
+                Extra.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Main2">
+            <summary>
+                Alternative Main.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Action2">
+            <summary>
+                Alternative Action.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Sub2">
+            <summary>
+                Alternative Sub.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Tension2">
+            <summary>
+                Alternative Tension.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.MainAlt2">
+            <summary>
+                Alternative Main Alt.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Extra2">
+            <summary>
+                Alternative Extra.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.Dirtmouth">
+            <summary>
+                Dirtmouth.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.MinesDelay">
+            <summary>
+                Mines Delay.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.EnterTrackEvent">
+            <summary>
+                Enter Track Event.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.PatchMusicRegions.EnterTransitionTime">
+            <summary>
+                Enter Transition Time.
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.PatchMusicRegions.Start">
+            <summary>
+                Unity method.
+            </summary>
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher">
+            <summary>
+                Patching SceneManager
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.mapZone">
+            <summary>
+                The area of the map this scene belongs to.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.isWindy">
+            <summary>
+                Determines if this area is currently windy.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.isTremorZone">
+            <summary>
+                Determines if this level experiences tremors.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.environmentType">
+            <summary>
+                Set environment type on scene entry.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.darknessLevel">
+            <summary>
+                Set darkness level on scene entry.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.noLantern">
+            <summary>
+                Determines if the lantern is deactivated.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.saturation">
+            <summary>
+                Saturation
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.ignorePlatformSaturationModifiers">
+            <summary>
+                Ignore Platform Saturation Modifiers
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.redChannel">
+            <summary>
+                Red Channel
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.greenChannel">
+            <summary>
+                Green Channel
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.blueChannel">
+            <summary>
+                Blue Channel
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.defaultColor">
+            <summary>
+                The default ambient light colour for this scene.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.defaultIntensity">
+            <summary>
+                The intensity of the ambient light in this scene.
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.heroLightColor">
+            <summary>
+                Color of the hero's light gradient (not point lights).
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.noParticles">
+            <summary>
+                No Particles
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.overrideParticlesWith">
+            <summary>
+                Override Particles With
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosCueSet">
+            <summary>
+                Atmos Cue Set
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosCueSnapshotName">
+            <summary>
+                Atmos Cue Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosCueSnapshotIndex">
+            <summary>
+                Atmos Cue Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosCueIsChannelEnabled">
+            <summary>
+                Atmos Cue Is Channel Enabled
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicCueSet">
+            <summary>
+                Music Cue Set
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicCueSnapshotName">
+            <summary>
+                Music Cue Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicCueSnapshotIndex">
+            <summary>
+                Music Cue Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicCueChannelInfoClips">
+            <summary>
+                Music Cue Channel Info Clips
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicCueChannelInfoSyncs">
+            <summary>
+                Music Cue Channel Info Syncs
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.InfectedMusicCueSet">
+            <summary>
+                Infected Music Cue Set
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.InfectedMusicCueSnapshotName">
+            <summary>
+                Infected Music Cue Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.InfectedMusicCueSnapshotIndex">
+            <summary>
+                Infected Music Cue Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.InfectedMusicCueChannelInfoClips">
+            <summary>
+                Infected Music Cue Channel Info Clips
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.InfectedMusicCueChannelInfoSyncs">
+            <summary>
+                Infected Music Cue Channel Info Syncs
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MsSnapshotName">
+            <summary>
+                Music Snapshot Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MsSnapshotIndex">
+            <summary>
+                Music Snapshot Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.musicDelayTime">
+            <summary>
+                Music Delay Time
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.musicTransitionTime">
+            <summary>
+                Music Transition Time
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtsSnapshotName">
+            <summary>
+                Atmos Snapshot Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtsSnapshotIndex">
+            <summary>
+                Atmos Snapshot Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EsSnapshotName">
+            <summary>
+                Enviro Snapshot Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EsSnapshotIndex">
+            <summary>
+                Enviro Snapshot Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AcsSnapshotName">
+            <summary>
+                Actor Snapshot Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AcsSnapshotIndex">
+            <summary>
+                Actor Snapshot Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.SsSnapshotName">
+            <summary>
+                Shade Snapshot Snapshot Name
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.SsSnapshotIndex">
+            <summary>
+                Shade Snapshot Snapshot Index
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.transitionTime">
+            <summary>
+                Transition Time
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.manualMapTrigger">
+            <summary>
+                Manual Map Trigger
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.SceneManagerPatcher.Awake">
+            <summary>
+                Unity method.
+            </summary>
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType">
+            <summary>
+                Replacement for private ingame enums
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType.Dust">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType.Grass">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType.Bone">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType.Spa">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType.Metal">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType.NoEffect">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviromentType.Wet">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.DarknessLevel">
+            <summary>
+                Replacement for private ingame enums
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.DarknessLevel.Undark1">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.DarknessLevel.Normal">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.DarknessLevel.Dark1">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.DarknessLevel.Dark2">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices">
+            <summary>
+                Replacement for AudioMixerSnapshots
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.Normal">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.NormalAlt">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.NormalSoft">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.NormalSofter">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.NormalFlange">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.NormalFlangier">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.Action">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.ActionAndSub">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.SubArea">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.Silent">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.SilentFlange">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.Off">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.TensionOnly">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.NormalGramaphone">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.ActionOnly">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.MainOnly">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.HK_DECLINE2">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.HK_DECLINE3">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.HK_DECLINE4">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.HK_DECLINE5">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChoices.HK_DECLINE6">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices">
+            <summary>
+                Replacement for AudioMixerSnapshots
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.None">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.Cave">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.Surface">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.SurfaceInterior">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.SurfaceBasement">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.SurfaceNook">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.RainyIndoors">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.RainyOutdoors">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.DistantRain">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.DistantRainRoom">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.Greenpath">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.QueensGardens">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.Fungus">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.FogCanyon">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.WaterwaysFlowing">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.Waterways">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.GreenpathInterior">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.FogCanyonMinor">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.MinesCrystal">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.MinesMachinery">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.Deepnest">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.DeepnestQuiet">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.WindTunnel">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChoices.MiscWind">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices">
+            <summary>
+                Replacement for AudioMixerSnapshots
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Cave">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Spa">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Cliffs">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Room">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Arena">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Sewerpipe">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.FogCanyon">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Dream">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.EnviroChoices.Silent">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.ActorChoices">
+            <summary>
+                Replacement for AudioMixerSnapshots
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.ActorChoices.On">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.ActorChoices.Off">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.ShadeChoices">
+            <summary>
+                Replacement for AudioMixerSnapshots
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.ShadeChoices.Away">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.ShadeChoices.Close">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels">
+            <summary>
+                Replacement for private ingame enums
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.CaveWind">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.SurfaceWind1">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.GrassyWind">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.SurfaceWind2">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.CaveNoises">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.RainIndoor">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.RainOutdoor">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.Greenpath">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.Fungus">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.FogCanyon">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.Waterways">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.WaterfallMed">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.MinesCrystal">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.MinesMachinery">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.Deepnest">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.AtmosChannels.MiscWind">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChannelSync">
+            <summary>
+                Replacement for private ingame enums
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChannelSync.Implicit">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChannelSync.ExplicitOn">
+            <inheritdoc />
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneManagerPatcher.MusicChannelSync.ExplicitOff">
+            <inheritdoc />
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SceneMapPatcher">
+            <summary>
+                Patching SceneMap MeshRenderer
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SceneMapPatcher.tex">
+            <summary>
+                Texture to apply to all MeshRenderers on this GameObject and children
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.SceneMapPatcher.Start">
+            <summary>
+                Unity method.
+            </summary>
+        </member>
+        <member name="T:SFCore.MonoBehaviours.SpritePatcher">
+            <summary>
+                Patching Sprites from assetbundles
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SpritePatcher.shader">
+            <summary>
+                Shader to apply to all SpriteRenderers on this GameObject and children
+            </summary>
+        </member>
+        <member name="F:SFCore.MonoBehaviours.SpritePatcher.Scale">
+            <summary>
+                Scale to apply to all Transforms on this GameObject and children
+            </summary>
+        </member>
+        <member name="M:SFCore.MonoBehaviours.SpritePatcher.Start">
+            <summary>
+                Unity method.
+            </summary>
+        </member>
+        <member name="T:SFCore.SFCoreMod">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="M:SFCore.SFCoreMod.#ctor">
+            <summary>
+                Constructor.
+            </summary>
+        </member>
+        <member name="M:SFCore.SFCoreMod.GetVersion">
+            <summary>
+                Displays the version.
+            </summary>
+        </member>
+        <member name="M:SFCore.SFCoreMod.Initialize">
+            <summary>
+                Main menu is loaded.
+            </summary>
+        </member>
+        <member name="T:SFCore.TitleLogoHelper">
+            <summary>
+                Title logo helper class for easily adding custom title logos.
+                The mod using this needs to handle the following:
+                - save title logo IDs
+            </summary>
+        </member>
+        <member name="M:SFCore.TitleLogoHelper.unusedInit">
+            <summary>
+                Used for static initialization.
+            </summary>
+        </member>
+        <member name="M:SFCore.TitleLogoHelper.AddLogo(UnityEngine.Sprite)">
+            <summary>
+                Adds the custom title logo.
+            </summary>
+            <returns>ID of the custom title logo</returns>
+        </member>
+        <member name="T:SFCore.Utils.FsmUtil">
+            <summary>
+                Utils specifically for PlayMakerFSMs.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetState(PlayMakerFSM,System.String)">
+            <summary>
+                Gets a state in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state</param>
+            <returns>The found state, null if none are found.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmState(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetState(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetTransition(PlayMakerFSM,System.String,System.String)">
+            <summary>
+                Gets a transtition in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the from state</param>
+            <param name="eventName">The name of the event</param>
+            <returns>The found transtition, null if none are found.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmTransition(PlayMakerFSM,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetTransition(PlayMakerFSM,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetTransition(HutongGames.PlayMaker.FsmState,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetTransition(PlayMakerFSM,System.String,System.String)"/>
+            <param name="state">The state</param>
+            <param name="eventName">The name of the event</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmTransition(HutongGames.PlayMaker.FsmState,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetTransition(HutongGames.PlayMaker.FsmState,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetAction``1(PlayMakerFSM,System.String,System.Int32)">
+            <summary>
+                Gets an action in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state</param>
+            <param name="index">The index of the action</param>
+            <returns>The action.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmAction``1(PlayMakerFSM,System.String,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetAction``1(PlayMakerFSM,System.String,System.Int32)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddState(PlayMakerFSM,System.String)">
+            <summary>
+                Adds a state in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state</param>
+            <returns>The created state.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmState(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddState(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddState(PlayMakerFSM,HutongGames.PlayMaker.FsmState)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddState(PlayMakerFSM,System.String)"/>
+            <param name="fsm">The fsm</param>
+            <param name="state">The state</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmState(PlayMakerFSM,HutongGames.PlayMaker.FsmState)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddState(PlayMakerFSM,HutongGames.PlayMaker.FsmState)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.CopyState(PlayMakerFSM,System.String,System.String)">
+            <summary>
+                Copies a state in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="fromState">The name of the state to copy</param>
+            <param name="toState">The name of the new state</param>
+            <returns>The new state.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.CopyFsmState(PlayMakerFSM,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.CopyState(PlayMakerFSM,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddTransition(PlayMakerFSM,System.String,System.String,System.String)">
+            <summary>
+                Adds a transition in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state from which the transition starts</param>
+            <param name="eventName">The name of transition event</param>
+            <param name="toState">The name of the new state</param>
+            <returns>The event of the transition.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmTransition(PlayMakerFSM,System.String,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddGlobalTransition(PlayMakerFSM,System.String,System.String)">
+            <summary>
+                Adds a global transition in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="globalEventName">The name of transition event</param>
+            <param name="toState">The name of the new state</param>
+            <returns>The event of the transition.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmGlobalTransitions(PlayMakerFSM,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddGlobalTransition(PlayMakerFSM,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction)">
+            <summary>
+                Adds an action in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state in which the action is added</param>
+            <param name="action">The action</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddAction(HutongGames.PlayMaker.FsmState,HutongGames.PlayMaker.FsmStateAction)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction)"/>
+            <param name="state">The fsm state</param>
+            <param name="action">The action</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmAction(HutongGames.PlayMaker.FsmState,HutongGames.PlayMaker.FsmStateAction)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddAction(HutongGames.PlayMaker.FsmState,HutongGames.PlayMaker.FsmStateAction)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddMethod(PlayMakerFSM,System.String,System.Action)">
+            <summary>
+                Adds a method in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state in which the method is added</param>
+            <param name="method">The method that will be invoked</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddMethod(HutongGames.PlayMaker.FsmState,System.Action)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddMethod(PlayMakerFSM,System.String,System.Action)"/>
+            <param name="state">The fsm state</param>
+            <param name="method">The method that will be invoked</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.InsertAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction,System.Int32)">
+            <summary>
+                Inserts an action in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state in which the action is added</param>
+            <param name="action">The action</param>
+            <param name="index">The index to place the action in</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.InsertFsmAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.InsertAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction,System.Int32)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.InsertAction(HutongGames.PlayMaker.FsmState,HutongGames.PlayMaker.FsmStateAction,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.InsertAction(PlayMakerFSM,System.String,HutongGames.PlayMaker.FsmStateAction,System.Int32)"/>
+            <param name="state">The fsm state</param>
+            <param name="action">The action</param>
+            <param name="index">The index to place the action in</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.InsertFsmAction(HutongGames.PlayMaker.FsmState,HutongGames.PlayMaker.FsmStateAction,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.InsertAction(HutongGames.PlayMaker.FsmState,HutongGames.PlayMaker.FsmStateAction,System.Int32)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.InsertMethod(PlayMakerFSM,System.String,System.Action,System.Int32)">
+            <summary>
+                Inserts an action in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state in which the method is added</param>
+            <param name="method">The method that will be invoked</param>
+            <param name="index">The index to place the action in</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.InsertMethod(HutongGames.PlayMaker.FsmState,System.Action,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.InsertMethod(PlayMakerFSM,System.String,System.Action,System.Int32)"/>
+            <param name="state">The fsm state</param>
+            <param name="method">The method that will be invoked</param>
+            <param name="index">The index to place the action in</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.ChangeTransition(PlayMakerFSM,System.String,System.String,System.String)">
+            <summary>
+                Changes a transition endpoint in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state from which the transition starts</param>
+            <param name="eventName">The event of the transition</param>
+            <param name="toState">The new endpoint of the transition</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.ChangeFsmTransition(PlayMakerFSM,System.String,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.ChangeTransition(PlayMakerFSM,System.String,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.ChangeTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.ChangeTransition(PlayMakerFSM,System.String,System.String,System.String)"/>
+            <param name="state">The fsm state</param>
+            <param name="eventName">The event of the transition</param>
+            <param name="toState">The new endpoint of the transition</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.ChangeFsmTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.ChangeTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveState(PlayMakerFSM,System.String)">
+            <summary>
+                Removes a state in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state to remove</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveFsmState(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveState(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveTransition(PlayMakerFSM,System.String,System.String)">
+            <summary>
+                Removes a transition in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state from which the transition starts</param>
+            <param name="eventName">The event of the transition</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveFsmTransition(PlayMakerFSM,System.String,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveTransition(PlayMakerFSM,System.String,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveTransition(HutongGames.PlayMaker.FsmState,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveTransition(PlayMakerFSM,System.String,System.String)"/>
+            <param name="state">The fsm state</param>
+            <param name="eventName">The event of the transition</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveFsmTransition(HutongGames.PlayMaker.FsmState,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveTransition(HutongGames.PlayMaker.FsmState,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveAction(PlayMakerFSM,System.String,System.Int32)">
+            <summary>
+                Removes an action in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="stateName">The name of the state with the action</param>
+            <param name="index">The index of the action</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveFsmAction(PlayMakerFSM,System.String,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveAction(PlayMakerFSM,System.String,System.Int32)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveAction(HutongGames.PlayMaker.FsmState,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveAction(PlayMakerFSM,System.String,System.Int32)"/>
+            <param name="state">The fsm state</param>
+            <param name="index">The index of the action</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveFsmAction(HutongGames.PlayMaker.FsmState,System.Int32)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveAction(HutongGames.PlayMaker.FsmState,System.Int32)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)">
+            <summary>
+                Adds a fsm variable in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="name">The name of the new variable</param>
+            <returns>The newly created variable.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmFloatVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddIntVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmIntVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddBoolVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmBoolVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddStringVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmStringVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddVector2Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmVector2Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddVector3Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmVector3Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddColorVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmColorVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddRectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmRectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddQuaternionVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmQuaternionVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddGameObjectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.AddFsmGameObjectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)">
+            <summary>
+                Finds a fsm variable in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="name">The name of the variable</param>
+            <returns>The variable, null if not found.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmFloatVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindIntVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmIntVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindBoolVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmBoolVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindStringVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmStringVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindVector2Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmVector2Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindVector3Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmVector3Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindColorVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmColorVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindRectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmRectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindQuaternionVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmQuaternionVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindGameObjectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.FindFsmGameObjectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.FindFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)">
+            <summary>
+                Gets a fsm variable in a PlayMakerFSM. Creates a new one if none with the name are present.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="name">The name of the variable</param>
+            <returns>The variable.</returns>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmFloatVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetIntVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmIntVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetBoolVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmBoolVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetStringVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmStringVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetVector2Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmVector2Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetVector3Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmVector3Variable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetColorVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmColorVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetRectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmRectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetQuaternionVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmQuaternionVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetGameObjectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.GetFsmGameObjectVariable(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.GetFloatVariable(PlayMakerFSM,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.MakeLog(PlayMakerFSM,System.Boolean)">
+            <summary>
+                Adds actions to a PlayMakerFSM so it gives a log message before and after every single normal action.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="additionalLogging">Flag if, additionally, every log should also log the state of all fsm variables</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.Log(PlayMakerFSM)">
+            <summary>
+                Logs the fsm and its states, transitions and variables.
+            </summary>
+            <param name="fsm">The fsm</param>
+        </member>
+        <member name="T:SFCore.Utils.FunctionAction`1">
+            <summary>
+                FsmStateAction that invokes methods with an argument.
+            </summary>
+        </member>
+        <member name="F:SFCore.Utils.FunctionAction`1.action">
+            <summary>
+                The method to invoke.
+            </summary>
+        </member>
+        <member name="F:SFCore.Utils.FunctionAction`1.arg">
+            <summary>
+                The argument.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.FunctionAction`1.Reset">
+            <summary>
+                Resets the action.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.FunctionAction`1.OnEnter">
+            <summary>
+                Called when the action is being processed.
+            </summary>
+        </member>
+        <member name="T:SFCore.Utils.LanguageStrings">
+            <summary>
+                Helper class to load language strings from a JSON resource.
+                Supports multiple languages.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.LanguageStrings.#ctor(System.Reflection.Assembly,System.String,System.Text.Encoding)">
+            <summary>
+                The constructor. Loads the JSON resource.
+            </summary>
+            <param name="asm">The assembly to load the resource from</param>
+            <param name="resourceName">The name of the resource</param>
+            <param name="encoding">The encoding of the resource</param>
+        </member>
+        <member name="M:SFCore.Utils.LanguageStrings.#ctor(System.String)">
+            <summary>
+                The constructor. Loads the given JSON.
+            </summary>
+            <param name="json">The JSON to load</param>
+        </member>
+        <member name="M:SFCore.Utils.LanguageStrings.Get(System.String,System.String)">
+            <summary>
+                Get a language string according to a given key and sheet.
+            </summary>
+            <param name="key">The language key</param>
+            <param name="sheet">The sheet that contains the key</param>
+            <returns>The language string.</returns>
+        </member>
+        <member name="M:SFCore.Utils.LanguageStrings.ContainsKey(System.String,System.String)">
+            <summary>
+                Check if a language string according to a given key and sheet is present.
+            </summary>
+            <param name="key">The language key</param>
+            <param name="sheet">The sheet that contains the key</param>
+            <returns>True if the language string is present, False if not.</returns>
+        </member>
+        <member name="T:SFCore.Utils.LogAction">
+            <summary>
+                FsmStateAction that logs the value of an FsmString.
+            </summary>
+        </member>
+        <member name="F:SFCore.Utils.LogAction.text">
+            <summary>
+                The text to log.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.LogAction.Reset">
+            <summary>
+                Resets the action.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.LogAction.OnEnter">
+            <summary>
+                Called when the action is being processed.
+            </summary>
+        </member>
+        <member name="T:SFCore.Utils.StatusLog">
+            <summary>
+                FsmStateAction that logs the value of an FsmString and gives context of which GameObject with which Fsm in which State produces the log.
+            </summary>
+        </member>
+        <member name="F:SFCore.Utils.StatusLog.text">
+            <summary>
+                Resets the action.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.StatusLog.Reset">
+            <summary>
+                Resets the action.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.StatusLog.OnEnter">
+            <summary>
+                Called when the action is being processed.
+            </summary>
+        </member>
+        <member name="T:SFCore.Utils.MethodAction">
+            <summary>
+                FsmStateAction that invokes methods.
+            </summary>
+        </member>
+        <member name="F:SFCore.Utils.MethodAction.method">
+            <summary>
+                The method to invoke.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.MethodAction.Reset">
+            <summary>
+                Resets the action.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.MethodAction.OnEnter">
+            <summary>
+                Called when the action is being processed.
+            </summary>
+        </member>
+        <member name="T:SFCore.Utils.MiscCreator">
+            <summary>
+                Utils specifically for creating or resetting Hollow Knight MonoBehaviours.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.MiscCreator.ResetSceneManagerAudio(SceneManager)">
+            <summary>
+                Resets AudioMixerSnapshots and Cues on a SceneManager.
+            </summary>
+            <param name="sm">The SceneManager</param>
+        </member>
+        <member name="M:SFCore.Utils.MiscCreator.Set(UnityEngine.Vector3,System.Double,System.Double,System.Double)">
+            <summary>
+                Sets X/Y/Z on a given Vector3.
+            </summary>
+            <param name="self">The Vector3</param>
+            <param name="x">X</param>
+            <param name="y">Y</param>
+            <param name="z">Z</param>
+        </member>
+        <member name="M:SFCore.Utils.MiscCreator.setOriginalMusicEventName(MusicCue,System.String)">
+            <summary>
+                Sets the original music event name of a MusicCue.
+            </summary>
+            <param name="cue">The Cue</param>
+            <param name="name">The name</param>
+        </member>
+        <member name="M:SFCore.Utils.MiscCreator.setOriginalMusicTrackNumber(MusicCue,System.Int32)">
+            <summary>
+                Sets the original music track number of a MusicCue.
+            </summary>
+            <param name="cue">The Cue</param>
+            <param name="number">The number</param>
+        </member>
+        <member name="M:SFCore.Utils.MiscCreator.setSnapshot(MusicCue,UnityEngine.Audio.AudioMixerSnapshot)">
+            <summary>
+                Sets the AudioMixerSnapshot of a MusicCue.
+            </summary>
+            <param name="cue">The Cue</param>
+            <param name="snapshot">The AudioMixerSnapshot</param>
+        </member>
+        <member name="M:SFCore.Utils.MiscCreator.getChannelInfos(MusicCue)">
+            <summary>
+                Gets the channel infos of a MusicCue.
+            </summary>
+            <param name="cue">The Cue</param>
+            <returns>The MusicChannelInfos.</returns>
+        </member>
+        <member name="M:SFCore.Utils.MiscCreator.setChannelInfos(MusicCue,MusicCue.MusicChannelInfo[])">
+            <summary>
+                Sets the channel infos of a MusicCue.
+            </summary>
+            <param name="cue">The Cue</param>
+            <param name="infos">The infos</param>
+        </member>
+        <member name="T:SFCore.Utils.SpriteUtil">
+            <summary>
+                Utils specifically for Sprites and Textures.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.SpriteUtil.CalcTriangleArea(UnityEngine.Vector2Int,UnityEngine.Vector2Int,UnityEngine.Vector2Int)">
+            <summary>
+                Calculates the area between 3 integer points.
+            </summary>
+            <param name="a">A point of the triangle</param>
+            <param name="b">A point of the triangle</param>
+            <param name="c">A point of the triangle</param>
+            <returns>The area of the triangle.</returns>
+        </member>
+        <member name="M:SFCore.Utils.SpriteUtil.GetReadableCroppedTexture(UnityEngine.Texture2D,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+                Returns a new Texture2D that is cropped.
+            </summary>
+            <param name="tex">The texture to crop</param>
+            <param name="x">Left offset</param>
+            <param name="y">Top offset</param>
+            <param name="width">Width of the new texture</param>
+            <param name="height">Height of the new texture</param>
+            <returns>The cropped Texture2D.</returns>
+        </member>
+        <member name="M:SFCore.Utils.SpriteUtil.ExtractTextureFromSprite(UnityEngine.Sprite)">
+            <summary>
+                Extracts a sprite from a texture, returns a new texture which is cropped to only the sprite according to its UV values.
+            </summary>
+            <param name="sprite">The sprite to extract</param>
+            <returns>A texture with just the sprite on it.</returns>
+        </member>
+        <member name="T:SFCore.Utils.USceneUtil">
+            <summary>
+                Utils specifically for Unity Scenes and GameObjects.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.USceneUtil.FindRoot(UnityEngine.SceneManagement.Scene,System.String)">
+            <summary>
+                Finds a GameObject in a given scene at the root level.
+            </summary>
+            <param name="scene">The scene to search in</param>
+            <param name="name">The name of the GameObject</param>
+            <returns>The found GameObject, null if none is found.</returns>
+        </member>
+        <member name="M:SFCore.Utils.USceneUtil.Find(UnityEngine.SceneManagement.Scene,System.String)">
+            <summary>
+                Finds a GameObject in a given scene.
+            </summary>
+            <param name="scene">The scene to search in</param>
+            <param name="name">The name of the GameObject</param>
+            <returns>The found GameObject, null if none is found.</returns>
+        </member>
+        <member name="M:SFCore.Utils.USceneUtil.FindGameObjectInChildren(UnityEngine.GameObject,System.String)">
+            <summary>
+                Finds a child GameObject of a given GameObject.
+            </summary>
+            <param name="o">The GameObject to start the search from</param>
+            <param name="name">The name of the GameObject</param>
+            <returns>The found GameObject, null if none is found.</returns>
+        </member>
+        <member name="M:SFCore.Utils.USceneUtil.Find(UnityEngine.GameObject,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.USceneUtil.FindGameObjectInChildren(UnityEngine.GameObject,System.String)"/>
+        </member>
+        <member name="M:SFCore.Utils.USceneUtil.Log(UnityEngine.SceneManagement.Scene)">
+            <summary>
+                Logs a scene with all GameObjects and Components on them.
+            </summary>
+            <param name="scene">The scene to log</param>
+        </member>
+        <member name="M:SFCore.Utils.USceneUtil.Log(UnityEngine.Transform,System.String)">
+            <summary>
+                Logs a transform and all children with their Components.
+            </summary>
+            <param name="go">The Transform to log</param>
+            <param name="n">The indentation to use</param>
+        </member>
+        <member name="T:SFCore.Utils.Util">
+            <summary>
+                Misc utils to use.
+            </summary>
+        </member>
+        <member name="M:SFCore.Utils.Util.SetAttr``2(``0,System.String,``1)">
+            <summary>
+                Sets a nonpublic member of an Object to a specified value.
+            </summary>
+            <param name="o">The object that has the nonpublic member</param>
+            <param name="fieldname">The name of the nonpublic member</param>
+            <param name="value">The value that the nonpublic member should have</param>
+        </member>
+        <member name="M:SFCore.Utils.Util.GetAttr``2(``0,System.String)">
+            <summary>
+                Gets the value of a nonpublic member of an Object.
+            </summary>
+            <param name="o">The object that has the nonpublic member</param>
+            <param name="fieldname">The name of the nonpublic member</param>
+            <returns>The value of the nonpublic member.</returns>
+        </member>
+        <member name="M:SFCore.Utils.Util.GetVersion(System.Reflection.Assembly)">
+            <summary>
+                Gets the version of an Assembly.
+            </summary>
+            <param name="asm">The Assembly of which to get the version</param>
+            <returns>"{Assembly.Version}-{SHA1(assembly binary)}"</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,584 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RandomizerMod</name>
+    </assembly>
+    <members>
+        <member name="T:RandomizerMod.IC.DupeUIDef">
+            <summary>
+            Class for converting an arbitrary UIDef on a redundant item to a MsgUIDef which displays the amount of geo replacing the item.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.IC.GSComparison`1">
+            <summary>
+            Compare a settings field to a given value.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.IC.GSComparison`1.FieldPath">
+            <summary>
+            Dot separators: e.g. SkipSettings.MildSkips
+            </summary>
+        </member>
+        <member name="E:RandomizerMod.IC.RandomizerModule.OnLoadComplete">
+            <summary>
+            Event which is invoked during ItemChanger.Events.OnEnterGame, to allow access to the item and placement lookups after all items and placements have loaded.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.IC.RandomizerModule.Items">
+            <summary>
+            Item lookup indexed parallel to the RandoContext item placement list. Refreshed on entering the game.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.IC.RandomizerModule.Placements">
+            <summary>
+            Placement lookup indexed parallel to the RandoContext item placement list. Refreshed on entering the game.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.IC.RandoPlacementTag.ids">
+            <summary>
+            The ids of the item placements managed by this placement.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.IC.TrackerUpdate.SendTransitionFound(ItemChanger.Transition)">
+            <summary>
+            Static method intended to allow updating visited source transitions by external callers.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Logging.LogManager.loggers">
+            <summary>
+            Loggers which are activated when the save is created.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.Menu.RandomizerMenu.UpdateStartLocationSwitch(RandomizerMod.Settings.StartLocationSettings.RandomizeStartLocationType,System.String)">
+            <summary>
+            Applies the parameter settings to the start location page, and refreshes all button states.
+            <br/>Exercise caution, as this triggers several button events and can easily lead to infinite recursion.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.Menu.RandomizerMenu.UpdateStartLocationSwitch">
+            <summary>
+            Applies the current start location settings to the start location page, and refreshes all button states.
+            <br/>Exercise caution, as this triggers several button events and can easily lead to infinite recursion.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.Menu.RandomizerMenu.RebuildPostGenerationRedirectPanel">
+            <summary>
+            Polls each subscriber to RandoStartOverride to build the PostGenerationRedirectPage. Returns true if any subscriber returns true.
+            <br/>If this returns true, the Proceed button will be used after rando generation. Otherwise, the Start Game button will be used.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.PriorityEvent`1.IPriorityEventOwner.GetSubscribers">
+            <summary>
+            Returns an ordered enumerable of the event's subscribers at the moment of the request. 
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.PriorityEvent`1.IPriorityEventOwner.GetSubscriberRange(System.Single,System.Single)">
+            <summary>
+            Returns an ordered enumerable of the event's subscribers in the specified priority range, with inclusive bounds.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.LocationDef.FlexibleCount">
+            <summary>
+            If true, copies of this location after the first may be shuffled among other flexible count locations by the RequestBuilder.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.LocationDef.AdditionalProgressionPenalty">
+            <summary>
+            If true, copies of this location after the first will receive severe penalties to prevent multiple progression items.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.RandomizerData.PoolDef">
+            <summary>
+            Data structure representing a collection of items and locations that can be optionally randomized.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.PoolDef.Name">
+            <summary>
+            The name of the pool.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.PoolDef.Group">
+            <summary>
+            A slightly broader classification which merges smaller pools into larger ones (e.g. Focus into Skill, etc). Used by SplitGroupSettings.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.Name">
+            <summary>
+            The name of the start. Names should be unique.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.SceneName">
+            <summary>
+            The scene of the start location in-game.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.X">
+            <summary>
+            The x-coordinate of the start location in-game.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.Y">
+            <summary>
+            The y-coordinate of the start location in-game.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.Zone">
+            <summary>
+            The map zone of the start location in-game.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.Transition">
+            <summary>
+            The transition which is used as the initial logical progression for this start location.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.Logic">
+            <summary>
+            Logic evaluated by the SettingsPM to determine whether the start can be selected in the menu. Must not be null.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.RandoLogic">
+            <summary>
+            Logic evaluated by the SettingsPM to determine whether the start can be randomly selected. If null, Logic is used instead.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerData.StartDef.ExcludeFromMenu">
+            <summary>
+            Flag which determines whether the start is given a button in the Start Locations menu. Hidden starts can still be randomly selected.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RandomizerData.TransitionSides.OneWayIn">
+            <summary>
+            A one way transition exiting a scene.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RandomizerData.TransitionSides.OneWayOut">
+            <summary>
+            A one way transition entering a scene.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RandomizerMod.IsRandoSave">
+            <summary>
+            Returns true if the currently loaded settings contain valid RandomizerMod data.
+            </summary>
+        </member>
+        <member name="P:RandomizerMod.RC.ItemPlacement.Index">
+            <summary>
+            The index of the item placement in the RandoModContext item placements. Initialized to -1 if the placement is not part of the ctx.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.RC.LogicInts.NotchCostInt">
+            <summary>
+            LogicInt which returns 1 less than the number of notches to equip the charm with or without overcharming.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.RC.LogicInts.SafeNotchCostInt">
+            <summary>
+            LogicInt which returns 1 less than the number of notches needed to equip the charm without overcharming.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.RC.LogicInts.StartLocationDelta">
+            <summary>
+            LogicInt which is true exactly when the GenerationSettings StartLocation equals its argument.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.RC.PlaceholderItem">
+            <summary>
+            A wrapper for a RandoModItem to allow it to be ignored by logic.
+            <br/>Used mainly with duplicate progression, to avoid skewing.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.PlaceholderItem.Wrap">
+            <summary>
+            Hides the innerItem of the PlaceholderItem from logic.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.PlaceholderItem.Unwrap">
+            <summary>
+            Makes the innerItem of the PlaceholderItem visible to logic.
+            </summary>
+        </member>
+        <member name="E:RandomizerMod.RC.ProgressionInitializer.OnCreateProgressionInitializer">
+            <summary>
+            Event invoked after base randomizer term modifiers are added to the initializer.
+            </summary>
+        </member>
+        <member name="E:RandomizerMod.RC.RandoController.OnExportCompleted">
+            <summary>
+            Event invoked on the RandoController immediately after sending all data to ItemChanger, but before printing logs and activating tracker data.
+            </summary>
+        </member>
+        <member name="E:RandomizerMod.RC.RandoController.OnCalculateHash">
+            <summary>
+            Event which allows external subscribers to modify the hash. Each subscriber is invoked separately, and the results are combined into the hash seed.
+            <br/>Return values of 0 are ignored, and do not modify the hash.
+            <br/>The second argument is the base hash seed, depending only on the generation settings and the placement data.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RandoModItem.info">
+            <summary>
+            The ItemRequestInfo associated with the item. May be null if the item does not require modification.
+            <br/>This field is not serialized and will be null upon reloading the game.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RandoModItem.ItemDef">
+            <summary>
+            The ItemDef associated with the location. Preferred over Data.GetItemDef, since this preserves modified item data.
+            <br/>This field is serialized, and is safe to use after reloading the game. May rarely be null for external items which choose not to supply a value.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RandoModLocation.info">
+            <summary>
+            The LocationRequestInfo associated with the location. May be null if the location does not require modification.
+            <br/>This field is not serialized and will be null upon reloading the game.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RandoModLocation.LocationDef">
+            <summary>
+            The LocationDef associated with the location. Preferred over Data.GetLocationDef, since this preserves modified location data.
+            <br/>This field is serialized, and is safe to use after reloading the game. May rarely be null for external locations which choose not to supply a value.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RandoModTransition.info">
+            <summary>
+            The TransitionRequestInfo associated with the transition. May be null if the transition does not require modification.
+            <br/>This field is not serialized and will be null upon reloading the game.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RandoModTransition.TransitionDef">
+            <summary>
+            The TransitionDef associated with the location. Preferred over Data.GetTransitionDef, since this preserves modified transition data.
+            <br/>This field is serialized, and is safe to use after reloading the game.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RCData.GetNewLogicManager(RandomizerMod.Settings.GenerationSettings)">
+            <summary>
+            Creates a new LogicManager, allowing edits from local files and runtime hooks.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RCData.RuntimeLogicOverride">
+            <summary>
+            Event invoked when building the LogicManager for randomization.
+            <br/>A subscriber with a nonpositive key is invoked before local logic edits.
+            <br/>A subscriber with a positive key is invoked after local logic edits.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.CDFWeightedArray`1.#ctor(`0[],System.Double[])">
+            <summary>
+            Creates a new CDFWeightedArray with the given values. Densities should have the same positive length as values, and its entries should be increasing between 0 and 1.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.ICFactory.MakeItemWithEvents(System.String,RandomizerCore.RandoPlacement)">
+            <summary>
+            Makes the item by name using the info in the RequestBuilder, or else the default method.
+            <br/>This does not consider the events attached to the RandoModItem, if any.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.ICFactory.MakeItem(System.String)">
+            <summary>
+            Makes the item by name, using ItemChanger.Finder.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.ICFactory.TryFetchPlacement(System.String,ItemChanger.AbstractPlacement@)">
+            <summary>
+            Looks up the placement by name. If the placement has not yet been added, does nothing and returns false.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.ICFactory.FetchOrMakePlacement(System.String)">
+            <summary>
+            Looks up the placement by name. If the placmeent has not yet been added, makes and adds the placement using the default procedure.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RandoFactory.MakeWrappedItem(System.String)">
+            <summary>
+            Makes a PlaceholderItem. The item will be exported identically to the result of MakeItem, but will be treated by logic as an EmptyItem.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.RC.RBConsts">
+            <summary>
+            Strings used by the RequestBuilder as labels.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.MainTransitionStage">
+            <summary>
+            Label for the transition stage, in transition rando only.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.MainItemStage">
+            <summary>
+            Label for the default stage, in any rando.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.MainItemGroup">
+            <summary>
+            Label for the default group of the default stage, in any rando.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.GrubMimicStage">
+            <summary>
+            Label for the stage of grubs and mimics, when mimics are randomized but grubs are not randomized.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.GrubMimicGroup">
+            <summary>
+            Label for the group of grubs and mimics, when mimics are randomized but grubs are not randomized.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.SplitGroupPrefix">
+            <summary>
+            Prefix used for split groups. The label is formed by appending an integer between 1 and 99 according to the setting.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.InLeftOutRightGroup">
+            <summary>
+            Label for the corresponding matched transition group.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.InRightOutLeftGroup">
+            <summary>
+            Label for the corresponding matched transition group.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.InBotOutTopGroup">
+            <summary>
+            Label for the corresponding matched transition group.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.InTopOutBotGroup">
+            <summary>
+            Label for the corresponding matched transition group.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.OneWayGroup">
+            <summary>
+            Label for the group of one-way transitions in any transition rando.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RBConsts.TwoWayGroup">
+            <summary>
+            Label for the group of two-way transitions, in non-matched transition rando.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.RC.RequestBuilder">
+            <summary>
+            Class used to build the request that is passed to the randomizer. The OnUpdate event allows modification of the request as it is built.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.EnumerateItemGroups">
+            <summary>
+            Enumerates the GroupBuilders of type ItemGroupBuilder.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.EnumerateTransitionGroups">
+            <summary>
+            Enumerates the GroupBuilers not of type ItemGroupBuilder.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.RC.RequestBuilder.Vanilla">
+            <summary>
+            List of vanilla requests, with indexing for fast lookup by location/source transition name.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.AddStage(System.String)">
+            <summary>
+            Adds a stage with the given label after all existing stages.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.InsertStage(System.Int32,System.String)">
+            <summary>
+            Creates a StageBuilder at the specified index with the given label.
+            <br/>Throws an exception if the index is out of range or the label is already in use.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.MoveStage(System.Int32,System.String)">
+            <summary>
+            Moves the stage with the given label to the given index.
+            <br/>Throws an exception if the index is out of range or the stage with the given label is not found.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.TryGetStage(System.String,RandomizerMod.RC.StageBuilder@)">
+            <summary>
+            Searches for a StageBuilder with the given label and returns it if found.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.GetGroupFor(System.String,RandomizerMod.RC.RequestBuilder.ElementType)">
+            <summary>
+            Searches for the appropriate group for the named item, location, or transition, using the OnGetGroupFor event.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.GetItemGroupFor(System.String)">
+            <summary>
+            Searches for the appropriate item group for the named item, using the OnGetGroupFor event.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.GetLocationGroupFor(System.String)">
+            <summary>
+            Searches for the appropriate item group for the named location, using the OnGetGroupFor event.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.AddItemByName(System.String)">
+            <summary>
+            Adds one copy of the named item to the group returned by GetItemGroupFor.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.AddItemByName(System.String,System.Int32)">
+            <summary>
+            Adds the requested number of copies of the named item to the group returned by GetItemGroupFor.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveItemByName(System.String)">
+            <summary>
+            Removes all copies of the named item from all item groups.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.AddLocationByName(System.String)">
+            <summary>
+            Adds one copy of the named location to the group returned by GetLocationGroupFor.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.AddLocationByName(System.String,System.Int32)">
+            <summary>
+            Adds the requested number of copies of the named location to the group returned by GetLocationGroupFor.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveLocationByName(System.String)">
+            <summary>
+            Removes all copies of the named location from all item groups.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveLocationByName(System.String,System.Int32)">
+            <summary>
+            Removes the requested number of copies of the named location from the group returned by GetLocationGroupFor.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveItemsWhere(System.Predicate{System.String})">
+            <summary>
+            Removes all copies of all items in any item groups for which the predicate returns true.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.ReplaceItem(System.String,System.String)">
+            <summary>
+            Replaces each copy of the named item in each item group with the replacement string.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveLocationsWhere(System.Predicate{System.String})">
+            <summary>
+            Removes all copies of all locations in any item groups for which the predicate returns true.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveTransitionByName(System.String)">
+            <summary>
+            Removes the transition by name from all transition groups.
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveTransitionsWhere(System.Func{System.String,System.Boolean})">
+            <summary>
+            Removes all copies of all transitions in any transition groups where the selector returns true.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.UnrandomizeTransitionByName(System.String)">
+            <summary>
+            Identical to RemoveTransitionByName, but if the transition is a source, it is ensured to be in Vanilla with its VanillaTarget.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.UnrandomizeTransitionsWhere(System.Func{System.String,System.Boolean})">
+            <summary>
+            Identical to RemoveTransitionsWhere, but each removed source transition is ensured to be in Vanilla with its VanillaTarget.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.EnsureVanillaSourceTransition(System.String)">
+            <summary>
+            Ensures that the Vanilla bucket contains the placement of the transition's VanillaTarget at the transition.
+            <br/>Has no effect on a transition without a VanillaTarget, such as a OneWayOut transition.
+            <br/>Only ensures one side of a coupled transition is vanilla.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveFromVanilla(System.String)">
+            <summary>
+            Removes all vanilla placements for the specified location or source transition.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveFromVanilla(System.String,System.String)">
+            <summary>
+            Removes all vanilla placements for the specified location or source transition, matching the specified item or target transition.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.RC.RequestBuilder.RemoveFromVanilla(RandomizerMod.RandomizerData.VanillaDef)">
+            <summary>
+            Removes all vanilla placements matching the defined location, item, and cost list (compared sequentially).
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.Settings.SettingsModule.Randomize(System.Random)">
+            <summary>
+            Randomize the fields of the module.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.Settings.SettingsModule.Clamp(RandomizerMod.Settings.GenerationSettings)">
+            <summary>
+            Fix all compatibility or range issues with current settings.
+            </summary>
+        </member>
+        <member name="T:RandomizerMod.Settings.SettingsPM">
+            <summary>
+            ProgressionManager for interpreting logic for GenerationSettings
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.obtainedItems">
+            <summary>
+            The CTX indices of the items that have been obtained.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.previewedLocations">
+            <summary>
+            A set which tracks the placements which have been previewed, by the Name property of the corresponding RandoLocation.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.visitedTransitions">
+            <summary>
+            A dictionary which tracks the transitions that have been visited. Keys are sources and values are their targets.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.clearedLocations">
+            <summary>
+            A set which tracks the placements which have all items obtained, by the Name property of the corresponding RandoLocation.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.uncheckedReachableLocations">
+            <summary>
+            A set which tracks the placements which are reachable in logic and have items remaining and have not been previewed, by the Name property of the corresponding RandoLocation.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.uncheckedReachableTransitions">
+            <summary>
+            A set which tracks the transitions which are reachable in logic and have not been visited.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.AllowSequenceBreaks">
+            <summary>
+            Should out of logic items and transitions be immediately added to current progression when acquired, or deferred until their locations are reachable?
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.outOfLogicObtainedItems">
+            <summary>
+            The subset of obtainedItems that are currently out of logic, and were obtained by sequence breaking. Entries are removed as they become in logic.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.outOfLogicVisitedTransitions">
+            <summary>
+            The subset of visited transitions that are currently out of logic, and were visited by sequence breaking.
+            </summary>
+        </member>
+        <member name="F:RandomizerMod.Settings.TrackerData.pm">
+            <summary>
+            The ProgressionManager for the current state, with the information available to the player.
+            </summary>
+        </member>
+        <member name="M:RandomizerMod.Settings.Util.GetPath(System.String)">
+            <summary>
+            Returns the first path to a field with the matching name, for a GenerationSettings object.
+            <br/> e.g. GetPath("MildSkips") => "SkipSettings.MildSkips"
+            </summary>
+        </member>
+    </members>
+</doc>

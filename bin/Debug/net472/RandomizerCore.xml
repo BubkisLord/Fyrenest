@@ -1,0 +1,724 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RandomizerCore</name>
+    </assembly>
+    <members>
+        <member name="T:RandomizerCore.Logic.HashQueue`1">
+            <summary>
+            A queue of distinct items.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.Logic.LogicInt.Name">
+            <summary>
+            The name of the variable. Should match its usage in logic.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.IsTerm(System.String)">
+            <summary>
+            Returns whether the string is a key in the term lookup.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.GetOrAddTerm(System.String)">
+            <summary>
+            If the string is a key in the term lookup, returns the corresponding term. Otherwise, creates, saves, and returns a new term.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.AddItem(RandomizerCore.LogicItem)">
+            <summary>
+            Adds the LogicItem to the builder's dictionary. Overwrites any existing LogicItem with the same name.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.AddUnparsedItem(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Adds the JLINQ representation of the LogicItem to the builder's dictionary. Overwrites any existing unparsed item with the same name.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.AddWaypoint(RandomizerCore.Logic.RawLogicDef)">
+            <summary>
+            Adds the RawLogicDef as a new waypoint. Overwrites any existing logic with the same name.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.AddTransition(RandomizerCore.Logic.RawLogicDef)">
+            <summary>
+            Adds the RawLogicTransition as a new transition. Overwrites any existing logic with the same name.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.AddLogicDef(RandomizerCore.Logic.RawLogicDef)">
+            <summary>
+            Adds the RawLogicDef for general use. Overwrites any existing logic with the same name.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.DoLogicEdit(RandomizerCore.Logic.RawLogicDef)">
+            <summary>
+            If the input contains the ORIG token and the logic def is already defined, substitutes the old value for ORIG in the input, and overwrites the old logic.
+            <br/>If the input does not contain the ORIG token, is equivalent to AddLogicDef.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.DoMacroEdit(System.Collections.Generic.KeyValuePair{System.String,System.String})">
+            <summary>
+            If the input contains the ORIG token and the macro is already defined, substitutes the old value for ORIG in the input, and overwrites the old macro.
+            <br/>If the input does not contain the ORIG token, is equivalent to LP.SetMacro.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.LogicManagerBuilder.DoSubst(RandomizerCore.Logic.RawSubstDef)">
+            <summary>
+            Performs the requested substitution on the named logic def or macro.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.OptimizedLogicDef.GetTerms">
+            <summary>
+            Enumerates the terms of the LogicDef, excluding operators and combinators. May contain duplicates.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.ProgressionManager.Has(System.Int32)">
+            <summary>
+            Returns true if the value at the index is positive.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.ProgressionManager.Has(System.Int32,System.Int32)">
+            <summary>
+            Returns true if the value at the index is greater than or equal to the threshold.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.ProgressionManager.ToString">
+            <summary>
+            Converts the ProgressionManager to a JSON-serialized dictionary with keys given by term names and values given by the integer values of the ProgressionManager for each term.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.MainUpdater.Reset">
+            <summary>
+            Resets each update entry in the updater.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Logic.MainUpdater.Clear">
+            <summary>
+            Removes all update entries from the updater, and clears its events.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Collections.PriorityQueue`2">
+            <summary>
+            Stable binary min-heap (equal priorities -> first-in first-out)
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Collections.SortedArrayList`1">
+            <summary>
+            A sorted list which maintains its sort through binary search during list operations.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.Add(`0)">
+            <summary>
+            Inserts the item into the sorted list using binary search. Item will appear after all elements which compare equal.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.CountLE(`0)">
+            <summary>
+            Counts the number of elements less than or equal to the input.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.CountLT(`0)">
+            <summary>
+            Counts the number of elements less than the input.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.CountGE(`0)">
+            <summary>
+            Counts the number of elements greater than or equal to the input.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.CountGT(`0)">
+            <summary>
+            Counts the number of elements greater than the input.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.FindInclusiveLowerBound(`0)">
+            <summary>
+            Returns the least index such that its entry is greater than or equal to the input, or 0.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.FindInclusiveLowerBound(`0,System.Int32,System.Int32)">
+            <summary>
+            Returns the least index in the range such that its entry is greater than or equal to the input, or lb.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.FindExclusiveUpperBound(`0)">
+            <summary>
+            Returns the least index such that its entry is strictly greater than the input, or Count.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.FindExclusiveUpperBound(`0,System.Int32,System.Int32)">
+            <summary>
+            Returns the least index in the range such that its entry is strictly greater than the input, or ub.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.Contains(`0)">
+            <summary>
+            Uses binary search to find the range in which the element could be found, and then tests each element in the range for equality.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Collections.SortedArrayList`1.Remove(`0)">
+            <summary>
+            Uses binary search to find the range in which the element could be found, and then removes the first element in the range which gives equality, if it exists.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.IRandoItem.Priority">
+            <summary>
+            Property managed by the randomizer and certain events. Lower priorities are placed first.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.IRandoItem.Placed">
+            <summary>
+            Property managed by the randomizer for internal tracking.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.IRandoItem.Sphere">
+            <summary>
+            Property managed by the randomizer. Set to the index of the sphere in which the item is placed.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.IRandoItem.Required">
+            <summary>
+            Property managed by the randomizer. Set true if the item is not placed in the last sphere.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.IRandoLocation.Priority">
+            <summary>
+            Property managed by the randomizer and certain events. Lower priorities are filled first.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.IRandoLocation.Reachable">
+            <summary>
+            Property managed by the randomizer for internal tracking.
+            </summary>
+        </member>
+        <member name="P:RandomizerCore.IRandoLocation.Sphere">
+            <summary>
+            Property managed by the randomizer. Set to the index of the sphere in which the location is first reachable.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.ILogicItem">
+            <summary>
+            Interface used by items and itemlikes (transitions, waypoints).
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.ILogicItem.AddTo(RandomizerCore.Logic.ProgressionManager)">
+            <summary>
+            Directly adds the item to the pm. This does not invoke the pm events, so it is best to implement this explicitly and use pm.Add instead.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.ILogicItem.GetAffectedTerms">
+            <summary>
+            Returns the pm indices potentially modified by the item.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.LogicItem.GetAffectedTerms">
+            <summary>
+            Returns the pm indices potentially modified by the item.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.CombinedItemSelector">
+            <summary>
+            Selector which manages multiple GroupItemSelectors, with the goal of proposing lowest priority items from available RandomizationGroups.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.CombinedItemSelector.GetTestItems">
+            <summary>
+            Enumerates all proposed or accepted items, except for the current proposed item.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.CombinedItemSelector.FinishAccepting(System.Collections.Generic.List{RandomizerCore.IRandoItem}[]@)">
+            <summary>
+            Outputs list of accepted items. Restores all rejected items and starts new acccepted item list.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">There are unhandled proposed items.</exception>
+        </member>
+        <member name="M:RandomizerCore.Randomization.CombinedItemSelector.Finish(System.Collections.Generic.List{RandomizerCore.IRandoItem}[]@)">
+            <summary>
+            Outputs all items which have not yet been accepted.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.CombinedLocationTracker">
+            <summary>
+            Class which manages GroupLocationTrackers for each RandomizationGroup to detect when new locations become reachable.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.CoupledRandomizationGroup">
+            <summary>
+            Class which represents a RandomizationGroup of coupled elements. All items and locations of a CoupledRandomizationGroup must implement IRandoCouple.
+            <br/>It is expected that the Items of this group coincide with the Locations of Dual, and vice versa. Both groups must be in the same RandomizationGroup. A group may be self-dual.
+            <br/>The effect of coupling is that during randomization, Items of the group may be discarded and used as Locations of the dual group, and vice versa. For each placement, the symmetric placement will be generated.
+            </summary>
+            <example>
+            A group of left transition Locations and right transition Items. 
+            Its dual is the group of right transition Locations and left transition Items, and coupling ensures the transitions will be paired in a reversible manner.
+            </example>
+        </member>
+        <member name="T:RandomizerCore.Randomization.DefaultGroupPlacementStrategy">
+            <summary>
+            A simple placement strategy. Provides support for standard and coupled groups, along with a field which allows weighting placements according to logical depth.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.DefaultGroupPlacementStrategy.depthPriorityTransform">
+            <summary>
+            Invoked on the minimum priority locations of each sphere to modify the priority used to select the location for item.
+            <br/>Item priority depth is the number of spheres such that the average priority of their forced progression items is less than the priority of item.
+            </summary>
+        </member>
+        <member name="E:RandomizerCore.Randomization.DefaultGroupPlacementStrategy.Constraints">
+            <summary>
+            If any of the subscribers to this event return false, then the placement will be rejected unless no alternatives exist.
+            </summary>
+        </member>
+        <member name="E:RandomizerCore.Randomization.DefaultGroupPlacementStrategy.OnConstraintViolated">
+            <summary>
+            Event for when no reachable locations satisfy the constraint for item.
+            <br/>Raise OutOfLocationsException to trigger rerandomization. Raise other exceptions to halt randomization.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.GroupItemSelector">
+            <summary>
+            Selector which proposes items from a RandomizationGroup by priority order.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.GroupItemSelector.ShouldDiscard(RandomizerCore.IRandoItem)">
+            <summary>
+            Detects coupled items which must be discarded.
+            <br/>An element of a coupled group has item and location behavior. If it becomes reachable before it is placed, it is slated into the locations of a sphere of the dual group, and can no longer be placed.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.GroupItemSelector.FinishAccepting(System.Collections.Generic.List{RandomizerCore.IRandoItem}@)">
+            <summary>
+            Outputs list of accepted items. Restores all rejected items and starts new acccepted item list.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">There are unhandled proposed items.</exception>
+        </member>
+        <member name="M:RandomizerCore.Randomization.GroupItemSelector.Finish(System.Collections.Generic.List{RandomizerCore.IRandoItem}@)">
+            <summary>
+            Outputs all items which have not yet been accepted.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.GroupItemSelector.CollectDiscardedTransitions(System.Collections.Generic.List{RandomizerCore.IRandoItem}@)">
+            <summary>
+            Returns decoupled targets which are reachable but not placed.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.GroupLocationTracker">
+            <summary>
+            Tracker which works with the MainUpdater to observe when locations from its RandomizationGroup become reachable.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.GroupPlacementStrategy">
+            <summary>
+            Base class for creating placements for a group.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.PriorityTransformUtil">
+            <summary>
+            Utility class for creating Depth Priority Transforms that do simple mathematical operations.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.PriorityTransformUtil.TransformType">
+            <summary>
+            Parameter which determines the function applied to the location depth.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.PriorityTransformUtil.ItemPriorityDepthEffect">
+            <summary>
+            Parameter which determines how location depth should be adjusted according to item priority depth.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.PriorityTransformUtil.ItemPriorityDepthEffect.Cliff">
+            <summary>
+            Cancel priority transform if item priority depth exceeds location depth.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.PriorityTransformUtil.ItemPriorityDepthEffect.Fade">
+            <summary>
+            Adjust location depth to fade linearly to 0 when greater than item priority depth.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.PriorityTransformUtil.ItemPriorityDepthEffect.Cap">
+            <summary>
+            Clamp location depth to item priority depth as an upper bound.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.PriorityTransformUtil.ItemPriorityDepthEffect.Ignore">
+            <summary>
+            Item priority depth has no effect.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.RandomizationGroup">
+            <summary>
+            A group of Items and Locations matched in length, for the randomizer to output in RandoPlacement pairs.
+            </summary>
+        </member>
+        <member name="E:RandomizerCore.Randomization.RandomizationGroup.OnPermute">
+            <summary>
+            An event invoked after the items and locations of the group are permuted and have their priorities set.
+            <br/>It is expected that the subscriber may modify the priorities of entries, and the arrays are resorted after the event is invoked.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.RandomizationStage">
+            <summary>
+            A collection of RandomizationGroups which should be randomized concurrently by the randomizer, and placed according to the stage's strategy.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.Randomizer.Validate">
+            <summary>
+            Tests the randomizer output and sends an exception if it is invalid.
+            </summary>
+            <exception cref="T:RandomizerCore.Exceptions.ValidationException"></exception>
+        </member>
+        <member name="T:RandomizerCore.Randomization.Sphere">
+            <summary>
+            The computational result of a step of the randomizer.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.Sphere.depth">
+            <summary>
+            The depth of the sphere.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.Sphere.groupIndex">
+            <summary>
+            The index of the randomization group of the sphere.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.Sphere.groupLabel">
+            <summary>
+            The label of the randomization group of the sphere.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.Sphere.Items">
+            <summary>
+            Items to be placed in the current sphere or earlier.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.Randomization.Sphere.Locations">
+            <summary>
+            Locations unlocked after placing Items.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.SphereBuilder">
+            <summary>
+            Class which manages stepping the randomizer: selecting sets of items which unlock new locations until all locations are reachable. Spheres record the result of each step.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.SphereBuilder.#ctor(RandomizerCore.Randomization.RandomizationGroup[],RandomizerCore.Logic.ProgressionManager,RandomizerCore.Logic.MainUpdater)">
+            <summary>
+            Creates a new SphereBuilder, using the ProgressionManager and MainUpdater to monitor reachable locations.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.SphereBuilder.Advance">
+            <summary>
+            Steps the SphereBuilder to completion, putting the results into the Spheres list.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.SphereBuilder.AddSphereZero">
+            <summary>
+            Creates a sphere with the newest reachable locations and no items. Exits if the request was empty.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">There are no reachable locations, and the request was nonempty.</exception>
+        </member>
+        <member name="M:RandomizerCore.Randomization.SphereBuilder.AddNextSphere">
+            <summary>
+            Steps the builder and creates a sphere with the forced items and unlocked locations.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.Randomization.StagePlacementStrategy">
+            <summary>
+            Base class for stage-level placement strategy. Manages the placement of each group.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.StagePlacementStrategy.PlaceItems(RandomizerCore.Randomization.RandomizationStage,System.Collections.Generic.List{RandomizerCore.Randomization.Sphere[]},RandomizerCore.State)">
+            <summary>
+            Places the items of the stage according to the spheres. It is expected that the output array contains a full list of placements for each RandomizationGroup of the stage in sequence.
+            </summary>
+            <param name="stage">The current RandomizationStage.</param>
+            <param name="spheres">The list of spheres of the randomizer. Each sphere array has a sphere for each RandomizationGroup, containing the items which must be placed at that depth, and the locations unlocked as a result.</param>
+            <param name="placementState">The current state. Temporary indicates that the placement will be eventually overwritten. Permanent indicates that it is final. Otherwise, the placement may or may not be final.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RandomizerCore.Randomization.Validator">
+            <summary>
+            Base class which handles determining whether errors exist in the randomizer output for a group.
+            <br/>By default, checks that the placement list has the right counts by name, and that all locations are reachable.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.Randomization.Validator.Validate(RandomizerCore.Randomization.RandomizationGroup,RandomizerCore.Logic.ProgressionManager,System.Collections.Generic.List{RandomizerCore.RandoPlacement},System.Collections.Generic.List{RandomizerCore.Logic.PrePlacedItemUpdateEntry})">
+            <summary>
+            Tests the randomizer output for the given group and sends an exception if it is invalid.
+            </summary>
+            <exception cref="T:RandomizerCore.Exceptions.ValidationException"></exception>
+        </member>
+        <member name="T:RandomizerCore.Randomization.WeakTransitionValidator">
+            <summary>
+            Validator which assumes that its group is composed of RandoTransitions, and only checks that their terms are obtained, rather than that they are reachable.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.RandoMonitor">
+            <summary>
+            Class which handles events for the Randomizer class.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.DictPM">
+            <summary>
+            Object which evaluates tokenized logic using a dictionary of recognized terms and their values.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.LogicClause">
+            <summary>
+            An immutable representation of a boolean circuit, consisting of tokens in RPN order.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.LogicClauseBuilder.#ctor">
+            <summary>
+            Initializes an empty LCB. The only valid operation on an empty LCB is Append with a TermToken.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.LogicClauseBuilder.Simpl">
+            <summary>
+            Reduces ConstTokens from the expression.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.LogicClauseBuilder.Unfold">
+            <summary>
+            Replaces MacroTokens with the clauses they represent. Acts recursively on the inserted clauses.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.LogicClauseBuilder.Subst(RandomizerCore.StringLogic.TermToken,RandomizerCore.StringLogic.TermToken)">
+            <summary>
+            Replaces all occurences that match the old token with the new token.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.LogicClauseBuilder.Subst(RandomizerCore.StringLogic.TermToken,RandomizerCore.StringLogic.LogicClause)">
+            <summary>
+            Replaces all occurences that match the old token with the new clause. Is not recursive--it is safe to reference the old token inside the new clause.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.LogicToken">
+            <summary>
+            The fundamental unit of tokenized logic, used throughout the StringLogic namespace.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.OperatorToken">
+            <summary>
+            LogicToken representing one of the binary boolean operators, | or +.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.OperatorToken.#ctor(RandomizerCore.StringLogic.OperatorType,System.Int32,System.String)">
+            <summary>
+            LogicToken representing one of the binary boolean operators, | or +.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.TermToken">
+            <summary>
+            LogicToken which evaluates to a bool.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.SimpleToken">
+            <summary>
+            TermToken which represents a simple named variable.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.SimpleToken.#ctor(System.String)">
+            <summary>
+            TermToken which represents a simple named variable.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.ComparisonToken">
+            <summary>
+            TermToken which represents a simple comparison of two named integer variables.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.ComparisonToken.#ctor(RandomizerCore.StringLogic.ComparisonType,System.String,System.String)">
+            <summary>
+            TermToken which represents a simple comparison of two named integer variables.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.MacroToken">
+            <summary>
+            TermToken which represents a nested LogicClause, provided through the IMacroSource, usually a LogicProcessor.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.MacroToken.#ctor(System.String,RandomizerCore.StringLogic.IMacroSource)">
+            <summary>
+            TermToken which represents a nested LogicClause, provided through the IMacroSource, usually a LogicProcessor.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.ConstToken">
+            <summary>
+            TermToken which represents a constant bool.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.ConstToken.#ctor(System.Boolean)">
+            <summary>
+            TermToken which represents a constant bool.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.RPN.GetOperationBoundToTerm(System.Collections.Generic.IReadOnlyList{RandomizerCore.StringLogic.LogicToken},System.Int32,System.Range@,System.Int32@)">
+            <summary>
+            Given the index of a term, finds the index of the operator it is bound to, and the range of indices corresponding to the other argument of the operator.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.RPN.GetBoundOperator(System.Collections.Generic.IReadOnlyList{RandomizerCore.StringLogic.LogicToken},System.Int32)">
+            <summary>
+            Returns the index of the operator bound to the term at startIndex,
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.RPN.GetClauseRangeFromEnd(System.Collections.Generic.IReadOnlyList{RandomizerCore.StringLogic.LogicToken},System.Int32)">
+            <summary>
+            Returns the range of indices such that the corresponding tokens form a closed expression, ending at the specified index.
+            <br/>If the token at the index is a term, the range will only contain that index.
+            <br/>If the token is an operator, the range will contain the operator and its operands.
+            </summary>
+        </member>
+        <member name="M:RandomizerCore.StringLogic.RPN.GetDNF(System.Collections.Generic.IReadOnlyList{RandomizerCore.StringLogic.LogicToken})">
+            <summary>
+            Returns the disjunctive normal form of the expression. That is,
+            <br/>ORing together the results of ANDing the terms in each list results in an expression equivalent to the input.
+            </summary>
+        </member>
+        <member name="T:RandomizerCore.StringLogic.StringPM">
+            <summary>
+            Base class for an object which can evaluate tokenized logic.
+            </summary>
+        </member>
+        <member name="F:RandomizerCore.StringLogic.StringPM.LP">
+            <summary>
+            The logic processor and macro source tied to the PM.
+            </summary>
+        </member>
+        <member name="T:System.Index">
+            <summary>Represent a type can be used to index a collection either from the start or the end.</summary>
+            <remarks>
+            Index is used by the C# compiler to support the new index syntax
+            <code>
+            int[] someArray = new int[5] { 1, 2, 3, 4, 5 } ;
+            int lastElement = someArray[^1]; // lastElement = 5
+            </code>
+            </remarks>
+        </member>
+        <member name="M:System.Index.#ctor(System.Int32,System.Boolean)">
+            <summary>Construct an Index using a value and indicating if the index is from the start or from the end.</summary>
+            <param name="value">The index value. it has to be zero or positive number.</param>
+            <param name="fromEnd">Indicating if the index is from the start or from the end.</param>
+            <remarks>
+            If the Index constructed from the end, index value 1 means pointing at the last element and index value 0 means pointing at beyond last element.
+            </remarks>
+        </member>
+        <member name="P:System.Index.Start">
+            <summary>Create an Index pointing at first element.</summary>
+        </member>
+        <member name="P:System.Index.End">
+            <summary>Create an Index pointing at beyond last element.</summary>
+        </member>
+        <member name="M:System.Index.FromStart(System.Int32)">
+            <summary>Create an Index from the start at the position indicated by the value.</summary>
+            <param name="value">The index value from the start.</param>
+        </member>
+        <member name="M:System.Index.FromEnd(System.Int32)">
+            <summary>Create an Index from the end at the position indicated by the value.</summary>
+            <param name="value">The index value from the end.</param>
+        </member>
+        <member name="P:System.Index.Value">
+            <summary>Returns the index value.</summary>
+        </member>
+        <member name="P:System.Index.IsFromEnd">
+            <summary>Indicates whether the index is from the start or the end.</summary>
+        </member>
+        <member name="M:System.Index.GetOffset(System.Int32)">
+            <summary>Calculate the offset from the start using the giving collection length.</summary>
+            <param name="length">The length of the collection that the Index will be used with. length has to be a positive value</param>
+            <remarks>
+            For performance reason, we don't validate the input length parameter and the returned offset value against negative values.
+            we don't validate either the returned offset is greater than the input length.
+            It is expected Index will be used with collections which always have non negative length/count. If the returned offset is negative and
+            then used to index a collection will get out of range exception which will be same affect as the validation.
+            </remarks>
+        </member>
+        <member name="M:System.Index.Equals(System.Object)">
+            <summary>Indicates whether the current Index object is equal to another object of the same type.</summary>
+            <param name="value">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Index.Equals(System.Index)">
+            <summary>Indicates whether the current Index object is equal to another Index object.</summary>
+            <param name="other">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Index.GetHashCode">
+            <summary>Returns the hash code for this instance.</summary>
+        </member>
+        <member name="M:System.Index.op_Implicit(System.Int32)~System.Index">
+            <summary>Converts integer number to an Index.</summary>
+        </member>
+        <member name="M:System.Index.ToString">
+            <summary>Converts the value of the current Index object to its equivalent string representation.</summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.IsExternalInit">
+            <summary>
+            Reserved to be used by the compiler for tracking metadata.
+            This class should not be used by developers in source code.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.CompilerServices.RuntimeHelpers.GetSubArray``1(``0[],System.Range)">
+            <summary>
+            Slices the specified array using the specified range.
+            </summary>
+        </member>
+        <member name="T:System.Range">
+            <summary>Represent a range has start and end indexes.</summary>
+            <remarks>
+            Range is used by the C# compiler to support the range syntax.
+            <code>
+            int[] someArray = new int[5] { 1, 2, 3, 4, 5 };
+            int[] subArray1 = someArray[0..2]; // { 1, 2 }
+            int[] subArray2 = someArray[1..^0]; // { 2, 3, 4, 5 }
+            </code>
+            </remarks>
+        </member>
+        <member name="P:System.Range.Start">
+            <summary>Represent the inclusive start index of the Range.</summary>
+        </member>
+        <member name="P:System.Range.End">
+            <summary>Represent the exclusive end index of the Range.</summary>
+        </member>
+        <member name="M:System.Range.#ctor(System.Index,System.Index)">
+            <summary>Construct a Range object using the start and end indexes.</summary>
+            <param name="start">Represent the inclusive start index of the range.</param>
+            <param name="end">Represent the exclusive end index of the range.</param>
+        </member>
+        <member name="M:System.Range.Equals(System.Object)">
+            <summary>Indicates whether the current Range object is equal to another object of the same type.</summary>
+            <param name="value">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Range.Equals(System.Range)">
+            <summary>Indicates whether the current Range object is equal to another Range object.</summary>
+            <param name="other">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Range.GetHashCode">
+            <summary>Returns the hash code for this instance.</summary>
+        </member>
+        <member name="M:System.Range.ToString">
+            <summary>Converts the value of the current Range object to its equivalent string representation.</summary>
+        </member>
+        <member name="M:System.Range.StartAt(System.Index)">
+            <summary>Create a Range object starting from start index to the end of the collection.</summary>
+        </member>
+        <member name="M:System.Range.EndAt(System.Index)">
+            <summary>Create a Range object starting from first element in the collection to the end Index.</summary>
+        </member>
+        <member name="P:System.Range.All">
+            <summary>Create a Range object starting from first element to the end.</summary>
+        </member>
+        <member name="M:System.Range.GetOffsetAndLength(System.Int32)">
+            <summary>Calculate the start offset and length of range object using a collection length.</summary>
+            <param name="length">The length of the collection that the range will be used with. length has to be a positive value.</param>
+            <remarks>
+            For performance reason, we don't validate the input length parameter against negative values.
+            It is expected Range will be used with collections which always have non negative length/count.
+            We validate the range is inside the length scope though.
+            </remarks>
+        </member>
+    </members>
+</doc>

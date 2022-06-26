@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Reflection;
 using System.IO;
 
-namespace CharmMod
+namespace Fyrenest
 {
     internal static class EmbeddedSprites
     {
