@@ -85,9 +85,6 @@
 		<Reference Include="ItemChanger">
 			<HintPath>$(HollowKnightRefs)/Mods/ItemChanger/ItemChanger.dll</HintPath>
 		</Reference>
-		<Reference Include="MenuChanger">
-			<HintPath>$(HollowKnightRefs)/Mods/MenuChanger/MenuChanger.dll</HintPath>
-		</Reference>
 		<Reference Include="RandomizerMod">
 			<HintPath>$(HollowKnightRefs)/Mods/Randomizer 4/RandomizerMod.dll</HintPath>
 		</Reference>

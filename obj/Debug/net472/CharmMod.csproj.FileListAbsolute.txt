@@ -125,7 +125,6 @@ C:\Users\oldfi\CharmMod\bin\Debug\net472\Assembly-CSharp-firstpass.dll
 C:\Users\oldfi\CharmMod\bin\Debug\net472\Assembly-CSharp.dll
 C:\Users\oldfi\CharmMod\bin\Debug\net472\GalaxyCSharp.dll
 C:\Users\oldfi\CharmMod\bin\Debug\net472\ItemChanger.dll
-C:\Users\oldfi\CharmMod\bin\Debug\net472\MenuChanger.dll
 C:\Users\oldfi\CharmMod\bin\Debug\net472\MMHOOK_Assembly-CSharp.dll
 C:\Users\oldfi\CharmMod\bin\Debug\net472\MMHOOK_PlayMaker.dll
 C:\Users\oldfi\CharmMod\bin\Debug\net472\Mono.Cecil.dll
@@ -221,8 +220,6 @@ C:\Users\oldfi\CharmMod\bin\Debug\net472\SFCore.pdb
 C:\Users\oldfi\CharmMod\bin\Debug\net472\SFCore.xml
 C:\Users\oldfi\CharmMod\bin\Debug\net472\ItemChanger.pdb
 C:\Users\oldfi\CharmMod\bin\Debug\net472\ItemChanger.xml
-C:\Users\oldfi\CharmMod\bin\Debug\net472\MenuChanger.pdb
-C:\Users\oldfi\CharmMod\bin\Debug\net472\MenuChanger.xml
 C:\Users\oldfi\CharmMod\bin\Debug\net472\RandomizerMod.pdb
 C:\Users\oldfi\CharmMod\bin\Debug\net472\RandomizerMod.xml
 C:\Users\oldfi\CharmMod\bin\Debug\net472\RandomizerCore.pdb
