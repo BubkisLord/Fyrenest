@@ -30,7 +30,7 @@ using System.Reflection;
 
 namespace Fyrenest
 {
-    public class Fyrenest : Mod, IMod, ITogglableMod
+    public class Fyrenest : Mod, IMod
     {
         public override string GetVersion() => "2.10.41.36";
 
