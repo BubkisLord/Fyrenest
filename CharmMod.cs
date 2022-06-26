@@ -9,6 +9,7 @@ global using System.Linq;
 using ItemChanger;
 using ItemChanger.Tags;
 using ItemChanger.UIDefs;
+using Modding.Menu;
 
 namespace Fyrenest
 {
@@ -44,7 +45,7 @@ namespace Fyrenest
             GiantNail.Instance,
             MatosBlessing.Instance
         };
-        public bool Enabled = true;
+
         public int NewCharms = Charms.Count; //STARTS AT 1
         public int OldCharms = 40; //STARTS AT 1
 
@@ -205,7 +206,15 @@ namespace Fyrenest
         }
         private void OnUpdate()
         {
-            if (Enabled)
+            if (PlayerData.instance.maxHealth < 1)
+            {
+                HeroController.instance.AddToMaxHealth(1);
+            }
+            foreach (Charm charm in Fyrenest.Charms)
+            {
+                charm.Settings(Settings).Cost = charm.DefaultCost;
+            }
+            if(optionOne == true)
             {
                 //give charms when certain things are done.
                 if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
@@ -232,21 +241,13 @@ namespace Fyrenest
                 if (PlayerData.instance.visitedWhitePalace) ElderStone.Instance.Settings(Settings).Got = true;
                 if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.Instance.Settings(Settings).Got = true;
                 if (PlayerData.instance.honedNail) GiantNail.Instance.Settings(Settings).Got = true;
+                if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
                 //end
-                //ik it is messy, but what else is there to do. Also, if u are seeing this code and think that there is a more appropriate time to give the charm, DM me on discord. I am BubkisLord#5187            
-
-                if (PlayerData.instance.maxHealth < 1)
-                {
-                    HeroController.instance.AddToMaxHealth(1);
-                }
-                foreach (Charm charm in Fyrenest.Charms)
-                {
-                    charm.Settings(Settings).Cost = charm.DefaultCost;
-                }
+                //ik it is messy, but what else is there to do? Also, if u are seeing this code and think that there is a more appropriate time to give the charm, DM me on discord. I am BubkisLord#5187            
             }
         }
-        private bool optionOne;
-        private bool optionTwo;
+        private bool optionOne = true;
+        private bool optionTwo = true;
 
         public List<IMenuMod.MenuEntry> GetMenuData(IMenuMod.MenuEntry? toggleButtonEntry)
         {
@@ -256,46 +257,45 @@ namespace Fyrenest
                     Name = "Charms Enabled",
                     Description = "Toggle if charms are enabled.",
                     Values = new string[] {
-                        "Off",
-                        "On"
+                        "On",
+                        "Off"
                     },
                     Saver = opt => this.optionOne = opt switch {
-                        0 => false,
-                        1 => true,
+                        0 => true,
+                        1 => false,
                         // This should never be called
                         _ => throw new InvalidOperationException()
                     },
                     Loader = () => this.optionOne switch {
-                        false => 0,
-                        true => 1,
+                        true => 0,
+                        false => 1,
                     }
                 },
                 new IMenuMod.MenuEntry {
                     Name = "Lore Enabled",
                     Description = "Toggle if custom text is enabled",
                     Values = new string[] {
-                        "Off",
-                        "On"
+                        "On",
+                        "Off"
                     },
                     Saver = opt => this.optionTwo = opt switch {
-                        0 => false,
-                        1 => true,
+                        0 => true,
+                        1 => false,
                         // This should never be called
                         _ => throw new InvalidOperationException()
                     },
                     Loader = () => this.optionTwo switch {
-                        false => 0,
-                        true => 1,
+                        true => 0,
+                        false => 1,
                     }
                 }
             };
         }
 
-
         private int charmSelect = 1;
         public string LanguageGet(string key, string sheetTitle, string orig)
         {
-            if (Enabled)
+            if (optionTwo)
             {
                 if (string.IsNullOrEmpty(orig))
                 {
@@ -477,17 +477,25 @@ namespace Fyrenest
                 {
                     return "Memorial to the Infected Vessel.\n\nIn its vault, far above, stopping the light.\n\nThrough its sacrifice Fyrenest lasts eternal.";
                 }
-                if (sheetTitle == "Lore Tablets" && key == "")
+                if (sheetTitle == "Cornifer" && key == "FUNGAL_WASTES_GREET")
                 {
-                    return "";
+                    return "Ahh my short friend, you've caught me at the perfect time. I'm impressed that you have got this far! I'm just about finished charting these noxious caverns. Very territorial types make their homes within this area. I'd suggest avoiding this place. I don't think it would be very safe for a fragile little one like you. I have heard of a group of deadly warriors, they seemed an intelligent bunch. I wouldn't go down there if I were you.";
                 }
-                if (sheetTitle == "Lore Tablets" && key == "")
+                if (sheetTitle == "Cornifer" && key == "GREENPATH_GREET")
                 {
-                    return "";
+                    return "Oh, hello there! I didn't think you would be here! You are surely having someone's help traversing this path... Surely, someone of your small stature couldn't get around like this! Buy a map, it will help you to get back to Fyrecamp. You are clearly lost for some reason.";
                 }
-                if (sheetTitle == "Lore Tablets" && key == "")
+                if (sheetTitle == "Cornifer" && key == "MINES_GREET")
                 {
-                    return "";
+                    return "Hello, my short little friend! What a suprise finding you here! Have you come to scale the mountains? I'm afraid you are much to pathetic to do that. Here, buy a map instead! It might help you find a way out.";
+                }
+                if (sheetTitle == "Cornifer" && key == "CROSSROADS_GREET")
+                {
+                    return "Hello again! Still winding your way through these twisting highways? Just imagine how they must have looked during the kingdom's prime, thick with traffic and bustling with life! I wish I could have seen it. Oh, it is a shame that our old king is gone... Would you like to buy a map of the area to help you get out safely? You don't seem the adventurous type.";
+                }
+                if (sheetTitle == "Cornifer" && key == "CLIFFS_GREET")
+                {
+                    return "Are you enjoying the bracing air? I doubt you have experienced something like this before, since you are always scrounging around underground, looking for geo like a hermit. Anyway, we are quite close to the borders of Fyrenest, and the desolate plains that surround it. I have heard that these plains make bugs go mad... Seeking escape, only to find lost memories and distant towns. I have heard of a place far away, where our king went when he left us. A place called Hallownest, a distant kingdom never to be found... I had a brother named Cornifer, he left in search of that horrid place... I dread what has happened to him... But, lingering on the past doesn't accomplish anything. I've drawn out a small map for the area, although simple, it is helpful nonetheless. Not knowing the full extents of a region can be quite frustrating.";
                 }
             }
             return orig;
