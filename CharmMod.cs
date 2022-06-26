@@ -75,12 +75,8 @@ namespace Fyrenest
         public static List<IAbility> Abilities;
         public static Dictionary<string, Dictionary<string, GameObject>> Preloads;
 
-        // @TODO: have abilities declare the preloads they need and collect them here
         public override List<(string, string)> GetPreloadNames() => new List<(string, string)> {
-            ("GG_Mantis_Lords", "Shot Mantis Lord"),
-            ("GG_Hollow_Knight", "Battle Scene/HK Prime"),
-            //("GG_Soul_Master", "Mage Lord/Orb Spinner")//,
-            ("GG_Dung_Defender", "Dung Defender/Burst Effect")
+            ("GG_Mantis_Lords", "Shot Mantis Lord")
         };
 
 
