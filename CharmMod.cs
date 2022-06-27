@@ -13,7 +13,7 @@ using Modding.Menu;
 
 namespace Fyrenest
 {
-    public class Fyrenest : Mod, IMod
+    public class Fyrenest : Mod, IMod, IMenuMod, ITogglableMod
     {
         public override string GetVersion() => "2.10.41.38";
 
@@ -246,31 +246,40 @@ namespace Fyrenest
                 //ik it is messy, but what else is there to do? Also, if u are seeing this code and think that there is a more appropriate time to give the charm, DM me on discord. I am BubkisLord#5187            
             }
         }
+
+        public bool ToggleButtonInsideMenu => true;
+
         private bool optionOne = true;
         private bool optionTwo = true;
 
         public List<IMenuMod.MenuEntry> GetMenuData(IMenuMod.MenuEntry? toggleButtonEntry)
         {
-            return new List<IMenuMod.MenuEntry>
+            IMenuMod.MenuEntry e = toggleButtonEntry.Value;
+            IMenuMod.MenuEntry entry = new(e.Name, e.Values, "Toggle all effects of the Fyrenest mod.", e.Saver, e.Loader);
+
+            List<IMenuMod.MenuEntry> menuEntries = new() { entry };
             {
-                new IMenuMod.MenuEntry {
+                new IMenuMod.MenuEntry
+                {
                     Name = "Charms Enabled",
                     Description = "Toggle if charms are enabled.",
                     Values = new string[] {
                         "On",
                         "Off"
                     },
-                    Saver = opt => this.optionOne = opt switch {
+                    Saver = opt => this.optionOne = opt switch
+                    {
                         0 => true,
                         1 => false,
                         // This should never be called
                         _ => throw new InvalidOperationException()
                     },
-                    Loader = () => this.optionOne switch {
+                    Loader = () => this.optionOne switch
+                    {
                         true => 0,
                         false => 1,
                     }
-                },
+                };
                 new IMenuMod.MenuEntry {
                     Name = "Lore Enabled",
                     Description = "Toggle if custom text is enabled",
@@ -288,8 +297,9 @@ namespace Fyrenest
                         true => 0,
                         false => 1,
                     }
-                }
+                };
             };
+            return menuEntries;
         }
 
         private int charmSelect = 1;

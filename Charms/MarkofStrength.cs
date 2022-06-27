@@ -26,9 +26,11 @@ namespace Fyrenest
         {
             if (Equipped())
             {
-                //ShadeSoul
+                //Remove ShadeSoul
                 FsmState castShadeSoul = HeroController.instance.spellControl.GetState("Fireball 2");
                 castShadeSoul.RemoveAction(3);
+
+                //Add Wind Scythe
                 castShadeSoul.InsertCustomAction("Fireball 2", () => HandleTrigger(AbilityTrigger.Fireball), 3);
             }
             if (!Equipped())
@@ -36,8 +38,9 @@ namespace Fyrenest
                 //Add ShadeSoul back.
                 FsmState castShadeSoul = HeroController.instance.spellControl.GetState("Fireball 2");
                 FsmStateAction action = HeroController.instance.spellControl.GetAction("Fireball 2", 0);
-                castShadeSoul.InsertAction(action, 0);
-            }   
+                HeroController.instance.spellControl.InsertAction("Fireball 2", action, 0);
+            }
+            WindScythe.Instance.Load();
             return;
         }
         private void HandleTrigger(AbilityTrigger trigger)
