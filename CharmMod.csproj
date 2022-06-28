@@ -40,9 +40,6 @@
 		</GetFileHash>
 	</Target>
 	<ItemGroup>
-		<Reference Include="AbilityChanger">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Fyrenest/AbilityChanger.dll</HintPath>
-		</Reference>
 		<Reference Include="Satchel">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Satchel/Satchel.dll</HintPath>
 		</Reference>

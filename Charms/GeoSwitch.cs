@@ -30,7 +30,7 @@ namespace Fyrenest
 
         private void Update()
         {
-            if (Equipped())
+            if (Equipped() && !PlayerData.instance.atBench)
             {
                 ChargeTimer++;
                 if (ChargeTimer == ChargeInterval)

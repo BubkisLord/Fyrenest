@@ -10,10 +10,11 @@ using ItemChanger;
 using ItemChanger.Tags;
 using ItemChanger.UIDefs;
 using Modding.Menu;
+using Satchel.BetterMenus;
 
 namespace Fyrenest
 {
-    public class Fyrenest : Mod, IMod, IMenuMod, ITogglableMod
+    public class Fyrenest : Mod, IMod, ICustomMenuMod
     {
         public override string GetVersion() => "2.10.41.38";
 
@@ -214,99 +215,99 @@ namespace Fyrenest
             {
                 charm.Settings(Settings).Cost = charm.DefaultCost;
             }
-            if(optionOne == true)
+            if (PlayerData.instance.colosseumBronzeCompleted && !Quickfall.Instance.Settings(Settings).Got)
             {
-                //give charms when certain things are done.
-                if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.colosseumSilverCompleted) Slowfall.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.hasShadowDash) PowerfulDash.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.hasNailArt) SturdyNail.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked) MarkofStrength.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.hasDreamGate) SoulHunger.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.hasDreamNail) SoulSlow.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey) BetterCDash.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.killedHollowKnight) HKBlessing.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.hasKingsBrand) HealthyShell.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.killedHollowKnightPrime) GlassCannon.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.bankerAccountPurchased) WealthyAmulet.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.colosseumGoldCompleted) RavenousSoul.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.canOvercharm) OpportunisticDefeat.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.collectorDefeated) SoulSpell.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.grubsCollected > 10) SlowTime.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.statueStateCollector.completedTier2) SpeedTime.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.mageLordDreamDefeated) GeoSwitch.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.killedMageLord) SoulSwitch.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.nailsmithConvoArt) SoulSpeed.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.zotePrecept > 56) ZoteBorn.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.visitedWhitePalace) ElderStone.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.honedNail) GiantNail.Instance.Settings(Settings).Got = true;
-                if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
-                //end
-                //ik it is messy, but what else is there to do? Also, if u are seeing this code and think that there is a more appropriate time to give the charm, DM me on discord. I am BubkisLord#5187            
+                BoxObject = gameObject.LocateMyFSM("Conversation Control").GetState("Repeat").GetAction<CallMethodProper>(0).gameObject.GameObject.Value;
+                DBox = BoxObject.GetOrAddComponent<DialogueBox>();
+                DBox.StartConversation(key, sheet); ;
             }
+            if (PlayerData.instance.colosseumSilverCompleted && !Slowfall.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.hasShadowDash && ! PowerfulDash.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.hasNailArt && !SturdyNail.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked && !MarkofStrength.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.hasDreamGate && !SoulHunger.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.hasDreamNail && !SoulSlow.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !BetterCDash.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.killedHollowKnight && ! HKBlessing.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.hasKingsBrand && ! HealthyShell.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.killedHollowKnightPrime && ! GlassCannon.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.bankerAccountPurchased && ! WealthyAmulet.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.colosseumGoldCompleted && ! RavenousSoul.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.canOvercharm && ! OpportunisticDefeat.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.collectorDefeated && ! SoulSpell.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.grubsCollected > 10 && ! SlowTime.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.statueStateCollector.completedTier2 && ! SpeedTime.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.mageLordDreamDefeated && ! GeoSwitch.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.killedMageLord && ! SoulSwitch.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.nailsmithConvoArt && ! SoulSpeed.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.zotePrecept > 56 && ! ZoteBorn.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.visitedWhitePalace && ! ElderStone.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100 && ! SlyDeal.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.honedNail && ! GiantNail.Instance.Settings(Settings).Got);
+            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && ! MatosBlessing.Instance.Settings(Settings).Got);
+            //give charms when certain things are done.
+            if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.colosseumSilverCompleted) Slowfall.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasShadowDash) PowerfulDash.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasNailArt) SturdyNail.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked) MarkofStrength.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasDreamGate) SoulHunger.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasDreamNail) SoulSlow.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey) BetterCDash.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedHollowKnight) HKBlessing.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasKingsBrand) HealthyShell.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedHollowKnightPrime) GlassCannon.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.bankerAccountPurchased) WealthyAmulet.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.colosseumGoldCompleted) RavenousSoul.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.canOvercharm) OpportunisticDefeat.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.collectorDefeated) SoulSpell.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.grubsCollected > 10) SlowTime.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.statueStateCollector.completedTier2) SpeedTime.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.mageLordDreamDefeated) GeoSwitch.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedMageLord) SoulSwitch.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.nailsmithConvoArt) SoulSpeed.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.zotePrecept > 56) ZoteBorn.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.visitedWhitePalace) ElderStone.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.honedNail) GiantNail.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
+            //end
+            //ik it is messy, but what else is there to do? Also, if u are seeing this code and think that there is a more appropriate time to give the charm, DM me on discord. I am BubkisLord#5187            
         }
 
         public bool ToggleButtonInsideMenu => true;
+        public SaveSettings OnSaveLocal() => Settings;
 
-        private bool optionOne = true;
-        private bool optionTwo = true;
+        public void OnLoadLocal(SaveSettings s) => Settings = s;
 
-        public List<IMenuMod.MenuEntry> GetMenuData(IMenuMod.MenuEntry? toggleButtonEntry)
+        private Menu MenuRef;
+        public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? modtoggledelegates)
         {
-            IMenuMod.MenuEntry e = toggleButtonEntry.Value;
-            IMenuMod.MenuEntry entry = new(e.Name, e.Values, "Toggle all effects of the Fyrenest mod.", e.Saver, e.Loader);
-
-            List<IMenuMod.MenuEntry> menuEntries = new() { entry };
-            {
-                new IMenuMod.MenuEntry
-                {
-                    Name = "Charms Enabled",
-                    Description = "Toggle if charms are enabled.",
-                    Values = new string[] {
-                        "On",
-                        "Off"
-                    },
-                    Saver = opt => this.optionOne = opt switch
-                    {
-                        0 => true,
-                        1 => false,
-                        // This should never be called
-                        _ => throw new InvalidOperationException()
-                    },
-                    Loader = () => this.optionOne switch
-                    {
-                        true => 0,
-                        false => 1,
-                    }
-                };
-                new IMenuMod.MenuEntry {
-                    Name = "Lore Enabled",
-                    Description = "Toggle if custom text is enabled",
-                    Values = new string[] {
-                        "On",
-                        "Off"
-                    },
-                    Saver = opt => this.optionTwo = opt switch {
-                        0 => true,
-                        1 => false,
-                        // This should never be called
-                        _ => throw new InvalidOperationException()
-                    },
-                    Loader = () => this.optionTwo switch {
-                        true => 0,
-                        false => 1,
-                    }
-                };
-            };
-            return menuEntries;
+            MenuRef ??= new Menu(
+                        "CharmMod",
+                        new Element[]
+                        {
+                            new MenuButton("Reset health", "Make health to max health.", (_) => HealthReset()),
+                            new MenuButton("Add health", "Change health by 1.", (_) => AddHealth()),
+                            new MenuButton("Take health", "Change health by -1.", (_) => TakeHealth()),
+                            new MenuButton("Reset Max Health", "Sets max health to 5", (_) => MaxHealthReset()),
+                            new MenuButton("Add Max Health", "Increase max health by one. (Equip and de-equip the slow soul charm to update)", (_) => AddMaxHealth()),
+                            new MenuButton("Take Max Health", "Decrease max health by one. (Equip and de-equip the slow soul charm to update)", (_) => TakeMaxHealth()),
+                            new MenuButton("Reset Soul", "Make soul the max soul amount.", (_) => HeroController.instance.AddMPCharge(PlayerData.instance.MPReserveMax)),
+                            new MenuButton("Add Soul", "Add one charge of soul.", (_) => HeroController.instance.AddMPCharge(33)),
+                            new MenuButton("Take Soul", "Take one charge of soul.", (_) => HeroController.instance.TakeMP(33)),
+                            new MenuButton("Give Specific Charm", "+1 to charm select", (_) => SelectCharm(1)),
+                            new MenuButton("Give Specific Charm", "Pick the charm", (_) => GiveSpecificCharm(charmSelect)),
+                            new MenuButton("Give Charms", "Get all CharmMod charms.", (_) => GrantAllOurCharms()),
+                            new MenuButton("Take Charms", "Take all CharmMod charms.", (_) => TakeAllOurCharms())
+                        }
+            );
+            return MenuRef.GetMenuScreen(modListMenu);
         }
 
         private int charmSelect = 1;
         public string LanguageGet(string key, string sheetTitle, string orig)
         {
-            if (optionTwo)
-            {
                 if (string.IsNullOrEmpty(orig))
                 {
                     return "";
@@ -314,7 +315,7 @@ namespace Fyrenest
 
                 if (key == "HU_DEFEAT" && sheetTitle == "Ghosts")
                 {
-                    return "My mind... it clears. Have we been sleeping? No, I am not speaking to you, little knight. ...I remember... ...those proud lords, were they truly monsters? Their eyes, bright and clear. Why, why did I fear them so? They were going to help... ...it was I who brought the madness... ...No, not I. You, the voice... ...I remember now... ...But finally, you have stopped, you cruel voice... ...Who are you? Whose voice wonders through my mind?...";
+                    return "My mind... it clears. Have we been sleeping?<page>No, I am not speaking to you, little knight.<page>...I remember... ...those proud lords, were they truly monsters? Their eyes, bright and clear. Why, why did I fear them so? They were going to help...<page>...it was I who brought the madness...<page>...No, not I. You, the voice... ...I remember now... ...But finally, you have stopped, you cruel voice...<page>...Who are you? Whose voice wonders through my mind?...<page>...How?...";
                 }
 
                 if (key == "DISTANT_VILLAGE" && sheetTitle == "Map Zones")
@@ -349,12 +350,12 @@ namespace Fyrenest
 
                 if (key == "ELDERBUG_INTRO_VISITEDCROSSROAD" && sheetTitle == "Elderbug")
                 {
-                    return "WHAT WAS THAT? THE ONLY VISITOR FOR YEARS JUST WALKS PAST ME? HOW DARE YOU!";
+                    return "WHAT WAS THAT? THE ONLY VISITOR FOR YEARS JUST WALKS PAST ME?<page>Okay, look. I haven't talked to someone in so long. I just want to talk. Well, consider it forgotten. No point in keeping grudges!";
                 }
 
                 if (key == "ELDERBUG_DREAM" && sheetTitle == "Elderbug")
                 {
-                    return "Hello? Is someone there? Who is that? Aah! What was that? That feeling. ...Like the cold, terrifying embrace of death...";
+                    return "Hello? Is someone there?<page>Who is that? Aah! What was that? That feeling...<page>...Like the cold, terrifying embrace of death...";
                 }
 
                 if (orig.Contains("Hollow Knight"))
@@ -445,7 +446,7 @@ namespace Fyrenest
                 }
                 if (SlyDeal.Instance.Equipped() && sheetTitle == "Iselda")
                 {
-                    return "Ugh... Please, leave.. The smell! I'm sorry, it is really bad.";
+                    return "Ugh... Please, leave.. The smell!<page>Just buy something. Or don't. Please leave the shop.";
                 }
                 if (SlyDeal.Instance.Equipped() && sheetTitle == "Enemy Dreams")
                 {
@@ -453,7 +454,7 @@ namespace Fyrenest
                 }
                 if (SlyDeal.Instance.Equipped() && sheetTitle == "Sly")
                 {
-                    return "I see you are wearing that charm I gave you.. Not near me please.";
+                    return "I see you are wearing that charm I gave you... Not near me please.";
                 }
                 if (SlyDeal.Instance.Equipped() && sheetTitle == "Cornifer")
                 {
@@ -507,7 +508,6 @@ namespace Fyrenest
                 {
                     return "Are you enjoying the bracing air? I doubt you have experienced something like this before, since you are always scrounging around underground, looking for geo like a hermit. Anyway, we are quite close to the borders of Fyrenest, and the desolate plains that surround it. I have heard that these plains make bugs go mad... Seeking escape, only to find lost memories and distant towns. I have heard of a place far away, where our king went when he left us. A place called Hallownest, a distant kingdom never to be found... I had a brother named Cornifer, he left in search of that horrid place... I dread what has happened to him... But, lingering on the past doesn't accomplish anything. I've drawn out a small map for the area, although simple, it is helpful nonetheless. Not knowing the full extents of a region can be quite frustrating.";
                 }
-            }
             return orig;
         }
 

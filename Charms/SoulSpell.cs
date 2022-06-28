@@ -52,11 +52,9 @@ namespace Fyrenest
             }
         }
 
-        private static bool ShamanStoneEquipped() =>
-            PlayerData.instance.GetBool("equippedCharm_19");
+        private static bool ShamanStoneEquipped() => PlayerData.instance.GetBool("equippedCharm_19");
 
-        private static float EnlargementFactor() =>
-            3;
+        private static float EnlargementFactor() => 3;
 
         
         private void EnlargeVengefulSpirit(PlayMakerFSM fsm)
@@ -145,7 +143,7 @@ namespace Fyrenest
             if (Equipped())
             {
                 var vec = obj.transform.localScale;
-                obj.transform.localScale = new Vector3(vec.x * EnlargementFactor(), vec.y, vec.z);
+                obj.transform.localScale = new Vector3(vec.x * EnlargementFactor(), vec.y * EnlargementFactor(), vec.z);
             }
         }
 
