@@ -160,6 +160,7 @@ namespace Fyrenest
             ModHooks.LanguageGetHook += LanguageGet;
             On.UIManager.UIGoToPauseMenu += OnPause;
             On.UIManager.UIClosePauseMenu += OnUnPause;
+            On.GameManager.SaveGame += OnSave;
 
             StartTicking();
 
@@ -215,36 +216,36 @@ namespace Fyrenest
             {
                 charm.Settings(Settings).Cost = charm.DefaultCost;
             }
-            if (PlayerData.instance.colosseumBronzeCompleted && !Quickfall.Instance.Settings(Settings).Got)
-            {
-                BoxObject = gameObject.LocateMyFSM("Conversation Control").GetState("Repeat").GetAction<CallMethodProper>(0).gameObject.GameObject.Value;
-                DBox = BoxObject.GetOrAddComponent<DialogueBox>();
-                DBox.StartConversation(key, sheet); ;
-            }
-            if (PlayerData.instance.colosseumSilverCompleted && !Slowfall.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.hasShadowDash && ! PowerfulDash.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.hasNailArt && !SturdyNail.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked && !MarkofStrength.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.hasDreamGate && !SoulHunger.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.hasDreamNail && !SoulSlow.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !BetterCDash.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.killedHollowKnight && ! HKBlessing.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.hasKingsBrand && ! HealthyShell.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.killedHollowKnightPrime && ! GlassCannon.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.bankerAccountPurchased && ! WealthyAmulet.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.colosseumGoldCompleted && ! RavenousSoul.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.canOvercharm && ! OpportunisticDefeat.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.collectorDefeated && ! SoulSpell.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.grubsCollected > 10 && ! SlowTime.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.statueStateCollector.completedTier2 && ! SpeedTime.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.mageLordDreamDefeated && ! GeoSwitch.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.killedMageLord && ! SoulSwitch.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.nailsmithConvoArt && ! SoulSpeed.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.zotePrecept > 56 && ! ZoteBorn.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.visitedWhitePalace && ! ElderStone.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100 && ! SlyDeal.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.honedNail && ! GiantNail.Instance.Settings(Settings).Got);
-            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && ! MatosBlessing.Instance.Settings(Settings).Got);
+        }
+        private void OnSave(On.GameManager.orig_SaveGame orig, GameManager self)
+        {
+            if (PlayerData.instance.colosseumBronzeCompleted && !Quickfall.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("Quickfall.png"), "Gained Charm");
+            if (PlayerData.instance.colosseumSilverCompleted && !Slowfall.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("Slowfall.png"), "Gained Charm");
+            if (PlayerData.instance.hasShadowDash && !PowerfulDash.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("PowerfulDash.png"), "Gained Charm");
+            if (PlayerData.instance.hasNailArt && !SturdyNail.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SturdyNail.png"), "Gained Charm");
+            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked && !MarkofStrength.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("MarkofStrength.png"), "Gained Charm");
+            if (PlayerData.instance.hasDreamGate && !SoulHunger.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SoulHunger.png"), "Gained Charm");
+            if (PlayerData.instance.hasDreamNail && !SoulSlow.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SoulSlow.png"), "Gained Charm");
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !BetterCDash.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("BetterCDash.png"), "Gained Charm");
+            if (PlayerData.instance.killedHollowKnight && !HKBlessing.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("HKBlessing.png"), "Gained Charm");
+            if (PlayerData.instance.hasKingsBrand && !HealthyShell.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("HealthyShell.png"), "Gained Charm");
+            if (PlayerData.instance.killedHollowKnightPrime && !GlassCannon.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("GlassCannon.png"), "Gained Charm");
+            if (PlayerData.instance.bankerAccountPurchased && !WealthyAmulet.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("WealthyAmulet.png"), "Gained Charm");
+            if (PlayerData.instance.colosseumGoldCompleted && !RavenousSoul.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("RavenousSoul.png"), "Gained Charm");
+            if (PlayerData.instance.canOvercharm && !OpportunisticDefeat.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("OpportunisticDefeat.png"), "Gained Charm");
+            if (PlayerData.instance.collectorDefeated && !SoulSpell.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SoulSpell.png"), "Gained Charm");
+            if (PlayerData.instance.grubsCollected > 10 && !SlowTime.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SlowTime.png"), "Gained Charm");
+            if (PlayerData.instance.statueStateCollector.completedTier2 && !SpeedTime.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SpeedTime.png"), "Gained Charm");
+            if (PlayerData.instance.mageLordDreamDefeated && !GeoSwitch.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("GeoSwitch.png"), "Gained Charm");
+            if (PlayerData.instance.killedMageLord && !SoulSwitch.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SoulSwitch.png"), "Gained Charm");
+            if (PlayerData.instance.nailsmithConvoArt && !SoulSpeed.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SoulSpeed.png"), "Gained Charm");
+            if (PlayerData.instance.zotePrecept > 56 && !ZoteBorn.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("ZoteBorn.png"), "Gained Charm");
+            if (PlayerData.instance.visitedWhitePalace && !ElderStone.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("Elderstone.png"), "Gained Charm");
+            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100 && !SlyDeal.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("SlyDeal.png"), "Gained Charm");
+            if (PlayerData.instance.honedNail && !GiantNail.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("GiantNail.png"), "Gained Charm");
+            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && !MatosBlessing.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("MatosBlessing.png"), "Gained Charm");
+
+
             //give charms when certain things are done.
             if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
             if (PlayerData.instance.colosseumSilverCompleted) Slowfall.Instance.Settings(Settings).Got = true;
@@ -273,6 +274,7 @@ namespace Fyrenest
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
             //end
             //ik it is messy, but what else is there to do? Also, if u are seeing this code and think that there is a more appropriate time to give the charm, DM me on discord. I am BubkisLord#5187            
+            orig(self);
         }
 
         public bool ToggleButtonInsideMenu => true;
@@ -296,13 +298,23 @@ namespace Fyrenest
                             new MenuButton("Reset Soul", "Make soul the max soul amount.", (_) => HeroController.instance.AddMPCharge(PlayerData.instance.MPReserveMax)),
                             new MenuButton("Add Soul", "Add one charge of soul.", (_) => HeroController.instance.AddMPCharge(33)),
                             new MenuButton("Take Soul", "Take one charge of soul.", (_) => HeroController.instance.TakeMP(33)),
-                            new MenuButton("Give Specific Charm", "+1 to charm select", (_) => SelectCharm(1)),
-                            new MenuButton("Give Specific Charm", "Pick the charm", (_) => GiveSpecificCharm(charmSelect)),
+                            new MenuButton("Give Specific Charm", Charms[charmSelect].ToString().Replace(".Instance", "").Insert(0, "Selected "), (_) => SelectCharm(1)),
+                            new MenuButton("Give Specific Charm", "Add the charm to your inventory.", (_) => GiveSpecificCharm(charmSelect)),
                             new MenuButton("Give Charms", "Get all CharmMod charms.", (_) => GrantAllOurCharms()),
-                            new MenuButton("Take Charms", "Take all CharmMod charms.", (_) => TakeAllOurCharms())
+                            new MenuButton("Take Charms", "Take all CharmMod charms.", (_) => TakeAllOurCharms()),
+                            new MenuButton("Update Charms", "Reloads charm effects.", (_) => ReloadCharmEffects()),
                         }
             );
             return MenuRef.GetMenuScreen(modListMenu);
+        }
+
+        private void ReloadCharmEffects()
+        {
+            HeroController.instance.CharmUpdate();
+            GameManager.instance.UpdateBlueHealth();
+            GameManager.instance.SaveGame();
+            GameManager.instance.ContinueGame();
+            return;
         }
 
         private int charmSelect = 1;

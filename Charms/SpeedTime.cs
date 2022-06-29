@@ -26,19 +26,24 @@ namespace Fyrenest
 
         public static void SpeedUpTime(PlayerData data, HeroController controller)
         {
-            if (SpeedTime.Instance.Equipped() && !SlowTime.Instance.Equipped())
+            if (SpeedTime.Instance.Equipped() && !SlowTime.Instance.Equipped() && !GameManager.instance.isPaused)
             {
                 float num3 = 1.40f;
                 Time.timeScale = num3;
             }
-            if (SpeedTime.Instance.Equipped() && SlowTime.Instance.Equipped())
+            if (SpeedTime.Instance.Equipped() && SlowTime.Instance.Equipped() && !GameManager.instance.isPaused)
             {
                 float num3 = 1.00f;
                 Time.timeScale = num3;
             }
-            if (!SpeedTime.Instance.Equipped() && !SlowTime.Instance.Equipped())
+            if (!SpeedTime.Instance.Equipped() && !SlowTime.Instance.Equipped() && !GameManager.instance.isPaused)
             {
                 float num3 = 1.00f;
+                Time.timeScale = num3;
+            }
+            if (GameManager.instance.isPaused)
+            {
+                float num3 = 0.0f;
                 Time.timeScale = num3;
             }
         }

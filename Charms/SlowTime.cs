@@ -22,7 +22,7 @@ namespace Fyrenest
 
         public static void SlowDownTime(PlayerData data, HeroController controller)
         {
-            if (SlowTime.Instance.Equipped() && !SpeedTime.Instance.Equipped())
+            if (SlowTime.Instance.Equipped() && !SpeedTime.Instance.Equipped() && !GameManager.instance.isPaused)
             {
                 float num3 = 0.60f;
                 Time.timeScale = num3;
