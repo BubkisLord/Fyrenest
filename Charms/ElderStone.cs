@@ -22,26 +22,21 @@ namespace Fyrenest
             ModHooks.HeroUpdateHook += ChangeGravity;
             ModHooks.TakeHealthHook += OnHit;
         }
-
-        int EscapeDamage = 0;
-
+        private int EscapeDamage = 0;
         private int OnHit(int damage)
         {
-            if (Equipped())
+            EscapeDamage += damage;
+            dmgcheck:
+            if (Equipped() && EscapeDamage < 5)
             {
-                if (EscapeDamage == 4)
+                EscapeDamage += damage;
+                damage -= 1;
+                if (EscapeDamage > 5)
                 {
-                    return damage;
-                }
-                else
-                {
-                    EscapeDamage += 1;
-                    damage = 0;
-                    return damage;
+                    goto dmgcheck;
                 }
             }
-            else
-                return damage;
+            return damage;
         }
 
         private void ChangeGravity()

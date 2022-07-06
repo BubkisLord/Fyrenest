@@ -227,3 +227,5 @@ C:\Users\oldfi\CharmMod\bin\Debug\net472\RandomizerCore.xml
 C:\Users\oldfi\CharmMod\obj\Debug\net472\CharmMod.csproj.CopyComplete
 C:\Users\oldfi\CharmMod\obj\Debug\net472\Fyrenest.dll
 C:\Users\oldfi\CharmMod\obj\Debug\net472\Fyrenest.pdb
+C:\Users\oldfi\CharmMod\bin\Debug\net472\Transcendence.dll
+C:\Users\oldfi\CharmMod\bin\Debug\net472\Transcendence.pdb

@@ -21,29 +21,44 @@ namespace Fyrenest
 
         public override void Hook()
         {
-            ModHooks.CharmUpdateHook += ChangeGravity;
+            ModHooks.HeroUpdateHook += ChangeGravity;
         }
 
-        private void ChangeGravity(PlayerData playerData, HeroController hero)
+        private void ChangeGravity()
         {
             if (HeroController.instance == null)
             {
                 return;
             }
             var rb = HeroController.instance.gameObject.GetComponent<Rigidbody2D>();
-            // Gravity gets set to 0 during transitions; we must not mess with that or
-            // the game will hardlock bouncing back and forth between two rooms when
-            // passing through a horizontal transition.
+            // Gravity gets set to 0 for a reason, so im not going to change it...
             if (rb.gravityScale == 0)
             {
                 return;
             }
-            // Keep normal gravity after going through upwards transitions, so that the player does not fall
-            // through spikes in some rooms before they gain control.
-            if(Equipped() && !Slowfall.Instance.Equipped()) rb.gravityScale =  4.4f;
-            if(Equipped() && Slowfall.Instance.Equipped()) rb.gravityScale =  0.79f;
-            if(!Equipped() && Slowfall.Instance.Equipped()) rb.gravityScale =  0.25f;
-            if(!Equipped() && !Slowfall.Instance.Equipped()) rb.gravityScale =  0.79f;
+            //decide what gravity it should be.
+            if (Equipped())
+            {
+                if (Slowfall.Instance.Equipped())
+                {
+                    rb.gravityScale = 0.79f;
+                }
+                else
+                {
+                    rb.gravityScale = 1.4f;
+                }
+            }
+            else
+            {
+                if (Slowfall.Instance.Equipped())
+                {
+                    rb.gravityScale = 0.35f;
+                }
+                else
+                {
+                    rb.gravityScale = 0.79f;
+                }
+            }
             return;
         }
     }

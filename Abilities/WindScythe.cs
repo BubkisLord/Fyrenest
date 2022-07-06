@@ -29,6 +29,11 @@ namespace Fyrenest {
                 scythePreload.transform.SetScaleX(3f);
                 scythePreload.transform.SetScaleY(3f);
             }
+            else
+            {
+                scythePreload.transform.SetScaleX(2f);
+                scythePreload.transform.SetScaleY(2f);
+            }
         }
 
         public void Perform()

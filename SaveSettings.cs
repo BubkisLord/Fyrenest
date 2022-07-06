@@ -28,5 +28,7 @@ namespace Fyrenest
         public CharmSettings GiantNail = new();
         public CharmSettings SoulDisciple = new();
         public CharmSettings DefendersMark = new();
+        public CharmSettings ShellShield = new();
+        public CharmSettings VoidSoul = new();
     }
 }

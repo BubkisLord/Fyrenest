@@ -1,4 +1,4 @@
-global using HutongGames.PlayMaker;
+using HutongGames.PlayMaker;
 
 namespace Fyrenest
 {
@@ -35,6 +35,11 @@ namespace Fyrenest
         internal static void AddAction(this FsmState s, Action a)
         {
             SpliceAction(s, s.Actions.Length, a);
+        }
+
+        internal static void AppendAction(this FsmState s, Action a)
+        {
+            AddAction(s, a);
         }
 
         internal static void SpliceAction(this FsmState s, int pos, Action a)
@@ -77,6 +82,11 @@ namespace Fyrenest
         internal static FsmInt GetFsmInt(this PlayMakerFSM fsm, string name)
         {
             return fsm.FsmVariables.IntVariables.FirstOrDefault(v => v.Name == name);
+        }
+
+        internal static FsmBool GetFsmBool(this PlayMakerFSM fsm, string name)
+        {
+            return fsm.FsmVariables.BoolVariables.FirstOrDefault(v => v.Name == name);
         }
     }
 }

@@ -1,3 +1,7 @@
+global using HutongGames.PlayMaker;
+global using HutongGames;
+global using HutongGames.Extensions;
+global using HutongGames.Utility;
 using Satchel;
 
 namespace Fyrenest
@@ -19,10 +23,10 @@ namespace Fyrenest
 
         public override void Hook()
         {
-            ModHooks.CharmUpdateHook += UpdateTriggers;
+            ModHooks.HeroUpdateHook += UpdateTriggers;
         }
 
-        public void UpdateTriggers(PlayerData data, HeroController controller)
+        public void UpdateTriggers()
         {
             if (Equipped())
             {

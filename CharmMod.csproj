@@ -40,6 +40,9 @@
 		</GetFileHash>
 	</Target>
 	<ItemGroup>
+		<Reference Include="Transcendence">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Transcendence/Transcendence.dll</HintPath>
+		</Reference>
 		<Reference Include="Satchel">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Satchel/Satchel.dll</HintPath>
 		</Reference>
