@@ -21,21 +21,12 @@ namespace Fyrenest
 
         public override void Hook()
         {
-            ModHooks.HeroUpdateHook += ChangeGravity;
+            ModHooks.CharmUpdateHook += ChangeGravity;
         }
 
-        private void ChangeGravity()
+        private void ChangeGravity(PlayerData data, HeroController hero)
         {
-            if (HeroController.instance == null)
-            {
-                return;
-            }
-            var rb = HeroController.instance.gameObject.GetComponent<Rigidbody2D>();
-            // Gravity gets set to 0 for a reason, so im not going to change it...
-            if (rb.gravityScale == 0)
-            {
-                return;
-            }
+            var rb = hero.gameObject.GetComponent<Rigidbody2D>();
             //decide what gravity it should be.
             if (Equipped())
             {

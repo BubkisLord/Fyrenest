@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj": {}
+    "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj": {
+    "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj",
+        "projectUniqueName": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj",
         "projectName": "Fyrenest",
-        "projectPath": "C:\\Users\\oldfi\\CharmMod\\CharmMod.csproj",
+        "projectPath": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj",
         "packagesPath": "C:\\Users\\oldfi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oldfi\\CharmMod\\obj\\",
+        "outputPath": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\oldfi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,7 +43,7 @@
       "frameworks": {
         "net472": {
           "targetAlias": "net472",
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

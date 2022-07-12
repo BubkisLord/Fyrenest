@@ -25,8 +25,9 @@ namespace Fyrenest
         {
             if (Equipped())
             {
-                if (!HeroController.instance.cState.downAttacking)
+                if (!HeroController.instance.cState.upAttacking && !HeroController.instance.cState.downAttacking)
                 {
+                    //left or right attack
                     slash.transform.SetScaleY(2);
                     if (PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleX(5);
                     if (!PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleX(4);
@@ -38,21 +39,23 @@ namespace Fyrenest
                 else
                 {
                     slash.transform.SetScaleX(2);
-                    if (!HeroController.instance.cState.upAttacking)
+                    if (HeroController.instance.cState.downAttacking)
                     {
-                        if (PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(5);
-                        if (!PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(4);
-                        if (PlayerData.instance.equippedCharm_13 && !PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(3);
-                        if (!PlayerData.instance.equippedCharm_13 && !PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(2);
-                    }
-                    else
-                    {
+                        //downattack
                         if (PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(5);
                         if (!PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(4);
                         if (PlayerData.instance.equippedCharm_13 && !PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(3);
                         if (!PlayerData.instance.equippedCharm_13 && !PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(2);
                         float endingYPos = HeroController.instance.transform.GetPositionY() + 0.6f;
                         if (Equipped()) HeroController.instance.transform.SetPositionY(endingYPos);
+                    }
+                    else
+                    {
+                        //up attack
+                        if (PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(5);
+                        if (!PlayerData.instance.equippedCharm_13 && PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(4);
+                        if (PlayerData.instance.equippedCharm_13 && !PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(3);
+                        if (!PlayerData.instance.equippedCharm_13 && !PlayerData.instance.equippedCharm_18) slash.transform.SetScaleY(2);
                     }
                 }
             }
