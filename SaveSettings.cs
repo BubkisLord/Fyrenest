@@ -30,5 +30,6 @@ namespace Fyrenest
         public CharmSettings DefendersMark = new();
         public CharmSettings ShellShield = new();
         public CharmSettings VoidSoul = new();
+        public CharmSettings BlueBlood = new();
     }
 }

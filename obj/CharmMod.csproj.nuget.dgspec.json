@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj": {}
+    "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\CharmMod.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj": {
+    "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\CharmMod.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj",
+        "projectUniqueName": "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\CharmMod.csproj",
         "projectName": "Fyrenest",
-        "projectPath": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj",
+        "projectPath": "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\CharmMod.csproj",
         "packagesPath": "C:\\Users\\oldfi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\obj\\",
+        "outputPath": "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

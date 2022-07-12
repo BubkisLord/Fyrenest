@@ -18,9 +18,9 @@ namespace Fyrenest
 
         public override void Hook()
         {
-            ModHooks.BeforeAddHealthHook += OnHeal;
+            On.HeroController.AddHealth += OnHeal;
         }
-        private int OnHeal(int damage)
+        private void OnHeal(On.HeroController.orig_AddHealth orig, HeroController hero, int amount)
         {
             if (Equipped())
             {
@@ -30,18 +30,16 @@ namespace Fyrenest
                     {
                         if (PlayerData.instance.equippedCharm_9)
                         {
-                            if (PlayerData.instance.healthBlue !>= 6)
+                            if (PlayerData.instance.healthBlue < 6)
                             {
-                                PlayerData.instance.healthBlue += 1;
-                                PlayerData.instance.UpdateBlueHealth();
+                                EventRegister.SendEvent("ADD BLUE HEALTH");
                             }
                         }
                         else
                         {
-                            if (PlayerData.instance.healthBlue !>= 2)
+                            if (PlayerData.instance.healthBlue < 2)
                             {
-                                PlayerData.instance.healthBlue += 1;
-                                PlayerData.instance.UpdateBlueHealth();
+                                EventRegister.SendEvent("ADD BLUE HEALTH");
                             }
                         }
                     }
@@ -49,16 +47,15 @@ namespace Fyrenest
                     {
                         if (PlayerData.instance.equippedCharm_9)
                         {
-                            if (PlayerData.instance.healthBlue !>= 4)
+                            if (PlayerData.instance.healthBlue < 4)
                             {
-                                PlayerData.instance.healthBlue += 1;
-                                PlayerData.instance.UpdateBlueHealth();
+                                EventRegister.SendEvent("ADD BLUE HEALTH");
                             }
                         }
                     }
                 }
             }
-            return damage;
+            orig(hero, amount);
         }
     }
 }

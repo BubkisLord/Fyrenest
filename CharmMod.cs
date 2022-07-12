@@ -37,7 +37,7 @@ namespace Fyrenest
             HKBlessing.Instance,
             MarkofStrength.Instance,
             PowerfulDash.Instance,
-            HealthyShell.Instance,
+            //put something here
             OpportunisticDefeat.Instance,
             SoulSpeed.Instance,
             SoulSpell.Instance,
@@ -54,10 +54,11 @@ namespace Fyrenest
             ElderStone.Instance,
             GiantNail.Instance,
             MatosBlessing.Instance,
+            HealthyShell.Instance,
+            BlueBlood.Instance,
             ShellShield.Instance,
             VoidSoul.Instance
         };
-
         public int NewCharms = Charms.Count; //STARTS AT 1
         public int OldCharms = 40; //STARTS AT 1
         
@@ -225,6 +226,8 @@ namespace Fyrenest
             public bool MatosBlessingGot = false;
             public bool ShellShieldGot = false;
             public bool VoidSoulGot = false;
+            public bool BlueBloodGot = false;
+
 
             public bool QuickfallDonePopup = false;
             public bool SlowfallDonePopup = false;
@@ -253,6 +256,7 @@ namespace Fyrenest
             public bool MatosBlessingDonePopup = false;
             public bool ShellShieldDonePopup = false;
             public bool VoidSoulDonePopup = false;
+            public bool BlueBloodDonePopup = false;
         }
 
         private void TransitionSet()
@@ -289,13 +293,50 @@ namespace Fyrenest
         }
         private void OnUpdate()
         {
+            if (insanity)
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    PlayerData.instance.SetInt($"charmCost_{i}", 0);
+                }
+            }
+            //give charms when certain things are done.
+            if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.colosseumSilverCompleted) Slowfall.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasShadowDash) PowerfulDash.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasNailArt) SturdyNail.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked) MarkofStrength.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasDreamGate) SoulHunger.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasDreamNail) SoulSlow.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey) BetterCDash.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedHollowKnight) HKBlessing.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasKingsBrand) HealthyShell.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedHollowKnightPrime) GlassCannon.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.bankerAccountPurchased) WealthyAmulet.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.colosseumGoldCompleted) RavenousSoul.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.canOvercharm) OpportunisticDefeat.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.collectorDefeated) SoulSpell.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.grubsCollected > 10) SlowTime.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.statueStateCollector.completedTier2) SpeedTime.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.mageLordDreamDefeated) GeoSwitch.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedMageLord) SoulSwitch.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.nailsmithConvoArt) SoulSpeed.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.zotePrecept > 56) ZoteBorn.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.visitedWhitePalace) ElderStone.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.honedNail) GiantNail.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
+
             if (PlayerData.instance.maxHealth < 1)
             {
                 HeroController.instance.AddToMaxHealth(1);
             }
-            foreach (Charm charm in Fyrenest.Charms)
+            foreach (Charm charm in Charms)
             {
-                charm.Settings(Settings).Cost = charm.DefaultCost;
+                if (!insanity)
+                    charm.Settings(Settings).Cost = charm.DefaultCost;
+                else
+                    charm.Settings(Settings).Cost = 0;
             }
             AchievementHelper.AddAchievement("voidsoulachievement", EmbeddedSprites.Get("VoidSoulAchievement.png"), "Soul of Void", "Gain and wear the Void Soul charm.", false);
             if (VoidSoul.Instance.Equipped() && VoidSoul.Instance.Settings(Settings).Got) GameManager.instance.AwardAchievement("voidsoulachievement");
@@ -331,36 +372,10 @@ namespace Fyrenest
             if (!LocalSaveData.ShellShieldGot && ShellShield.Instance.Settings(Settings).Got) LocalSaveData.ShellShieldGot = true;
         }
 
+        public bool insanity = false;
         private void OnSave(On.GameManager.orig_SaveGame orig, GameManager self)
         {
             CheckCharmPopup();
-
-            //give charms when certain things are done.
-            if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.colosseumSilverCompleted) Slowfall.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasShadowDash) PowerfulDash.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasNailArt) SturdyNail.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked) MarkofStrength.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasDreamGate) SoulHunger.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasDreamNail) SoulSlow.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey) BetterCDash.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.killedHollowKnight) HKBlessing.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasKingsBrand) HealthyShell.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.killedHollowKnightPrime) GlassCannon.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.bankerAccountPurchased) WealthyAmulet.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.colosseumGoldCompleted) RavenousSoul.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.canOvercharm) OpportunisticDefeat.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.collectorDefeated) SoulSpell.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.grubsCollected > 10) SlowTime.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.statueStateCollector.completedTier2) SpeedTime.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.mageLordDreamDefeated) GeoSwitch.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.killedMageLord) SoulSwitch.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.nailsmithConvoArt) SoulSpeed.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.zotePrecept > 56) ZoteBorn.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.visitedWhitePalace) ElderStone.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.honedNail) GiantNail.Instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
             orig(self);
         }
 
@@ -369,6 +384,7 @@ namespace Fyrenest
         public string selectedCharm = Charms[charmSelect].ToString().Replace("Fyrenest.", "").Replace(".Instance", "");
         public void OnLoadLocal(SaveSettings s) => Settings = s;
 
+        //UNUSED
         public static int ModToggle = 0;
 
         private Menu MenuRef;
@@ -406,6 +422,7 @@ namespace Fyrenest
                                         string desc = "Current selected charm: "+charmNameSelected; //set desc to the new wanted description
                                         buttonElem.Description = desc; //change description
                                         buttonElem.Update();//Update button
+                                        MenuRef.Update();
 
                                         SelectCharm(1); //trigger normal function
                                     }, false, Id:"SelectSpecificCharm"),
@@ -422,8 +439,8 @@ namespace Fyrenest
                 "Extra Fyrenest Settings",
                 new Element[]
                 {
-                    new TextPanel("Mod Settings",1000, 100, Id:"ModToggleTitle"),
-                    new HorizontalOption( "Toggle Mod", "Toggle the mod on and off.", new string[]{ "On", "Off"}, (setting) => { ModToggle = setting; if(setting == 0) { MenuRef?.Find("Option1Text")?.Show(); MenuRef?.Find("Option1Text")?.Update();  MenuRef?.Find("Option2Text")?.Hide(); MenuRef?.Find("Option2Text")?.Update();} else { MenuRef?.Find("Option1Text")?.Hide(); MenuRef?.Find("Option1Text")?.Update(); MenuRef?.Find("Option2Text")?.Show(); MenuRef?.Find("Option2Text")?.Update(); }}, () => ModToggle),
+                    new TextPanel("Extra Mod Settings",1000, 100, Id:"ModToggleTitle"),
+                    new HorizontalOption( "Insanity Mode", "Toggle insanity mode.", new string[]{ "INSANITY", "Normal"}, (setting) => { ModToggle = setting; if(setting == 0) { insanity = true; } else { insanity = false; } }, () => ModToggle),
                     new MenuButton("Back button", "Go back to main page.", (_) => UIManager.instance.UIGoToDynamicMenu(MenuRef.menuScreen)),
                 }
             );
@@ -432,7 +449,7 @@ namespace Fyrenest
 
             return MenuRef.menuScreen;
         }
-
+        
         private void ReloadCharmEffects()
         {
             HeroController.instance.CharmUpdate();
