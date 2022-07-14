@@ -16,7 +16,7 @@ namespace Fyrenest
 {
     public class Fyrenest : Mod, IMod, ICustomMenuMod, ILocalSettings<CustomLocalSaveData>, ITogglableMod
     {
-        //Note, for the ModToggle variable, '0' is on, and '1' is off.
+        //Note, for the ModToggle variable, it is now unused.
 
         public static int charmSelect = 0;
         public static Fyrenest LoadedInstance { get; set; }

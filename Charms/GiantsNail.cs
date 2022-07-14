@@ -1,5 +1,3 @@
-using Modding;
-
 namespace Fyrenest
 {
     internal class GiantNail : Charm
