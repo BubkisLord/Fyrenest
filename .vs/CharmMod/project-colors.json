@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9e1ca760-6e27-416f-b2fd-f286e9fb55a5": {
+      "ProjectGuid": "9e1ca760-6e27-416f-b2fd-f286e9fb55a5",
+      "DisplayName": "CharmMod",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
