@@ -37,7 +37,7 @@ namespace Fyrenest
             HKBlessing.Instance,
             MarkofStrength.Instance,
             PowerfulDash.Instance,
-            //put something here
+            Fyrechild.Instance,
             OpportunisticDefeat.Instance,
             SoulSpeed.Instance,
             SoulSpell.Instance,
@@ -57,8 +57,11 @@ namespace Fyrenest
             HealthyShell.Instance,
             BlueBlood.Instance,
             ShellShield.Instance,
+            WyrmForm.Instance,
+            TripleJump.Instance,
             VoidSoul.Instance
         };
+
         public int NewCharms = Charms.Count; //STARTS AT 1
         public int OldCharms = 40; //STARTS AT 1
         
@@ -273,7 +276,6 @@ namespace Fyrenest
         {
             HeroController.instance.RegainControl();
             Time.timeScale = 1.0f;
-            HeroController.instance.CharmUpdate();
             orig(self);
         }
 
@@ -326,7 +328,7 @@ namespace Fyrenest
             if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.Instance.Settings(Settings).Got = true;
             if (PlayerData.instance.honedNail) GiantNail.Instance.Settings(Settings).Got = true;
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
-
+            PowerfulDash.Instance.Settings(Settings).Cost = 10;
             if (PlayerData.instance.maxHealth < 1)
             {
                 HeroController.instance.AddToMaxHealth(1);
@@ -653,7 +655,16 @@ namespace Fyrenest
             }
             if (SlyDeal.Instance.Equipped() && sheetTitle == "Prices")
             {
-                return "120";
+                orig.Replace("2", "1");
+                orig.Replace("3", "2");
+                orig.Replace("4", "2");
+                orig.Replace("5", "3");
+                orig.Replace("6", "3");
+                orig.Replace("7", "4");
+                orig.Replace("8", "4");
+                orig.Replace("8", "4");
+                orig.Replace("9", "5");
+                return orig;
             }
             if (ZoteBorn.Instance.Equipped() && sheetTitle == "Prices")
             {
