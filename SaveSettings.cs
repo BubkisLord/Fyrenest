@@ -95,6 +95,10 @@ namespace Fyrenest
 
 		public CharmSettings WyrmForm = new CharmSettings();
 
-		public CharmSettings TripleJump = new CharmSettings();
-	}
+        public CharmSettings TripleJump = new CharmSettings();
+
+        public CharmSettings Slowjump = new CharmSettings();
+        
+		public CharmSettings Quickjump = new CharmSettings();
+    }
 }

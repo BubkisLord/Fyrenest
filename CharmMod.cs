@@ -30,7 +30,9 @@ namespace Fyrenest
         private readonly static List<Charm> Charms = new()
         {
             Quickfall.Instance,
+            Quickjump.Instance,
             Slowfall.Instance,
+            Slowjump.Instance,
             SturdyNail.Instance,
             BetterCDash.Instance,
             GlassCannon.Instance,
@@ -101,6 +103,7 @@ namespace Fyrenest
                 Log($"Registered ability {ability.Name}!");
             }
         }
+
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
             if (Fyrenest.LoadedInstance != null) return;
@@ -230,6 +233,8 @@ namespace Fyrenest
             public bool ShellShieldGot = false;
             public bool VoidSoulGot = false;
             public bool BlueBloodGot = false;
+            public bool SlowjumpGot = false;
+            public bool QuickjumpGot = false;
 
 
             public bool QuickfallDonePopup = false;
@@ -260,6 +265,8 @@ namespace Fyrenest
             public bool ShellShieldDonePopup = false;
             public bool VoidSoulDonePopup = false;
             public bool BlueBloodDonePopup = false;
+            public bool QuickjumpDonePopup = false;
+            public bool SlowjumpDonePopup = false;
         }
 
         private void TransitionSet()
@@ -328,6 +335,9 @@ namespace Fyrenest
             if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.Instance.Settings(Settings).Got = true;
             if (PlayerData.instance.honedNail) GiantNail.Instance.Settings(Settings).Got = true;
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey) Quickjump.Instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20) Slowjump.Instance.Settings(Settings).Got = true;
+
             PowerfulDash.Instance.Settings(Settings).Cost = 10;
             if (PlayerData.instance.maxHealth < 1)
             {
@@ -372,6 +382,8 @@ namespace Fyrenest
             if (!LocalSaveData.GiantNailGot && GiantNail.Instance.Settings(Settings).Got) LocalSaveData.GiantNailGot = true;
             if (!LocalSaveData.MatosBlessingGot && MatosBlessing.Instance.Settings(Settings).Got) LocalSaveData.MatosBlessingGot = true;
             if (!LocalSaveData.ShellShieldGot && ShellShield.Instance.Settings(Settings).Got) LocalSaveData.ShellShieldGot = true;
+            if (!LocalSaveData.QuickjumpGot && ShellShield.Instance.Settings(Settings).Got) LocalSaveData.QuickjumpGot = true;
+            if (!LocalSaveData.SlowjumpGot && ShellShield.Instance.Settings(Settings).Got) LocalSaveData.SlowjumpGot = true;
         }
 
         public bool insanity = false;
@@ -959,6 +971,10 @@ namespace Fyrenest
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && !LocalSaveData.MatosBlessingDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("MatosBlessing.png"), "Gained Charm"); LocalSaveData.MatosBlessingDonePopup = true;
             if (PlayerData.instance.honedNail && !LocalSaveData.ShellShieldDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("ShellShield.png"), "Gained Charm"); LocalSaveData.ShellShieldDonePopup = true;
             if (PlayerData.instance.honedNail && !LocalSaveData.VoidSoulDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("VoidSoulPopup.png"), "Gained Charm"); LocalSaveData.VoidSoulDonePopup = true;
+
+            // make it buy from salubra
+            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
+            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
         }
 
         public override string GetVersion() => Assembly.GetExecutingAssembly().GetName().Version.ToString();

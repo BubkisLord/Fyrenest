@@ -1,3 +1,5 @@
+using GlobalEnums;
+
 namespace Fyrenest
 {
     internal class ElderStone : Charm
@@ -21,8 +23,10 @@ namespace Fyrenest
             On.HeroController.Move += SpeedUp;
             ModHooks.HeroUpdateHook += ChangeGravity;
             ModHooks.TakeHealthHook += OnHit;
+            On.HeroController.ShouldHardLand += FallSoftly;
         }
         private int EscapeDamage = 0;
+
         private int OnHit(int damage)
         {
             EscapeDamage += damage;
@@ -37,6 +41,19 @@ namespace Fyrenest
                 }
             }
             return damage;
+        }
+        private static readonly HashSet<string> InventoryClosedStates = new()
+        {
+            "Init",
+            "Init Enemy List",
+            "Closed",
+            "Can Open Inventory?"
+        };
+
+        private static bool InInventory()
+        {
+            var invState = GameManager.instance?.inventoryFSM?.Fsm.ActiveStateName;
+            return invState != null && !InventoryClosedStates.Contains(invState);
         }
 
         private void ChangeGravity()
@@ -55,8 +72,11 @@ namespace Fyrenest
             }
             // Keep normal gravity after going through upwards transitions, so that the player does not fall
             // through spikes in some rooms before they gain control.
-            rb.gravityScale = (Equipped() && HeroController.instance.transitionState == GlobalEnums.HeroTransitionState.WAITING_TO_TRANSITION) ? 0.9f : 0.79f;
+            rb.gravityScale = (Equipped() && !InInventory() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION) ? 0.3f : 0.79f;
         }
+
+        private bool FallSoftly(On.HeroController.orig_ShouldHardLand orig, HeroController self, Collision2D collision) =>
+            orig(self, collision) && !Equipped();
 
         private void SpeedUp(On.HeroController.orig_Move orig, HeroController self, float speed)
         {

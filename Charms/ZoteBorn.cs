@@ -1,3 +1,5 @@
+using GlobalEnums;
+
 namespace Fyrenest
 {
     internal class ZoteBorn : Charm
@@ -21,14 +23,21 @@ namespace Fyrenest
             On.HeroController.Move += SpeedUp;
             ModHooks.HeroUpdateHook += ChangeGravity;
         }
+        private static readonly HashSet<string> InventoryClosedStates = new()
+        {
+            "Init",
+            "Init Enemy List",
+            "Closed",
+            "Can Open Inventory?"
+        };
 
+        private static bool InInventory()
+        {
+            var invState = GameManager.instance?.inventoryFSM?.Fsm.ActiveStateName;
+            return invState != null && !InventoryClosedStates.Contains(invState);
+        }
         private void ChangeGravity()
         {
-            if (Input.GetKey(KeyCode.Z) && Equipped())
-            {
-                PlayMakerFSM.BroadcastEvent("INSTA KILL");
-            }
-
             if (HeroController.instance == null)
             {
                 return;
@@ -43,7 +52,7 @@ namespace Fyrenest
             }
             // Keep normal gravity after going through upwards transitions, so that the player does not fall
             // through spikes in some rooms before they gain control.
-            rb.gravityScale = (Equipped() && HeroController.instance.transitionState == GlobalEnums.HeroTransitionState.WAITING_TO_TRANSITION) ? 0.5f : 0.79f;
+            rb.gravityScale = (Equipped() && !InInventory() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION) ? 0.3f : 0.79f;
         }
 
         private void SpeedUp(On.HeroController.orig_Move orig, HeroController self, float speed)

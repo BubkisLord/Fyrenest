@@ -1,30 +1,30 @@
 using Modding;
 using UnityEngine;
 using GlobalEnums;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace Fyrenest
 {
-    internal class Quickfall : Charm
+    internal class Quickjump : Charm
     {
-        public static readonly Quickfall Instance = new();
-        public override string Sprite => "Quickfall.png";
-        public override string Name => "Quickfall";
-        public override string Description => "This charm falls faster than it should when dropped.\n\nWhen worn, the bearer falls at a very fast rate.";
+        public static readonly Quickjump Instance = new();
+        public override string Sprite => "Quickjump.png";
+        public override string Name => "Quickjump";
+        public override string Description => "This charm falls faster than it should when dropped.\n\nWhen worn, the bearer jumps at a very fast rate, but cannot jump as high.";
         public override int DefaultCost => 1;
         public override string Scene => "Ruins2_11";
         public override float X => 0f;
         public override float Y => 0f;
 
-        private Quickfall() {}
+        private Quickjump() {}
 
-        public override CharmSettings Settings(SaveSettings s) => s.Quickfall;
+        public override CharmSettings Settings(SaveSettings s) => s.Quickjump;
+
         public override void Hook()
         {
             ModHooks.HeroUpdateHook += ChangeGravity;
             On.HeroController.ShouldHardLand += FallSoftly;
         }
-        private bool FallSoftly(On.HeroController.orig_ShouldHardLand orig, HeroController self, Collision2D collision) =>
-            orig(self, collision) && !Equipped();
 
         private static readonly HashSet<string> InventoryClosedStates = new()
         {
@@ -33,13 +33,16 @@ namespace Fyrenest
             "Closed",
             "Can Open Inventory?"
         };
-        
+
+        private bool FallSoftly(On.HeroController.orig_ShouldHardLand orig, HeroController self, Collision2D collision) =>
+            orig(self, collision) && !Equipped();
 
         private static bool InInventory()
         {
             var invState = GameManager.instance?.inventoryFSM?.Fsm.ActiveStateName;
             return invState != null && !InventoryClosedStates.Contains(invState);
         }
+
         private void ChangeGravity()
         {
             if (HeroController.instance == null)
@@ -57,7 +60,7 @@ namespace Fyrenest
             // Keep normal gravity after going through upwards transitions, so that the player does not fall
             // through spikes in some rooms before they gain control.
             
-            rb.gravityScale = (Equipped() && !InInventory() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION && HeroController.instance.cState.falling) ? 1.58f : 0.79f;
+            rb.gravityScale = (Equipped() && !InInventory() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION && HeroController.instance.cState.jumping) ? 1.58f : 0.79f;
         }
     }
 }

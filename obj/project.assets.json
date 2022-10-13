@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj",
+      "projectUniqueName": "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\CharmMod.csproj",
       "projectName": "Fyrenest",
-      "projectPath": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\CharmMod.csproj",
+      "projectPath": "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\CharmMod.csproj",
       "packagesPath": "C:\\Users\\oldfi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\oldfi\\Source\\Repos\\Fyrenest\\obj\\",
+      "outputPath": "C:\\Users\\oldfi\\source\\repos\\Fyrenest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,7 +50,7 @@
     "frameworks": {
       "net472": {
         "targetAlias": "net472",
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
