@@ -11,6 +11,8 @@ using ItemChanger.Tags;
 using ItemChanger.UIDefs;
 using Satchel.BetterMenus;
 using static Fyrenest.Fyrenest;
+using System.Security.Claims;
+using GlobalEnums;
 
 namespace Fyrenest
 {
@@ -182,6 +184,7 @@ namespace Fyrenest
             On.UIManager.UIGoToPauseMenu += OnPause;
             On.UIManager.UIClosePauseMenu += OnUnPause;
             On.GameManager.SaveGame += OnSave;
+            ModHooks.SavegameLoadHook += ModHooks_SavegameLoadHook;
 
             StartTicking();
 
@@ -193,6 +196,11 @@ namespace Fyrenest
                     PlayerData.instance.CountCharms();
                 });
             }
+        }
+
+        private void ModHooks_SavegameLoadHook(int obj)
+        {
+            PlayerData.instance.CalculateNotchesUsed();
         }
 
         public class CustomGlobalSaveData
@@ -271,17 +279,15 @@ namespace Fyrenest
 
         private void TransitionSet()
         {
-            return;
+            PlayerData.instance.CalculateNotchesUsed();
         }
         private void OnPause(On.UIManager.orig_UIGoToPauseMenu orig, UIManager self)
         {
-            HeroController.instance.RelinquishControl();
             Time.timeScale = 0.0f;
             orig(self);
         }
         private void OnUnPause(On.UIManager.orig_UIClosePauseMenu orig, UIManager self)
         {
-            HeroController.instance.RegainControl();
             Time.timeScale = 1.0f;
             orig(self);
         }
@@ -308,7 +314,21 @@ namespace Fyrenest
                 {
                     PlayerData.instance.SetInt($"charmCost_{i}", 0);
                 }
+                foreach (Charm charm in Charms)
+                {
+                    charm.Settings(Settings).Cost = 0;
+                }
             }
+            else
+            {
+                //change dreamshield to cost 2 notches.
+                PlayerData.instance.charmCost_38 = 2;
+                foreach (Charm charm in Charms)
+                {
+                    charm.Settings(Settings).Cost = charm.DefaultCost;
+                }
+            }
+            
             //give charms when certain things are done.
             if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.Instance.Settings(Settings).Got = true;
             if (PlayerData.instance.colosseumSilverCompleted) Slowfall.Instance.Settings(Settings).Got = true;
@@ -343,17 +363,8 @@ namespace Fyrenest
             {
                 HeroController.instance.AddToMaxHealth(1);
             }
-            foreach (Charm charm in Charms)
-            {
-                if (!insanity)
-                    charm.Settings(Settings).Cost = charm.DefaultCost;
-                else
-                    charm.Settings(Settings).Cost = 0;
-            }
             AchievementHelper.AddAchievement("voidsoulachievement", EmbeddedSprites.Get("VoidSoulAchievement.png"), "Soul of Void", "Gain and wear the Void Soul charm.", false);
-            if (VoidSoul.Instance.Equipped() && VoidSoul.Instance.Settings(Settings).Got) GameManager.instance.AwardAchievement("voidsoulachievement");
-            //change dreamshield to cost 2 notches.
-            PlayerData.instance.charmCost_38 = 2;
+            if (VoidSoul.Instance.Equipped() && VoidSoul.Instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprites.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidsoulachievement");
 
             //change local save data
             if (!LocalSaveData.QuickfallGot && Quickfall.Instance.Settings(Settings).Got) LocalSaveData.QuickfallGot = true;
@@ -428,17 +439,17 @@ namespace Fyrenest
                                 {
                                     new MenuButton("Select Specific Charm", "Current Charm Selected: Quickfall", (_) => {
                                         //find element by Id
+                                        SelectCharm(1); //trigger normal function
                                         Element elem = MenuRef.Find("SelectSpecificCharm");
                                         MenuButton buttonElem = elem as MenuButton;
                                         buttonElem.Name = "Select Specific Charm"; //change name
-                                        string SelectedCharm =  Charms[charmSelect].ToString();
+                                        string SelectedCharm =  Charms[charmSelect].Name.ToString();
                                         string charmNameSelected = SelectedCharm.Replace("Fyrenest.", "").Replace(".Instance", "");
-                                        string desc = "Current selected charm: "+charmNameSelected; //set desc to the new wanted description
+                                        string desc = "Current selected charm: "+SelectedCharm; //set desc to the new wanted description
                                         buttonElem.Description = desc; //change description
                                         buttonElem.Update();//Update button
                                         MenuRef.Update();
 
-                                        SelectCharm(1); //trigger normal function
                                     }, false, Id:"SelectSpecificCharm"),
                                     new MenuButton("Give Specific Charm", "Add the charm to your inventory.", (_) => GiveSpecificCharm(1), false, Id:"GiveSpecCharm"),
                                 }, "Specific Charm Selection"),
@@ -454,8 +465,9 @@ namespace Fyrenest
                 new Element[]
                 {
                     new TextPanel("Extra Mod Settings",1000, 100, Id:"ModToggleTitle"),
-                    new HorizontalOption( "Insanity Mode", "Toggle insanity mode.", new string[]{ "INSANITY", "Normal"}, (setting) => { ModToggle = setting; if(setting == 0) { insanity = true; } else { insanity = false; } }, () => ModToggle),
+                    new HorizontalOption( "Insanity Mode", "Toggle insanity mode.", new string[]{ "Normal", "INSANITY" }, (setting) => { ModToggle = setting; if(setting == 0) { insanity = false; } else { insanity = true; } }, () => ModToggle),
                     new MenuButton("Back button", "Go back to main page.", (_) => UIManager.instance.UIGoToDynamicMenu(MenuRef.menuScreen)),
+                    new TextPanel("Do not press the default back button.", 500, 50, "BackButtonWarning")
                 }
             );
             MenuRef.GetMenuScreen(modListMenu);
@@ -466,11 +478,18 @@ namespace Fyrenest
         
         private void ReloadCharmEffects()
         {
-            HeroController.instance.CharmUpdate();
             GameManager.instance.UpdateBlueHealth();
             GameManager.instance.SaveGame();
+            PlayerData.instance.equippedCharms.Clear();
+            foreach (var charm in Charms)
+            {
+                charm.Settings(Settings).Equipped = false;
+            }
+            HeroController.instance.CharmUpdate();
+            PlayerData.instance.CalculateNotchesUsed();
             return;
         }
+
         public static MenuButton NavigateToMenu(string name, string description, Func<MenuScreen> getScreen)
         {
             return new MenuButton(
@@ -554,57 +573,34 @@ namespace Fyrenest
             {
                 return "We're still friends right? Remember all those great times together! All the banking!";
             }
-
             if (key == "CP2" && sheetTitle == "GRIMMSYCOPHANT_INSPECT")
             {
-                return "Raw energy radiates off this corpse... What could this mean?";
+                return "...Raw energy... ...The troupe...<page>Why?";
             }
-
             if (key == "CP2" && sheetTitle == "GRIMMSYCOPHANT_DREAM")
             {
-                return "...I founded the troupe... ...Destroyed kingdoms... ...Grimm...";
+                return "...I founded the troupe... ...Destroyed kingdoms... ...For Grimm...";
             }
-
             if (key == "CROSSROADS_SUB" && sheetTitle == "Titles")
             {
                 return "Of Flame";
             }
-
             if (key == "CROSSROADS_SUB_INF" && sheetTitle == "Titles")
             {
                 return "Of Flame";
             }
-
             if (key == "CORNIFER_SUB" && sheetTitle == "Titles")
             {
-                return "The Explorer";
+                return "The Adventurer";
             }
-
-            if (key == "" && sheetTitle == "")
-            {
-                return "";
-            }
-
-            if (key == "" && sheetTitle == "")
-            {
-                return "";
-            }
-
-            if (key == "" && sheetTitle == "")
-            {
-                return "";
-            }
-
             if (orig.Contains("Hollow Knight"))
             {
                 return orig.Replace("Hollow Knight", "Infected Vessel");
             }
-
             if (orig.Contains("Pure Vessel"))
             {
                 return orig.Replace("Pure Vessel", "Hollow Vessel");
             }
-
             if (orig.Contains("The Fading Town"))
             {
                 return orig.Replace("The Fading Town", "The Realm of The Old One");
@@ -667,16 +663,17 @@ namespace Fyrenest
             }
             if (SlyDeal.Instance.Equipped() && sheetTitle == "Prices")
             {
-                orig.Replace("2", "1");
-                orig.Replace("3", "2");
-                orig.Replace("4", "2");
-                orig.Replace("5", "3");
-                orig.Replace("6", "3");
-                orig.Replace("7", "4");
-                orig.Replace("8", "4");
-                orig.Replace("8", "4");
-                orig.Replace("9", "5");
-                return orig;
+                try
+                {
+                    float numOrig = float.Parse(orig);
+                    numOrig /= 1.5f;
+                    orig = numOrig.ToString();
+                    return orig;
+                }
+                catch (Exception)
+                {
+                    return orig;
+                }
             }
             if (ZoteBorn.Instance.Equipped() && sheetTitle == "Prices")
             {
@@ -716,7 +713,7 @@ namespace Fyrenest
             }
             if (sheetTitle == "Lore Tablets" && key == "TUT_TAB_02")
             {
-                return "For those who enter Fyrenest from the far lands, Hallownest, and The Glimmering Realm. Beyond this point you enter the land of the Pale King's home. Step across this threshold and obey our laws. Bear witness to one of the last civilisations, one of the eternal Kingdoms.\n\nFyrenest.";
+                return "For those who enter Fyrenest from the far lands of Hallownest and The Glimmering Realm, note this. Beyond this point you enter the land of the Pale King's birthplace. Step across this threshold and obey our laws. Bear witness to one of the last civilisations, one of the eternal Kingdoms.\n\nFyrenest.";
             }
             if (sheetTitle == "Lore Tablets" && key == "ARCHIVE_02")
             {
@@ -724,11 +721,11 @@ namespace Fyrenest
             }
             if (sheetTitle == "Lore Tablets" && key == "RANDOM_POEM_STUFF")
             {
-                return "In the wilds beyond, in Hallownest, in the far lands, they speak our name. Of our never ending prowess, of our ability to contain the light. The ability to stop what looms above.                                                 - Excerpt from Ode to Fyrenest by Zonemy the Teacher.";
+                return "Fyrenest is great.\nThe very last great kingdom.\nFyrenest rules all.\n                                                 - Haiku by Monomon the Teacher.";
             }
             if (sheetTitle == "Lore Tablets" && key == "RUINS_FOUNTAIN")
             {
-                return "Memorial to the Infected Vessel.\n\nIn its vault, far above, stopping the light.\n\nThrough its sacrifice Fyrenest lasts eternal.";
+                return "Memorial to the Hollow Vessel.\n\nIn its vault far above, stopping the death.\n\nThrough its sacrifice Fyrenest will last eternal.";
             }
             if (sheetTitle == "Cornifer" && key == "FUNGAL_WASTES_GREET")
             {
@@ -749,6 +746,10 @@ namespace Fyrenest
             if (sheetTitle == "Cornifer" && key == "CLIFFS_GREET")
             {
                 return "Are you enjoying the bracing air? I doubt you have experienced something like this before, since you are always scrounging around underground, looking for geo like a hermit. Anyway, we are quite close to the borders of Fyrenest, and the desolate plains that surround it. I have heard that these plains make bugs go mad... Seeking escape, only to find lost memories and distant towns. I have heard of a place far away, where our king went when he left us. A place called Hallownest, a distant kingdom never to be found... I had a brother named Cornifer, he left in search of that horrid place... I dread what has happened to him... But, lingering on the past doesn't accomplish anything. I've drawn out a small map for the area, although simple, it is helpful nonetheless. Not knowing the full extents of a region can be quite frustrating.";
+            }
+            if (orig.ToLower().Contains("the world of infected vessel"))
+            {
+                return orig.Replace("Infected Vessel", "Hollow Knight");
             }
             return orig;
         }
