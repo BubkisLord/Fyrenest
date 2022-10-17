@@ -49,6 +49,7 @@ namespace Fyrenest
             actions[pos] = new FuncAction(a);
             Array.Copy(s.Actions, pos, actions, pos + 1, s.Actions.Length - pos);
             s.Actions = actions;
+            a.Init(s);
         }
 
         internal static void PrependAction(this FsmState s, Action a)
@@ -58,7 +59,9 @@ namespace Fyrenest
 
         internal static void ReplaceAction(this FsmState s, int i, Action a)
         {
-            s.Actions[i] = new FuncAction(a);
+            FuncAction action = new FuncAction(a);
+            action.Init(s);
+            s.Actions[i] = action;
         }
 
         internal static void AddTransition(this FsmState s, string eventName, string toState)
