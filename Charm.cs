@@ -1,6 +1,8 @@
+using ItemChanger;
+
 namespace Fyrenest
 {
-    internal abstract class Charm
+    internal abstract class Charm: ItemChanger.Items.CharmItem
     {
         public abstract string Sprite { get; }
         public abstract string Name { get; }

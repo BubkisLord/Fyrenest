@@ -37,7 +37,7 @@ namespace Fyrenest
         /// <summary>
         /// Are the inputs currently inverted?
         /// </summary>
-        private bool inputsInverted = false; 
+        private bool inputsInverted = false;
 
         /// <summary>
         /// List of all objects in this scene that shouldn't be ignored by the text correction code
@@ -49,7 +49,7 @@ namespace Fyrenest
         {
             On.tk2dCamera.UpdateCameraMatrix += OnUpdateCameraMatrix;
             On.GameCameras.StartScene += OnNewSceneCam;
-            
+
             On.UIManager.GoToKeyboardMenu += OnOpenKeyboardMenu;
             On.UIManager.GoToRemapControllerMenu += OnOpenGamepadMenu;
             On.UIManager.HideCurrentMenu += OnHideMenu;
@@ -68,7 +68,7 @@ namespace Fyrenest
             if (invert != inputsInverted)
             {
                 inputsInverted = invert;
-                PlayerAction tmp = InputHandler.Instance.inputActions.left; 
+                PlayerAction tmp = InputHandler.Instance.inputActions.left;
                 InputHandler.Instance.inputActions.left = InputHandler.Instance.inputActions.right;
                 InputHandler.Instance.inputActions.right = tmp;
 
@@ -110,7 +110,7 @@ namespace Fyrenest
         public IEnumerator OnOpenKeyboardMenu(On.UIManager.orig_GoToKeyboardMenu orig, global::UIManager self)
         {
             if (isFlipping) return self.GoToOptionsMenu(); //it seems to break stuff, so just don't allow it
-             
+
             SetInvertInputs(false);
 
             return orig(self);
@@ -123,12 +123,30 @@ namespace Fyrenest
         {
             if (isFlipping) return self.GoToOptionsMenu(); //it seems to break stuff, so just don't allow it
 
-            SetInvertInputs(false); 
+            SetInvertInputs(false);
 
             return orig(self);
         }
 
 
+
+        /// <summary>
+        /// Called before the scene is loaded, sets whether the current room is flipped
+        /// </summary>
+        public void UpdateFlipping()
+        {
+            if (Fyrenest.instance.ActiveRoom != null) isFlipping = Fyrenest.instance.ActiveRoom.IsFlipped;
+            else isFlipping = false;
+        }
+
+        /// <summary>
+        /// Adds an object to be ignored by the text correction code
+        /// </summary>
+        /// <param name="name"></param>
+        public void AddExcludedObject(string name)
+        {
+            excludedObjects.Add(name);
+        }
 
         /// <summary>
         /// Called before a new scene is loaded, clears all previous excluded objects
@@ -190,12 +208,13 @@ namespace Fyrenest
             orig(self);
             if (isFlipping)
             {
-                if (!hasBlurCam(self)) 
+                if (!hasBlurCam(self))
                 {
                     return;
                 }
-               
-                foreach (UCamera cam in self.tk2dCam.transform.GetComponentsInChildren<UCamera>()) {
+
+                foreach (UCamera cam in self.tk2dCam.transform.GetComponentsInChildren<UCamera>())
+                {
                     if (cam.GetComponent<IsFlippedComponent>() == null) cam.gameObject.AddComponent<IsFlippedComponent>();
                     if (!cam.GetComponent<IsFlippedComponent>().flipped)
                     {
@@ -203,7 +222,8 @@ namespace Fyrenest
                         FlipUCam(cam);
                     }
                 }
-            } else
+            }
+            else
             {
                 foreach (UCamera cam in self.tk2dCam.transform.GetComponentsInChildren<UCamera>())
                 {
@@ -237,8 +257,9 @@ namespace Fyrenest
                     Vector3 oldScale = prefab.transform.localScale;
                     prefab.transform.localScale = new Vector3(-oldScale.x, oldScale.y, oldScale.z);
                 }
-            //otherwise unflip it
-            } else
+                //otherwise unflip it
+            }
+            else
             {
                 PromptMarker prefabPrompt;
                 TMPro.TextMeshPro textMesh;
@@ -250,7 +271,7 @@ namespace Fyrenest
                     prefab.transform.localScale = new Vector3(-oldScale.x, oldScale.y, oldScale.z);
                 }
             }
-            
+
             return prefab;
         }
 
@@ -281,7 +302,7 @@ namespace Fyrenest
             p *= _reflectMatrix;
 
             cam.projectionMatrix = p;
-        } 
+        }
 
         /// <summary>
         /// Utility function that handles flipping cameras

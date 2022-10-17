@@ -1,8 +1,9 @@
 # Fyrenest - A mod that adds over 20 new charms!
-This mod IS COMPATIBLE with ItemChanger, Transcendance, Benchwarp, Randomizer and more!
+This mod is now compatible with Transcendance, Benchwarp, Randomizer and more!
 Currently, you cannot pick up charms via randomizer,
-but you can gain them when you get the requirements through randomizer.
-eg. you get shadow dash from a rancid egg. Now u also have Powerful Dash.
+but you can gain them when you get the requirements through the randomizer.
+For example, this means that if you get shadow dash from a randomized pickup,
+you will gain powerful dash.
 
 ## -- WHAT THE CHARMS DO --
 Quickfall -> Fall faster
@@ -46,8 +47,6 @@ Geo Switch -> Takes health periodically, and gives u geo back. (ur gonna have a 
 Speed Soul -> You move at x3 speed when equipped, but u lose 1 charge of soul periodically. (pair with soul switch and healthy shell for interesting results...)
 
 ##   -- HOW TO GET CHARMS --
-
-
 Quickfall -> Complete Bronze Colosseum
 
 Slowfall -> Complete Silver Colosseum
@@ -88,8 +87,8 @@ Geo Switch -> Kill the Soul Tyrant
 
 Speed Soul -> Talk to the Nailsmith at Sheo's hut
 
-# Programming Info
-using System.Runtime.InteropServices;
+# Programming Information
+```using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -107,9 +106,9 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
-[assembly: AssemblyInformationalVersion("2.11.43.38")]
+[assembly: AssemblyInformationalVersion(FILEVERSIONHERE - CHECK CHARMMOD.CS)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("9e1ca760-6e27-416f-b2fd-f286e9fb55a5")]
-[assembly: AssemblyVersion("2.11.43.38")]
-[assembly: AssemblyFileVersion("2.11.43.38")]
+[assembly: AssemblyVersion(FILEVERSIONHERE - CHECK CHARMMOD.CS)]
+[assembly: AssemblyFileVersion(FILEVERSIONHERE - CHECK CHARMMOD.CS)]```

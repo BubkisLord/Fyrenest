@@ -1,3 +1,4 @@
+using ItemChanger;
 using Modding;
 
 namespace Fyrenest
@@ -12,7 +13,8 @@ namespace Fyrenest
         public override string Scene => "Ruins2_11";
         public override float X => 0f;
         public override float Y => 0f;
-        private SoulSlow() {}
+
+        public SoulSlow() {}
 
         public override CharmSettings Settings(SaveSettings s) => s.SoulSlow;
 
@@ -21,12 +23,6 @@ namespace Fyrenest
             On.HeroController.Move += SlowDown;
             ModHooks.HeroUpdateHook += Update;
         }
-
-        private const int PhysicsFramesPerSecond = 50;
-
-        private const int ChargeInterval = 3 * PhysicsFramesPerSecond;
-
-        private static int ChargeTimer = 0;
 
         private static bool Worn = false;
 

@@ -35,7 +35,7 @@ namespace Fyrenest
 
         public int Revision = 1; //World init gets called if save from older Revision is loaded
 
-        
+
         /// <param name="roomName">The scene name of this room (or a placeholder if there is none)</param>
         protected Room(string roomName)
         {
@@ -45,22 +45,22 @@ namespace Fyrenest
         /// <summary>
         /// Called on initialization of the mod
         /// </summary>
-        public virtual void OnInit() {}
+        public virtual void OnInit() { }
 
         /// <summary>
         /// Called on creation of a new save file
         /// </summary>
-        public virtual void OnWorldInit() {}
+        public virtual void OnWorldInit() { }
 
         /// <summary>
         /// Called before any "Start" functions are executed in this room
         /// </summary>
-        public virtual void OnBeforeLoad() {}
+        public virtual void OnBeforeLoad() { }
 
         /// <summary>
         /// Called after the "Start" functions of the room have executed
         /// </summary>
-        public virtual void OnLoad() {}
+        public virtual void OnLoad() { }
 
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Fyrenest
         /// <param name="alternateName">Alternate name to be displayed in shops</param>
         /// <param name="alternateDesc">Alternate description to be displayed in shops</param>
         /// <param name="destroySeerRewards">Should the normal rewards of Seer be removed? (only applicable at that location)</param>
-        public void SetItem(string location, string item, bool merge = false, int geoCost = 0, int essenceCost = 0, int grubCost = 0, string alternateName=null, string alternateDesc=null, bool destroySeerRewards=false, bool nonIncremental=false)
+        public void SetItem(string location, string item, bool merge = false, int geoCost = 0, int essenceCost = 0, int grubCost = 0, string alternateName = null, string alternateDesc = null, bool destroySeerRewards = false, bool nonIncremental = false)
         {
             //find item and location
             AbstractPlacement placement = Finder.GetLocation(location).Wrap();
@@ -84,13 +84,13 @@ namespace Fyrenest
             }
 
             //set cost tags if necessary
-            if (geoCost > 0) 
+            if (geoCost > 0)
             {
                 if (placement is ISingleCostPlacement)
                 {
                     ((ISingleCostPlacement)placement).Cost = new GeoCost(geoCost);
-                } 
-                else 
+                }
+                else
                 {
                     aitem.AddTag<CostTag>().Cost = new GeoCost(geoCost);
                 }
@@ -98,12 +98,12 @@ namespace Fyrenest
 
             if (essenceCost > 0)
             {
-                aitem.AddTag<CostTag>().Cost = new PDIntCost(essenceCost, nameof(PlayerData.dreamOrbs), essenceCost+" Essence");
+                aitem.AddTag<CostTag>().Cost = new PDIntCost(essenceCost, nameof(PlayerData.dreamOrbs), essenceCost + " Essence");
             }
 
             if (grubCost > 0)
             {
-                aitem.AddTag<CostTag>().Cost = new PDIntCost(grubCost, nameof(PlayerData.grubsCollected), grubCost+" Grubs");
+                aitem.AddTag<CostTag>().Cost = new PDIntCost(grubCost, nameof(PlayerData.grubsCollected), grubCost + " Grubs");
             }
 
             //change UIDef names if necessary
@@ -144,7 +144,7 @@ namespace Fyrenest
         /// </summary>
         public GameObject PlaceGO(GameObject prefab, float x, float y, Quaternion? rotation = null)
         {
-            GameObject go =  GameObject.Instantiate(prefab, new Vector3(x, y, 0), rotation.GetValueOrDefault(Quaternion.identity));
+            GameObject go = GameObject.Instantiate(prefab, new Vector3(x, y, 0), rotation.GetValueOrDefault(Quaternion.identity));
             go.SetActive(true);
             return go;
         }
@@ -154,7 +154,7 @@ namespace Fyrenest
         /// </summary>
         public void DestroyGO(string name)
         {
-            GameObject.Destroy(GameObject.Find(name)); 
+            GameObject.Destroy(GameObject.Find(name));
         }
 
         /// <summary>
@@ -175,5 +175,6 @@ namespace Fyrenest
                 go.GetComponent<SceneManager>().darknessLevel = dark ? 2 : 0;
             }
         }
+
     }
 }

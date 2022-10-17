@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Fyrenest
 {
-    internal static class EmbeddedSprites
+    internal static class EmbeddedSprite
     {
         private static Dictionary<string, Sprite> Sprites = new();
 
@@ -21,7 +21,7 @@ namespace Fyrenest
 
         private static Sprite LoadSprite(string name)
         {
-            var loc = Path.Combine(Path.GetDirectoryName(typeof(EmbeddedSprites).Assembly.Location), name);
+            var loc = Path.Combine(Path.GetDirectoryName(typeof(EmbeddedSprite).Assembly.Location), name);
             var imageData = File.ReadAllBytes(loc);
             var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
             ImageConversion.LoadImage(tex, imageData, true);

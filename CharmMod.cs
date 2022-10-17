@@ -24,6 +24,7 @@ namespace Fyrenest
 
         public static int charmSelect = 0;
 
+        public override string GetVersion() => "3.0.0";
 
         public static Fyrenest Loadedinstance { get; set; }
 
@@ -215,27 +216,27 @@ namespace Fyrenest
         }
         private void OnUpdate()
         {
-            if (insanity)
+            //if (insanity)
+            //{
+            //    for (int i = 0; i < 40; i++)
+            //    {
+            //        PlayerData.instance.SetInt($"charmCost_{i}", 0);
+            //    }
+            //    foreach (Charm charm in Charms)
+            //    {
+            //        charm.Settings(Settings).Cost = 0;
+            //    }
+            //}
+            //else
+            //{
+            //change dreamshield to cost 2 notches.
+            PlayerData.instance.charmCost_38 = 2;
+            foreach (Charm charm in Charms)
             {
-                for (int i = 0; i < 40; i++)
-                {
-                    PlayerData.instance.SetInt($"charmCost_{i}", 0);
-                }
-                foreach (Charm charm in Charms)
-                {
-                    charm.Settings(Settings).Cost = 0;
-                }
+                charm.Settings(Settings).Cost = charm.DefaultCost;
             }
-            else
-            {
-                //change dreamshield to cost 2 notches.
-                PlayerData.instance.charmCost_38 = 2;
-                foreach (Charm charm in Charms)
-                {
-                    charm.Settings(Settings).Cost = charm.DefaultCost;
-                }
-            }
-            
+            //}
+
             //give charms when certain things are done.
             if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.instance.Settings(Settings).Got = true;
             if (PlayerData.instance.colosseumSilverCompleted) Slowfall.instance.Settings(Settings).Got = true;
@@ -270,8 +271,8 @@ namespace Fyrenest
             {
                 HeroController.instance.AddToMaxHealth(1);
             }
-            AchievementHelper.AddAchievement("voidsoulachievement", SpriteGet("VoidSoulAchievement.png"), "Soul of Void", "Gain and wear the Void Soul charm.", false);
-            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidsoulachievement");
+            AchievementHelper.AddAchievement("voidsoulachievement", EmbeddedSprite.Get("VoidSoulAchievement.png"), "Soul of Void", "Gain and wear the Void Soul charm.", false);
+            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidsoulachievement");
 
             //change local save data
             if (!LocalSaveData.QuickfallGot && Quickfall.instance.Settings(Settings).Got) LocalSaveData.QuickfallGot = true;
@@ -302,6 +303,18 @@ namespace Fyrenest
             if (!LocalSaveData.ShellShieldGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.ShellShieldGot = true;
             if (!LocalSaveData.QuickjumpGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.QuickjumpGot = true;
             if (!LocalSaveData.SlowjumpGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.SlowjumpGot = true;
+
+            //GameObject map = GameObject.Find("");
+            //if (map != null)
+            //{
+            //    var assembly = Assembly.GetExecutingAssembly();
+
+            //    using (var stream = assembly.GetManifestResourceStream("Fyrenest.Resources.map.png"))
+            //    {
+            //        Sprite mapSprite = SpriteManager.Load(stream);
+            //        map.GetComponent<SpriteRenderer>().sprite = mapSprite;
+            //    }
+            //}
         }
 
         public bool insanity = false;
@@ -859,37 +872,37 @@ namespace Fyrenest
         }
         private void CheckCharmPopup()
         {
-            if (PlayerData.instance.colosseumBronzeCompleted && !LocalSaveData.QuickfallDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("Quickfall.png"), "Gained Charm"); LocalSaveData.QuickfallDonePopup = true;
-            if (PlayerData.instance.colosseumSilverCompleted && !LocalSaveData.SlowfallDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("Slowfall.png"), "Gained Charm"); LocalSaveData.SlowfallDonePopup = true;
-            if (PlayerData.instance.hasShadowDash && !LocalSaveData.PowerfulDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("PowerfulDash.png"), "Gained Charm"); LocalSaveData.PowerfulDashDonePopup = true;
-            if (PlayerData.instance.hasNailArt && !LocalSaveData.SturdyNailDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SturdyNail.png"), "Gained Charm"); LocalSaveData.SturdyNailDonePopup = true;
-            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked && !LocalSaveData.MarkofStrengthDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("MarkofStrength.png"), "Gained Charm"); LocalSaveData.MarkofStrengthDonePopup = true;
-            if (PlayerData.instance.hasDreamGate && !LocalSaveData.SoulHungerDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SoulHunger.png"), "Gained Charm"); LocalSaveData.SoulHungerDonePopup = true;
-            if (PlayerData.instance.hasDreamNail && !LocalSaveData.SoulSlowDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SoulSlow.png"), "Gained Charm"); LocalSaveData.SoulSlowDonePopup = true;
-            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !LocalSaveData.BetterCDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("BetterCDash.png"), "Gained Charm"); LocalSaveData.BetterCDashDonePopup = true;
-            if (PlayerData.instance.killedHollowKnight && !LocalSaveData.HKBlessingDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("HKBlessing.png"), "Gained Charm"); LocalSaveData.HKBlessingDonePopup = true;
-            if (PlayerData.instance.hasKingsBrand && !LocalSaveData.HealthyShellDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("HealthyShell.png"), "Gained Charm"); LocalSaveData.HealthyShellDonePopup = true;
-            if (PlayerData.instance.killedHollowKnightPrime && !LocalSaveData.GlassCannonDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("GlassCannon.png"), "Gained Charm"); LocalSaveData.GlassCannonDonePopup = true;
-            if (PlayerData.instance.bankerAccountPurchased && !LocalSaveData.WealthyAmuletDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("WealthyAmulet.png"), "Gained Charm"); LocalSaveData.WealthyAmuletDonePopup = true;
-            if (PlayerData.instance.colosseumGoldCompleted && !LocalSaveData.RavenousSoulDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("RavenousSoul.png"), "Gained Charm"); LocalSaveData.RavenousSoulDonePopup = true;
-            if (PlayerData.instance.canOvercharm && !LocalSaveData.OpportunisticDefeatDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("OpportunisticDefeat.png"), "Gained Charm"); LocalSaveData.OpportunisticDefeatDonePopup = true;
-            if (PlayerData.instance.collectorDefeated && !LocalSaveData.SoulSpellDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SoulSpell.png"), "Gained Charm"); LocalSaveData.SoulSpellDonePopup = true;
-            if (PlayerData.instance.grubsCollected > 10 && !LocalSaveData.SlowTimeDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SlowTime.png"), "Gained Charm"); LocalSaveData.SlowTimeDonePopup = true;
-            if (PlayerData.instance.statueStateCollector.completedTier2 && !LocalSaveData.SpeedTimeDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SpeedTime.png"), "Gained Charm"); LocalSaveData.SpeedTimeDonePopup = true;
-            if (PlayerData.instance.mageLordDreamDefeated && !LocalSaveData.GeoSwitchDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("GeoSwitch.png"), "Gained Charm"); LocalSaveData.GeoSwitchDonePopup = true;
-            if (PlayerData.instance.killedMageLord && !LocalSaveData.SoulSwitchDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SoulSwitch.png"), "Gained Charm"); LocalSaveData.SoulSwitchDonePopup = true;
-            if (PlayerData.instance.nailsmithConvoArt && !LocalSaveData.SoulSpeedDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SoulSpeed.png"), "Gained Charm"); LocalSaveData.SoulSpeedDonePopup = true;
-            if (PlayerData.instance.zotePrecept > 56 && !LocalSaveData.ZoteBornDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("ZoteBorn.png"), "Gained Charm"); LocalSaveData.ZoteBornDonePopup = true;
-            if (PlayerData.instance.visitedWhitePalace && !LocalSaveData.ElderStoneDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("Elderstone.png"), "Gained Charm"); LocalSaveData.ElderStoneDonePopup = true;
-            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100 && !LocalSaveData.SlyDealDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("SlyDeal.png"), "Gained Charm"); LocalSaveData.SlyDealDonePopup = true;
-            if (PlayerData.instance.honedNail && !LocalSaveData.GiantNailDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("GiantNail.png"), "Gained Charm"); LocalSaveData.GiantNailDonePopup = true;
-            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && !LocalSaveData.MatosBlessingDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("MatosBlessing.png"), "Gained Charm"); LocalSaveData.MatosBlessingDonePopup = true;
-            if (PlayerData.instance.honedNail && !LocalSaveData.ShellShieldDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("ShellShield.png"), "Gained Charm"); LocalSaveData.ShellShieldDonePopup = true;
-            if (PlayerData.instance.honedNail && !LocalSaveData.VoidSoulDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("VoidSoulPopup.png"), "Gained Charm"); LocalSaveData.VoidSoulDonePopup = true;
+            if (PlayerData.instance.colosseumBronzeCompleted && !LocalSaveData.QuickfallDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Quickfall.png"), "Gained Charm"); LocalSaveData.QuickfallDonePopup = true;
+            if (PlayerData.instance.colosseumSilverCompleted && !LocalSaveData.SlowfallDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Slowfall.png"), "Gained Charm"); LocalSaveData.SlowfallDonePopup = true;
+            if (PlayerData.instance.hasShadowDash && !LocalSaveData.PowerfulDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("PowerfulDash.png"), "Gained Charm"); LocalSaveData.PowerfulDashDonePopup = true;
+            if (PlayerData.instance.hasNailArt && !LocalSaveData.SturdyNailDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SturdyNail.png"), "Gained Charm"); LocalSaveData.SturdyNailDonePopup = true;
+            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked && !LocalSaveData.MarkofStrengthDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("MarkofStrength.png"), "Gained Charm"); LocalSaveData.MarkofStrengthDonePopup = true;
+            if (PlayerData.instance.hasDreamGate && !LocalSaveData.SoulHungerDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulHunger.png"), "Gained Charm"); LocalSaveData.SoulHungerDonePopup = true;
+            if (PlayerData.instance.hasDreamNail && !LocalSaveData.SoulSlowDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSlow.png"), "Gained Charm"); LocalSaveData.SoulSlowDonePopup = true;
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !LocalSaveData.BetterCDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("BetterCDash.png"), "Gained Charm"); LocalSaveData.BetterCDashDonePopup = true;
+            if (PlayerData.instance.killedHollowKnight && !LocalSaveData.HKBlessingDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("HKBlessing.png"), "Gained Charm"); LocalSaveData.HKBlessingDonePopup = true;
+            if (PlayerData.instance.hasKingsBrand && !LocalSaveData.HealthyShellDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("HealthyShell.png"), "Gained Charm"); LocalSaveData.HealthyShellDonePopup = true;
+            if (PlayerData.instance.killedHollowKnightPrime && !LocalSaveData.GlassCannonDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("GlassCannon.png"), "Gained Charm"); LocalSaveData.GlassCannonDonePopup = true;
+            if (PlayerData.instance.bankerAccountPurchased && !LocalSaveData.WealthyAmuletDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("WealthyAmulet.png"), "Gained Charm"); LocalSaveData.WealthyAmuletDonePopup = true;
+            if (PlayerData.instance.colosseumGoldCompleted && !LocalSaveData.RavenousSoulDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("RavenousSoul.png"), "Gained Charm"); LocalSaveData.RavenousSoulDonePopup = true;
+            if (PlayerData.instance.canOvercharm && !LocalSaveData.OpportunisticDefeatDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("OpportunisticDefeat.png"), "Gained Charm"); LocalSaveData.OpportunisticDefeatDonePopup = true;
+            if (PlayerData.instance.collectorDefeated && !LocalSaveData.SoulSpellDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSpell.png"), "Gained Charm"); LocalSaveData.SoulSpellDonePopup = true;
+            if (PlayerData.instance.grubsCollected > 10 && !LocalSaveData.SlowTimeDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SlowTime.png"), "Gained Charm"); LocalSaveData.SlowTimeDonePopup = true;
+            if (PlayerData.instance.statueStateCollector.completedTier2 && !LocalSaveData.SpeedTimeDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SpeedTime.png"), "Gained Charm"); LocalSaveData.SpeedTimeDonePopup = true;
+            if (PlayerData.instance.mageLordDreamDefeated && !LocalSaveData.GeoSwitchDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("GeoSwitch.png"), "Gained Charm"); LocalSaveData.GeoSwitchDonePopup = true;
+            if (PlayerData.instance.killedMageLord && !LocalSaveData.SoulSwitchDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSwitch.png"), "Gained Charm"); LocalSaveData.SoulSwitchDonePopup = true;
+            if (PlayerData.instance.nailsmithConvoArt && !LocalSaveData.SoulSpeedDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSpeed.png"), "Gained Charm"); LocalSaveData.SoulSpeedDonePopup = true;
+            if (PlayerData.instance.zotePrecept > 56 && !LocalSaveData.ZoteBornDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("ZoteBorn.png"), "Gained Charm"); LocalSaveData.ZoteBornDonePopup = true;
+            if (PlayerData.instance.visitedWhitePalace && !LocalSaveData.ElderStoneDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Elderstone.png"), "Gained Charm"); LocalSaveData.ElderStoneDonePopup = true;
+            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100 && !LocalSaveData.SlyDealDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SlyDeal.png"), "Gained Charm"); LocalSaveData.SlyDealDonePopup = true;
+            if (PlayerData.instance.honedNail && !LocalSaveData.GiantNailDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("GiantNail.png"), "Gained Charm"); LocalSaveData.GiantNailDonePopup = true;
+            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && !LocalSaveData.MatosBlessingDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("MatosBlessing.png"), "Gained Charm"); LocalSaveData.MatosBlessingDonePopup = true;
+            if (PlayerData.instance.honedNail && !LocalSaveData.ShellShieldDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("ShellShield.png"), "Gained Charm"); LocalSaveData.ShellShieldDonePopup = true;
+            if (PlayerData.instance.honedNail && !LocalSaveData.VoidSoulDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulPopup.png"), "Gained Charm"); LocalSaveData.VoidSoulDonePopup = true;
 
             // make it buy from salubra
-            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
-            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
+            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
+            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
         }
 
 
@@ -931,22 +944,22 @@ namespace Fyrenest
         public const int CurrentRevision = 3;
 
 
-        //public Fyrenest() : base("Fyrenest")
-        //{
+        public Fyrenest() : base("Fyrenest")
+        {
 
-        //    //Make sure the main menu text is changed, but disable all other functionalitly
-        //    SetEnabled(false);
-        //    TextChanger.Enabled = true;
+            //Make sure the main menu text is changed, but disable all other functionalitly
+            SetEnabled(false);
+            TextChanger.Enabled = true;
 
-        //    //Instantiate all Room subclasses
-        //    foreach (Type type in this.GetType().Assembly.GetTypes())
-        //    {
-        //        if (type.BaseType == typeof(Room))
-        //        {
-        //            rooms.Add((Room)Activator.CreateInstance(type));
-        //        }
-        //    }
-        //}
+            //Instantiate all Room subclasses
+            foreach (Type type in this.GetType().Assembly.GetTypes())
+            {
+                if (type.BaseType == typeof(Room))
+                {
+                    rooms.Add((Room)Activator.CreateInstance(type));
+                }
+            }
+        }
 
         public void SetEnabled(bool enabled)
         {
@@ -1113,20 +1126,20 @@ namespace Fyrenest
             Preloads = preloadedObjects;
             LoadAbilities();
 
-            On.HeroController.Awake += delegate (On.HeroController.orig_Awake orig, HeroController self) {
-                orig.Invoke(self);
+            //On.HeroController.Awake += delegate (On.HeroController.orig_Awake orig, HeroController self) {
+            //    orig.Invoke(self);
 
-                foreach (IAbility ability in Abilities)
-                {
-                    Log($"Loading ability {ability.Name}!");
-                    ability.Load();
-                }
-            };
+            //    foreach (IAbility ability in Abilities)
+            //    {
+            //        Log($"Loading ability {ability.Name}!");
+            //        ability.Load();
+            //    }
+            //};
             Log("Initializing Part 2...");
-            instance = this;
+
             foreach (var charm in Charms)
             {
-                var num = CharmHelper.AddSprites(SpriteGet(charm.Sprite))[0];
+                var num = CharmHelper.AddSprites(EmbeddedSprite.Get(charm.Sprite))[0];
                 charm.Num = num;
                 var settings = charm.Settings;
                 IntGetters[$"charmCost_{num}"] = _ => settings(Settings).Cost;
@@ -1188,6 +1201,7 @@ namespace Fyrenest
         /// </summary>
         public static void OnSceneLoad()
         {
+            Fyrenest.instance.RoomMirrorer.UpdateFlipping();
             
             //fix bug when diving into direction changing transition
             string entryGate = GameManager.instance.entryGateName;
@@ -1304,8 +1318,6 @@ namespace Fyrenest
             //notify every module that needs it
             RoomMirrorer.BeforeSceneLoad();
 
-            OnSceneLoad();
-
             PreviousRoom = ActiveRoom;
 
             //find and set the active room (if there is one
@@ -1317,6 +1329,10 @@ namespace Fyrenest
                     room.OnBeforeLoad();
                 }
             }
+
+            //update whether the map should be flipped
+            RoomMirrorer.UpdateFlipping();
+
         }
 
         /// <summary>
@@ -1348,7 +1364,7 @@ namespace Fyrenest
         }
 
         /// <summary>
-        /// Called when the main menu is opened, replaces the Hollow Knight Logo with the "Glimmering Realm" Logo
+        /// Called when the main menu is opened, replaces the Hollow Knight Logo with the Fyrenest Logo
         /// </summary>
         public void OnMainMenu(On.MenuStyleTitle.orig_SetTitle orig, global::MenuStyleTitle self, int index)
         {
@@ -1369,7 +1385,7 @@ namespace Fyrenest
                     title.GetComponent<SpriteRenderer>().sprite = titleSprite;
                     //slightly blue, to make it stand apart from the background
                     title.GetComponent<SpriteRenderer>().color = new UnityEngine.Color(193 / 255f, 225 / 255f, 253 / 255f);
-                    title.transform.SetScaleMatching(3.7f);
+                    title.transform.SetScaleMatching(3.2f);
                 }
             }
         }

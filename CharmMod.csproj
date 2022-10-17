@@ -32,6 +32,44 @@
 
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="README.md;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 
+		<!-- Charm Inclusions -->
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\AllCharms.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\BetterCDash.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\ElderStone.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Fyrechild.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\GeoSwitch.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\GiantNail.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\GlassCannon.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\HealthyShell.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\HKBlessing.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\LessDamage.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\LifeBloodCharm.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\MarkofStrength.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\MatosBlessing.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\PowerfulDash.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Quickfall.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Quickjump.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\RavenousSoul.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\ShellShield.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Slowfall.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Slowjump.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SlowTime.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SlyDeal.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SoulHunger.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SoulSlow.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SoulSpeed.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SoulSpell.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SoulSwitch.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SpeedTime.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SturdyNail.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\TripleJump.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\VoidSoul.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\VoidSoulAchievement.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\VoidSoulPopup.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\WealthyAmulet.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Wyrmform.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\ZoteBorn.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+
 		<PropertyGroup>
 			<OutputFileString>SHA256 - $(AssemblyTitle).dll, Version $(AssemblyVersion):</OutputFileString>
 		</PropertyGroup>
@@ -366,43 +404,9 @@
 	<ItemGroup>
 		<!-- Title Inclusion - To change main title on startup of game. -->
 		<EmbeddedResource Include="Resources\title.png"></EmbeddedResource>
-
-		<!-- Charm Inclusions -->
-		<EmbeddedResource Include="Resources\AllCharms.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\BetterCDash.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\ElderStone.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\Fyrechild.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\GeoSwitch.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\GiantNail.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\GlassCannon.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\HealthyShell.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\HKBlessing.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\LessDamage.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\LifeBloodCharm.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\MarkofStrength.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\MatosBlessing.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\PowerfulDash.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\Quickfall.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\Quickjump.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\RavenousSoul.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\ShellShield.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\Slowfall.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\Slowjump.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SlowTime.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SlyDeal.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SoulHunger.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SoulSlow.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SoulSpeed.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SoulSpell.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SoulSwitch.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SpeedTime.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\SturdyNail.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\TripleJump.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\VoidSoul.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\VoidSoulAchievement.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\VoidSoulPopup.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\WealthyAmulet.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\Wyrmform.png"></EmbeddedResource>
-		<EmbeddedResource Include="Resources\ZoteBorn.png"></EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Rooms\WhitePalace\" />
+	  <Folder Include="Rooms\HowlingCliffs\" />
 	</ItemGroup>
 </Project>

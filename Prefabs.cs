@@ -30,6 +30,7 @@ namespace Fyrenest
     internal class Prefabs
     {
         public static Prefab BREAKABLE_FLOOR = new Prefab("RestingGrounds_05", "Quake Floor");
+        public static Prefab BREAKABLE_WALL = new Prefab("Crossroads_07", "Breakable Wall_Silhouette");
         public static Prefab LEFT_TRANSITION = new Prefab("Crossroads_01", "left1");
         public static Prefab RIGHT_TRANSITION = new Prefab("Crossroads_01", "_Transition Gates/right1");
         public static Prefab SMALL_PLATFORM = new Prefab("Tutorial_01", "_Scenery/plat_float_17");
@@ -41,5 +42,9 @@ namespace Fyrenest
         public static Prefab DREAM_ENTRY = new Prefab("White_Palace_11", "Dream Entry");
         public static Prefab WHITE_PALACE_LEVER = new Prefab("White_Palace_14", "White Palace Orb Lever");
         public static Prefab PURE_VESSEL_STATUE = new Prefab("GG_Workshop", "GG_Statue_HollowKnight");
+        public static Prefab WHITE_PALACE_DIRECTION_POLE = new Prefab("Abyss_04", "Direction Pole White Palace (1)");
+        public static Prefab GEO_ROCK_GREENPATH = new Prefab("Fungus3_10", "Geo Rock Green Path 01");
+        public static Prefab GEO_ROCK = new Prefab("Crossroads_07", "Geo Rock 1 (1)");
+        public static Prefab PURE_VESSEL_TOTEM = new Prefab("White_Palace_20", "Soul Totem white_Infinte (2)");
     }
 }
