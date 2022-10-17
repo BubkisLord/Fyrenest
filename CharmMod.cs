@@ -892,7 +892,6 @@ namespace Fyrenest
             if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(SpriteGet("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
         }
 
-        public override string GetVersion() => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public void Unload()
         {
