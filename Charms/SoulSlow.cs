@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class SoulSlow : Charm
     {
-        public static readonly SoulSlow Instance = new();
+        public static readonly SoulSlow instance = new();
         public override string Sprite => "SoulSlow.png";
         public override string Name => "Slow Soul";
         public override string Description => "This thick, callous charm glows brightly when near your shell.\n\nWhen worn, the bearer gains increased max health but makes you slower.";
@@ -53,11 +53,6 @@ namespace Fyrenest
             if (Equipped() && speed != 0)
             {
                 speed -= speed*0.4f;
-                ChargeTimer++;
-                if (ChargeTimer == ChargeInterval)
-                {
-                    ChargeTimer = 0;
-                }
             }
             orig(self, speed);
         }

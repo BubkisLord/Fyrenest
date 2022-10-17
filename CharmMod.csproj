@@ -3,7 +3,7 @@
 		<!-- Change this to the path of your modded HK installation -->
 		<HollowKnightRefs>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\</HollowKnightRefs>
 		<!-- Change this to the path where you want the ready-to-upload exports to be -->
-		<ExportDir>C:\Users\oldfi\Desktop\</ExportDir>
+		<ExportDir>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\Hollow Knight_Data\Managed\Mods</ExportDir>
 		<!-- Uncomment this to generate a documentation file to be included with the mod -->
 		<!--<DocumentationFile>$(OutputPath)/$(AssemblyTitle).xml</DocumentationFile>-->
 	</PropertyGroup>
@@ -15,8 +15,8 @@
 		<Product>Fyrenest</Product>
 		<Description>A Hollow Knight Mod</Description>
 		<Copyright>Copyright ©  2022</Copyright>
-		<AssemblyVersion>1.5.2</AssemblyVersion>
-		<FileVersion>1.5.2</FileVersion>
+		<AssemblyVersion>0.0.0</AssemblyVersion>
+		<FileVersion>0.0.0</FileVersion>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
@@ -40,8 +40,9 @@
 		</GetFileHash>
 	</Target>
 	<ItemGroup>
-		<Reference Include="Transcendence">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Transcendence/Transcendence.dll</HintPath>
+		<!-- Dependencies -->
+		<Reference Include="MenuChanger">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/MenuChanger/MenuChanger.dll</HintPath>
 		</Reference>
 		<Reference Include="Satchel">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Satchel/Satchel.dll</HintPath>
@@ -361,5 +362,47 @@
 		<Reference Include="UnityEngine.XRModule">
 			<HintPath>$(HollowKnightRefs)/UnityEngine.XRModule.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<!-- Title Inclusion - To change main title on startup of game. -->
+		<EmbeddedResource Include="Resources\title.png"></EmbeddedResource>
+
+		<!-- Charm Inclusions -->
+		<EmbeddedResource Include="Resources\AllCharms.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\BetterCDash.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\ElderStone.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\Fyrechild.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\GeoSwitch.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\GiantNail.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\GlassCannon.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\HealthyShell.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\HKBlessing.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\LessDamage.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\LifeBloodCharm.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\MarkofStrength.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\MatosBlessing.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\PowerfulDash.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\Quickfall.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\Quickjump.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\RavenousSoul.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\ShellShield.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\Slowfall.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\Slowjump.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SlowTime.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SlyDeal.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SoulHunger.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SoulSlow.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SoulSpeed.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SoulSpell.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SoulSwitch.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SpeedTime.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\SturdyNail.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\TripleJump.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\VoidSoul.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\VoidSoulAchievement.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\VoidSoulPopup.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\WealthyAmulet.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\Wyrmform.png"></EmbeddedResource>
+		<EmbeddedResource Include="Resources\ZoteBorn.png"></EmbeddedResource>
 	</ItemGroup>
 </Project>

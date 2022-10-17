@@ -6,7 +6,7 @@ namespace Fyrenest
 {
     internal class SpeedTime : Charm
     {
-        public static readonly SpeedTime Instance = new();
+        public static readonly SpeedTime instance = new();
         public override string Sprite => "SpeedTime.png";
         public override string Name => "Speed Time";
         public override string Description => "When holding this charm, everything seems to speed up slightly.\n\nThis charm alters the very fabric of time. When worn, the bearer and anything around it speeds up.";
@@ -26,17 +26,17 @@ namespace Fyrenest
 
         public static void SpeedUpTime(PlayerData data, HeroController controller)
         {
-            if (SpeedTime.Instance.Equipped() && !SlowTime.Instance.Equipped() && !GameManager.instance.isPaused)
+            if (SpeedTime.instance.Equipped() && !SlowTime.instance.Equipped() && !GameManager.instance.isPaused)
             {
                 float num3 = 1.40f;
                 Time.timeScale = num3;
             }
-            if (SpeedTime.Instance.Equipped() && SlowTime.Instance.Equipped() && !GameManager.instance.isPaused)
+            if (SpeedTime.instance.Equipped() && SlowTime.instance.Equipped() && !GameManager.instance.isPaused)
             {
                 float num3 = 1.00f;
                 Time.timeScale = num3;
             }
-            if (!SpeedTime.Instance.Equipped() && !SlowTime.Instance.Equipped() && !GameManager.instance.isPaused)
+            if (!SpeedTime.instance.Equipped() && !SlowTime.instance.Equipped() && !GameManager.instance.isPaused)
             {
                 float num3 = 1.00f;
                 Time.timeScale = num3;

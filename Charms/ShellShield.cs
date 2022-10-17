@@ -10,7 +10,7 @@ namespace Fyrenest
 {
     internal class ShellShield : Charm
     {
-        public static readonly ShellShield Instance = new();
+        public static readonly ShellShield instance = new();
         public override string Sprite => "ShellShield.png";
         public override string Name => "Shell Shield";
         public override string Description => "This magnificent charm bears the likeless of the one, the only Zote The Mighty!\n\nEmbodies the might, the strength, the sheer power of Zote The Mighty into the bearer.";
@@ -60,7 +60,7 @@ namespace Fyrenest
                     var dupeShield2 = DreamshieldPrefab.Spawn(Vector3.zero, Quaternion.Euler(Vector3.up));
                     dupeShield2.transform.Rotate(0, 0, 240);
                     DuplicateDreamshield2 = dupeShield2;
-                    if (SoulSpell.Instance.Equipped())
+                    if (SoulSpell.instance.Equipped())
                     {
                         var dupeShield3 = DreamshieldPrefab.Spawn(Vector3.zero, Quaternion.Euler(Vector3.up));
                         dupeShield3.transform.Rotate(0, 0, 60);
@@ -114,18 +114,18 @@ namespace Fyrenest
             }
             //spawn the 2nd dreamshield
             var dupeShield = DreamshieldPrefab.Spawn(Vector3.zero, Quaternion.Euler(Vector3.up));
-            if (SoulSpell.Instance.Equipped()) dupeShield.transform.localScale *= 1.5f;
+            if (SoulSpell.instance.Equipped()) dupeShield.transform.localScale *= 1.5f;
             // Put the 2nd shield 1/3 across
             var origShield = GameObject.FindWithTag("Orbit Shield");
             if (origShield != null)
             {
                 dupeShield.transform.rotation = origShield.transform.rotation;
-                if (SoulSpell.Instance.Equipped()) origShield.transform.localScale *= 1.5f;
+                if (SoulSpell.instance.Equipped()) origShield.transform.localScale *= 1.5f;
                 DreamshieldPrefab.layer = 17;
                 var damageEnemies = DreamshieldPrefab.GetAddComponent<DamageEnemies>();
                 damageEnemies.attackType = AttackTypes.Spell;
                 damageEnemies.circleDirection = true;
-                if (SoulSpell.Instance.Equipped()) damageEnemies.damageDealt *= 2;
+                if (SoulSpell.instance.Equipped()) damageEnemies.damageDealt *= 2;
                 if (PlayerData.instance.equippedCharm_19) damageEnemies.damageDealt *= 2;
                 damageEnemies.ignoreInvuln = false;
                 damageEnemies.direction = 180f;
@@ -139,7 +139,7 @@ namespace Fyrenest
 
             //spawn the 3rd dreamshield
             var dupeShield2 = DreamshieldPrefab.Spawn(Vector3.zero, Quaternion.Euler(Vector3.up));
-            if (SoulSpell.Instance.Equipped()) dupeShield2.transform.localScale *= 1.5f;
+            if (SoulSpell.instance.Equipped()) dupeShield2.transform.localScale *= 1.5f;
             // Put the 3rd shield 2/3 across
             if (origShield != null)
             {
@@ -147,7 +147,7 @@ namespace Fyrenest
             }
             dupeShield2.transform.Rotate(0, 0, 240);
             DuplicateDreamshield2 = dupeShield2;
-            if (SoulSpell.Instance.Equipped())
+            if (SoulSpell.instance.Equipped())
             {
                 //spawn the 4th dreamshield
                 var dupeShield3 = DreamshieldPrefab.Spawn(Vector3.zero, Quaternion.Euler(Vector3.up));

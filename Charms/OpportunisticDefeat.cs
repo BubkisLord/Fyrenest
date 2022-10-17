@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class OpportunisticDefeat : Charm
     {
-        public static readonly OpportunisticDefeat Instance = new();
+        public static readonly OpportunisticDefeat instance = new();
         public override string Sprite => "LessDamage.png";
         public override string Name => "Opportunistic Defeat";
         public override string Description => "When worn, the bearer takes the most of getting hit.\n\nWhen attacked, you gain both soul and geo. Plus, every 4th time you get hit, you don't take damage.";
@@ -24,13 +24,13 @@ namespace Fyrenest
         }
         private int GiveGeoAndSoul(int damage)
         {
-            if (Equipped() && !WealthyAmulet.Instance.Equipped())
+            if (Equipped() && !WealthyAmulet.instance.Equipped())
             {
                 HeroController.instance.AddGeo(15);
                 HeroController.instance.AddMPCharge(33);
                 EscapeDamage += damage;
             }
-            if (Equipped() && WealthyAmulet.Instance.Equipped())
+            if (Equipped() && WealthyAmulet.instance.Equipped())
             {
                 HeroController.instance.AddGeo(30);
                 HeroController.instance.AddMPCharge(33);

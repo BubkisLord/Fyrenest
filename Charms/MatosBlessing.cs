@@ -2,7 +2,7 @@ namespace Fyrenest
 {
     internal class MatosBlessing : Charm
     {
-        public static readonly MatosBlessing Instance = new();
+        public static readonly MatosBlessing instance = new();
         public override string Sprite => "MatosBlessing.png";
         public override string Name => "Mato's Blessing";
         public override string Description => "Imbues the power of Mato into your nail, focusing the strength and honour of a true master.\n\nWhen hitting an enemy with a cyclone slash, you draw health, geo and energy from the target, making you more powerful.";
@@ -27,7 +27,7 @@ namespace Fyrenest
 
         private int SoulGain(int soulgained)
         {
-            if (isCycloning)
+            if (isCycloning && Equipped())
             {
                 soulgained += 11;
                 if (PlayerData.instance.health != PlayerData.instance.maxHealth) HeroController.instance.AddHealth(1);

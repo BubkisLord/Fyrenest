@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class SoulSpeed : Charm
     {
-        public static readonly SoulSpeed Instance = new();
+        public static readonly SoulSpeed instance = new();
         public override string Sprite => "SoulSpeed.png";
         public override string Name => "Speed Soul";
         public override string Description => "Slowly takes soul for a great increase in speed.";

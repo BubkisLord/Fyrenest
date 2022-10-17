@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class SoulHunger : Charm
     {
-        public static readonly SoulHunger Instance = new();
+        public static readonly SoulHunger instance = new();
         public override string Sprite => "SoulHunger.png";
         public override string Name => "Hungry Soul";
         public override string Description => "This charm hungers for soul.\n\nYou gain an extreme amount of soul for every hit.";
@@ -23,7 +23,7 @@ namespace Fyrenest
 
         private int OnGetSoul(int amount)
         {
-            amount *= 6;
+            if (Equipped()) amount *= 6;
             return amount;
         }
     }

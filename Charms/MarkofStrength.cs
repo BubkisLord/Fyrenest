@@ -8,7 +8,7 @@ namespace Fyrenest
 {
     internal class MarkofStrength : Charm
     {
-        public static readonly MarkofStrength Instance = new();
+        public static readonly MarkofStrength instance = new();
         public override string Sprite => "MarkofStrength.png";
         public override string Name => "Mark of Strength";
         public override string Description => "Given by the Sisters of Battle to mark one's and strength in the face of danger.\n\nWhen worn, allows the bearer to throw their nail as a spinning blade. This ability replaces Vengeful Spirit and Shade Soul.";
@@ -44,7 +44,7 @@ namespace Fyrenest
                 FsmStateAction action = HeroController.instance.spellControl.GetAction("Fireball 2", 0);
                 HeroController.instance.spellControl.InsertAction("Fireball 2", action, 0);
             }
-            WindScythe.Instance.Load();
+            WindScythe.instance.Load();
             return;
         }
         private void HandleTrigger(AbilityTrigger trigger)

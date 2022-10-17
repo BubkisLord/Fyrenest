@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class SoulSpell : Charm
     {
-        public static readonly SoulSpell Instance = new();
+        public static readonly SoulSpell instance = new();
         public override string Sprite => "SoulSpell.png";
         public override string Name => "Spell Soul";
         public override string Description => "Spells are much bigger, but you get half the soul from enemies.";
@@ -35,13 +35,13 @@ namespace Fyrenest
 
         private int OnGetSoul(int amount)
         {
-            if (SoulHunger.Instance.Equipped())
+            if (SoulHunger.instance.Equipped())
             {
                 return amount;
             }
             else
             {
-                if (RavenousSoul.Instance.Equipped())
+                if (RavenousSoul.instance.Equipped())
                 {
                     return amount;
                 }

@@ -141,7 +141,7 @@ namespace Fyrenest
 				}
 				catch (Exception exception)
 				{
-					Fyrenest.Instance.LogError("Error: " + exception.Message);
+					Fyrenest.instance.LogError("Error: " + exception.Message);
 				}
 				DamageEnemies damageEnemies = GameObjectUtils.GetAddComponent<DamageEnemies>(foundCompanions[0]);
 				damageEnemies.attackType = AttackTypes.Spell;
@@ -158,7 +158,7 @@ namespace Fyrenest
 		}
 
 		// Token: 0x04000027 RID: 39
-		public static readonly Fyrechild Instance = new Fyrechild();
+		public static readonly Fyrechild instance = new Fyrechild();
 
 		// Token: 0x04000028 RID: 40
 		private List<GameObject> _companions = new List<GameObject>();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fyrenest {
     public class WindScythe : IAbility {
-        public static readonly WindScythe Instance = new();
+        public static readonly WindScythe instance = new();
         public string Name => "Wind Scythe";
         public AbilityTrigger Trigger => AbilityTrigger.Fireball;
 
@@ -18,7 +18,7 @@ namespace Fyrenest {
             damageEnemies.attackType = AttackTypes.Spell;
             damageEnemies.circleDirection = true;
             if (PlayerData.instance.fireballLevel == 1) damageEnemies.damageDealt = (PlayerData.instance.equippedCharm_19) ? (PlayerData.instance.GetInt(nameof(PlayerData.nailDamage)) * 2) : PlayerData.instance.GetInt(nameof(PlayerData.nailDamage));
-            if (SoulSpell.Instance.Equipped()) damageEnemies.damageDealt *= 2;
+            if (SoulSpell.instance.Equipped()) damageEnemies.damageDealt *= 2;
             damageEnemies.ignoreInvuln = false;
             damageEnemies.direction = 180f;
             damageEnemies.moveDirection = true;
@@ -28,7 +28,7 @@ namespace Fyrenest {
 
         public void Perform()
         {
-            if (MarkofStrength.Instance.Equipped())
+            if (MarkofStrength.instance.Equipped())
             {
                 var scythe = GameObject.Instantiate(scythePreload, HeroController.instance.transform.position, Quaternion.identity);
                 scythe.SetActive(true);

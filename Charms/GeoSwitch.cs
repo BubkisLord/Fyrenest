@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class GeoSwitch : Charm
     {
-        public static readonly GeoSwitch Instance = new();
+        public static readonly GeoSwitch instance = new();
         public override string Sprite => "GeoSwitch.png";
         public override string Name => "Geo Switch";
         public override string Description => "Draws power from your shell to give you geo.";

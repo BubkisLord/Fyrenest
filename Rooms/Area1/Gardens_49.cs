@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Fyrenest.Rooms.Area1
+{
+    internal class Gardens_49 : Room
+    {
+        public Gardens_49() : base("Fungus3_49") { IsFlipped = true; }
+
+        public override void OnLoad()
+        {
+            //PlaceGO(Prefabs.SMALL_PLATFORM.Object, 56, 6);
+        }
+    }
+}

@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class ElderStone : Charm
     {
-        public static readonly ElderStone Instance = new();
+        public static readonly ElderStone instance = new();
         public override string Sprite => "ElderStone.png";
         public override string Name => "ElderStone";
         public override string Description => "This magnificent charm bears the likeless of the Elderbug.\n\nEmbodies the frailness, the weakness, and the wisdom of the Elderbug into the bearer.";
@@ -72,7 +72,7 @@ namespace Fyrenest
             }
             // Keep normal gravity after going through upwards transitions, so that the player does not fall
             // through spikes in some rooms before they gain control.
-            rb.gravityScale = (Equipped() && !InInventory() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION) ? 0.3f : 0.79f;
+            if (Equipped()) rb.gravityScale = (Equipped() && !InInventory() && HeroController.instance.transitionState == HeroTransitionState.WAITING_TO_TRANSITION) ? 0.3f : 0.79f;
         }
 
         private bool FallSoftly(On.HeroController.orig_ShouldHardLand orig, HeroController self, Collision2D collision) =>

@@ -261,7 +261,6 @@ C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\System.Globalization.Exten
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\System.ServiceModel.Internals.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\System.Transactions.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\System.Xml.XPath.XDocument.dll
-C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\Transcendence.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\Unity.Timeline.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\UnityEngine.AccessibilityModule.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\UnityEngine.AIModule.dll
@@ -330,7 +329,6 @@ C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\UnityEngine.VRModule.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\UnityEngine.WindModule.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\UnityEngine.XRModule.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\XGamingRuntime.dll
-C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\Transcendence.pdb
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\Satchel.pdb
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\Assembly-CSharp.xml
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\SFCore.pdb
@@ -344,3 +342,6 @@ C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\RandomizerCore.xml
 C:\Users\oldfi\source\repos\Fyrenest\obj\Debug\net472\CharmMod.csproj.CopyComplete
 C:\Users\oldfi\source\repos\Fyrenest\obj\Debug\net472\Fyrenest.dll
 C:\Users\oldfi\source\repos\Fyrenest\obj\Debug\net472\Fyrenest.pdb
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.dll
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.pdb
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.xml

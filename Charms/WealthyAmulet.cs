@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class WealthyAmulet : Charm
     {
-        public static readonly WealthyAmulet Instance = new();
+        public static readonly WealthyAmulet instance = new();
         public override string Sprite => "WealthyAmulet.png";
         public override string Name => "Amulet of Wealth";
         public override string Description => "Allows the bearer to accumulate large amounts of geo.\n\nYou gain geo when attacking an enemy, but it costs 100 geo to heal.";
@@ -25,7 +25,7 @@ namespace Fyrenest
 
         public int GainSoul(int amount)
         {
-            if(Equipped() && SlyDeal.Instance.Equipped()) {
+            if(Equipped() && SlyDeal.instance.Equipped()) {
                 if (PlayerData.instance.health == 1) {
                     HeroController.instance.AddGeo(40);
                     return amount * 2;
@@ -35,7 +35,7 @@ namespace Fyrenest
                     return amount;
                 }
             }
-            if (Equipped() && !SlyDeal.Instance.Equipped())
+            if (Equipped() && !SlyDeal.instance.Equipped())
             {
                 if (PlayerData.instance.health == 1)
                 {
@@ -54,7 +54,7 @@ namespace Fyrenest
         //healing costs 100 geo.
         public int BeforeAddHealth( int amount ) {
             //just wealthy amulet equipped
-            if(Equipped() && !HealthyShell.Instance.Equipped()) {
+            if(Equipped() && !HealthyShell.instance.Equipped()) {
                 if(PlayerData.instance.geo > 100 ) {
                     HeroController.instance.TakeGeo(100);
                     return amount;
@@ -63,14 +63,14 @@ namespace Fyrenest
                     return 0;
             }
             //both equipped (no cost to heal)
-            if (Equipped() && HealthyShell.Instance.Equipped())
+            if (Equipped() && HealthyShell.instance.Equipped())
             {
                 return amount;
             }
             //not equipped
-            if (!Equipped() && HealthyShell.Instance.Equipped())
+            if (!Equipped() && HealthyShell.instance.Equipped())
                 return amount;
-            if (!Equipped() && !HealthyShell.Instance.Equipped())
+            if (!Equipped() && !HealthyShell.instance.Equipped())
                 return amount;
             //so BeforeAddHealth() doesn't have an error.
             else

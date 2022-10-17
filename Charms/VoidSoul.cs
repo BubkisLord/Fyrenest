@@ -2,7 +2,7 @@ namespace Fyrenest
 {
     internal class VoidSoul : Charm
     {
-        public static readonly VoidSoul Instance = new();
+        public static readonly VoidSoul instance = new();
         public override string Sprite => "VoidSoul.png";
         public override string Name => "Void Soul";
         public override string Description => "A charm radiating with raw power. Made with both pale shell and pure void, this charm is the focused rage and strength of Fyrenest.\n\nWhen worn, while the bearer's shade is alive, the charm accumulates power from the shade and gaining soul. Your speed, jump height, strength, and power is increased. These can be increased more by gaining soul.";
@@ -29,11 +29,11 @@ namespace Fyrenest
 
         private int ModHooks_SoulGainHook(int soulAmount)
         {
-            if (PlayerData.instance.shadeScene != "None")
+            if (PlayerData.instance.shadeScene != "None" && Equipped())
             {
                 soulAmount *= 2;
                 naildamageadd += 1;
-                if (naildamageadd > 2) PlayerData.instance.nailDamage += 1; naildamageadd = 0;
+                if (naildamageadd > 2) PlayerData.instance.SetInt("nailDamage", PlayerData.instance.nailDamage + 1); naildamageadd = 0;
                 extraspeedcount += 1;
                 if (extraspeedcount > 3) extraspeedmodifier += 0.1f; extraspeedcount = 0;
             }
@@ -43,7 +43,7 @@ namespace Fyrenest
         private void ChangeGravity()
         {
             Fyrenest.UpdateNailDamage();
-            if (PlayerData.instance.shadeScene != "None")
+            if (PlayerData.instance.shadeScene != "None" && Equipped())
             {
                 if (HeroController.instance == null)
                 {

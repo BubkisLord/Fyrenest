@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class BetterCDash : Charm
     {
-        public static readonly BetterCDash Instance = new();
+        public static readonly BetterCDash instance = new();
         public override string Sprite => "BetterCDash.png";
         public override string Name => "Enraged Crystal Dash";
         public override string Description => "A purple charm resembling the Sprintmaster charm.\n\nMakes the Crystal Dash more powerful, doing more damage, and moves with powerful speed.";

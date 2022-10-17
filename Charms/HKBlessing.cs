@@ -4,7 +4,7 @@ namespace Fyrenest
 {
     internal class HKBlessing : Charm
     {
-        public static readonly HKBlessing Instance = new();
+        public static readonly HKBlessing instance = new();
         public override string Sprite => "HKBlessing.png";
         public override string Name => "Hollow Knight's Blessing";
         public override string Description => "Contains the blessing of The Hollow Knight.\n\nMakes lifeblood charms more powerful.";

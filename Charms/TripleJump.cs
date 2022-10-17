@@ -131,15 +131,15 @@ namespace Fyrenest
 
 		private static IEnumerator RefreshWings()
 		{
-			if (Instance.jumpTimes < 2)
+			if (instance.jumpTimes < 2)
 			{
 				yield return new WaitUntil(() => !InputHandler.Instance.inputActions.jump.IsPressed);
 				ReflectionHelper.SetField<HeroController, bool>(HeroController.instance, "doubleJumped", false);
-				Instance.jumpTimes += 1;
+				instance.jumpTimes += 1;
 				yield break;
 			}
 		}
 
-		public static readonly TripleJump Instance = new TripleJump();
+		public static readonly TripleJump instance = new TripleJump();
 	}
 }

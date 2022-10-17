@@ -6,7 +6,7 @@ namespace Fyrenest
 {
     internal class Quickfall : Charm
     {
-        public static readonly Quickfall Instance = new();
+        public static readonly Quickfall instance = new();
         public override string Sprite => "Quickfall.png";
         public override string Name => "Quickfall";
         public override string Description => "This charm falls faster than it should when dropped.\n\nWhen worn, the bearer falls at a very fast rate.";

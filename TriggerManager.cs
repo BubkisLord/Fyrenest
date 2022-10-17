@@ -7,6 +7,6 @@ namespace Fyrenest {
     }
 
     public class TriggerManager {
-        public static readonly TriggerManager Instance = new();
+        public static readonly TriggerManager instance = new();
     }
 }

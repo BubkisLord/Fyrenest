@@ -146,6 +146,6 @@ namespace Fyrenest
 			yield break;
 		}
 
-		public static readonly WyrmForm Instance = new WyrmForm();
+		public static readonly WyrmForm instance = new WyrmForm();
 	}
 }
