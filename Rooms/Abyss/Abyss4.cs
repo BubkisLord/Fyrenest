@@ -14,7 +14,7 @@ namespace Fyrenest.Rooms.Abyss
         public override void OnLoad()
         {
             DestroyGO("Direction Pole White Palace (1)");
-            PlaceGO(Prefabs.WHITE_PALACE_DIRECTION_POLE.Object, 6.5f, 8.4f, Quaternion.Euler(180, 0, 0));
+            PlaceGO(Prefabs.WHITE_PALACE_DIRECTION_POLE.Object, 6.5f, 8.4f, Quaternion.Euler(0, 180, 0));
         }
         public override void OnWorldInit()
         {

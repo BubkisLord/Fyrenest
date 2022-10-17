@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fyrenest.Rooms.Abyss
+namespace Fyrenest.Rooms.Crossroads
 {
     internal class Crossroads1 : Room
     {

@@ -14,9 +14,9 @@ namespace Fyrenest.Rooms.Abyss
         public override void OnLoad()
         {
             DestroyGO("Dusk Knight");
-            PlaceGO(Prefabs.PURE_VESSEL_TOTEM.Object, 121.61f, 16.76f, Quaternion.Euler(0, 0, -2.5f));
+            PlaceGO(Prefabs.PURE_VESSEL_TOTEM.Object, 121.61f, 18.76f, Quaternion.Euler(0, 0, -2.5f));
             PlaceGO(Prefabs.PURE_VESSEL_STATUE.Object, 124.61f, 17, Quaternion.Euler(0, 0, 2.5f));
-            PlaceGO(Prefabs.PURE_VESSEL_TOTEM.Object, 127.61f, 16.85f, Quaternion.Euler(0, 0, 1.5f));
+            PlaceGO(Prefabs.PURE_VESSEL_TOTEM.Object, 127.61f, 18.85f, Quaternion.Euler(0, 0, 1.5f));
         }
     }
 }
