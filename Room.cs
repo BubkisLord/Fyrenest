@@ -1,4 +1,5 @@
-﻿using ItemChanger;
+﻿using GlobalEnums;
+using ItemChanger;
 using ItemChanger.Placements;
 using ItemChanger.Tags;
 using ItemChanger.UIDefs;
@@ -162,12 +163,13 @@ namespace Fyrenest
         /// </summary>
         public void ReplaceText(string key, string text, string sheetKey = "")
         {
-            Fyrenest.instance.TextChanger.AddReplacement(key, text, sheetKey);
+            Fyrenest.instance.AddReplacement(key, text, sheetKey);
         }
 
         /// <summary>
         /// Changes whether the room should be dark without lantern (Call in OnBeforeLoad)
         /// </summary>
+        /// <param name="dark">If it is dark or not.</param>
         public void SetDarkness(bool dark)
         {
             foreach (GameObject go in Resources.FindObjectsOfTypeAll(typeof(GameObject)).Where(go => go.name == "_SceneManager"))
@@ -176,5 +178,63 @@ namespace Fyrenest
             }
         }
 
+        /// <summary>
+        /// Sets the hue of the room (Call in OnBeforeLoad)
+        /// </summary>
+        /// <param name="color">Sets the washed-out color of the room</param>
+        public void SetColor(Color color)
+        {
+            foreach (GameObject go in Resources.FindObjectsOfTypeAll(typeof(GameObject)).Where(go => go.name == "_SceneManager"))
+            {
+                go.GetComponent<SceneManager>().defaultColor = color;
+            }
+        }
+
+        /// <summary>
+        /// Sets the environment (Call in OnBeforeLoad)
+        /// 0 = Dust, 1 = Grass, 2 = Bone, 3 = Spa, 4 = Metal, 5 = No Effect, 6 = Wet
+        /// </summary>
+        /// <param name="environmentType">0 = Dust, 1 = Grass, 2 = Bone, 3 = Spa, 4 = Metal, 5 = No Effect, 6 = Wet</param>
+        public void SetEnvironment(int environmentType)
+        {
+            foreach (GameObject go in Resources.FindObjectsOfTypeAll(typeof(GameObject)).Where(go => go.name == "_SceneManager"))
+            {
+                go.GetComponent<SceneManager>().environmentType = environmentType;
+            }
+        }
+
+        /// <summary>
+        /// Sets it to be windy like in the howling cliffs. (Call in OnBeforeLoad)
+        /// </summary>
+        /// <param name="isWindy">Sets if it is windy or not.</param>
+        public void SetWindy(bool isWindy)
+        {
+            foreach (GameObject go in Resources.FindObjectsOfTypeAll(typeof(GameObject)).Where(go => go.name == "_SceneManager"))
+            {
+                go.GetComponent<SceneManager>().SetWindy(isWindy);
+            }
+        }
+        /// <summary>
+        /// Sets the light that the hero emits. (Call in OnBeforeLoad)
+        /// </summary>
+        /// <param name="color">The color that the knight emits.</param>
+        public void SetHeroLightColor(Color color)
+        {
+            foreach (GameObject go in Resources.FindObjectsOfTypeAll(typeof(GameObject)).Where(go => go.name == "_SceneManager"))
+            {
+                go.GetComponent<SceneManager>().heroLightColor = color;
+            }
+        }
+        /// <summary>
+        /// Sets the saturation of the room (Call in OnBeforeLoad)
+        /// </summary>
+        /// <param name="saturation">The saturation of the room</param>
+        public void SetSaturation(float saturation)
+        {
+            foreach (GameObject go in Resources.FindObjectsOfTypeAll(typeof(GameObject)).Where(go => go.name == "_SceneManager"))
+            {
+                go.GetComponent<SceneManager>().saturation = saturation;
+            }
+        }
     }
 }

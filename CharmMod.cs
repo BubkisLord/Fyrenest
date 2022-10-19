@@ -10,11 +10,11 @@ using ItemChanger;
 using ItemChanger.Tags;
 using ItemChanger.UIDefs;
 using Satchel.BetterMenus;
-using static Fyrenest.Fyrenest;
 using GlobalEnums;
 using ItemChanger.Internal;
 using ItemChanger.Modules;
 using UnityEngine.SceneManagement;
+using static Fyrenest.Fyrenest;
 
 namespace Fyrenest
 {
@@ -24,7 +24,7 @@ namespace Fyrenest
 
         public static int charmSelect = 0;
 
-        public override string GetVersion() => "3.0.0";
+        public override string GetVersion() => "3 - Lore Update";
 
         public static Fyrenest Loadedinstance { get; set; }
 
@@ -106,12 +106,6 @@ namespace Fyrenest
         private void ModHooks_SavegameLoadHook(int obj)
         {
             PlayerData.instance.CalculateNotchesUsed();
-        }
-
-        public class CustomGlobalSaveData
-        {
-            // The number of times the player has loaded into a save.
-            public int SavesLoaded;
         }
 
         // The local data to store that is specific to saves.
@@ -236,43 +230,42 @@ namespace Fyrenest
                 charm.Settings(Settings).Cost = charm.DefaultCost;
             }
             //}
-
+            
             //give charms when certain things are done.
-            if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.colosseumSilverCompleted) Slowfall.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasShadowDash) PowerfulDash.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasNailArt) SturdyNail.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked) MarkofStrength.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasDreamGate) SoulHunger.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasDreamNail) SoulSlow.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey) BetterCDash.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.killedHollowKnight) HKBlessing.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasKingsBrand) HealthyShell.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.killedHollowKnightPrime) GlassCannon.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.bankerAccountPurchased) WealthyAmulet.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.colosseumGoldCompleted) RavenousSoul.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.canOvercharm) OpportunisticDefeat.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.collectorDefeated) SoulSpell.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.grubsCollected > 10) SlowTime.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.statueStateCollector.completedTier2) SpeedTime.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.mageLordDreamDefeated) GeoSwitch.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.killedMageLord) SoulSwitch.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.nailsmithConvoArt) SoulSpeed.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.zotePrecept > 56) ZoteBorn.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.visitedWhitePalace) ElderStone.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.honedNail) GiantNail.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey) Quickjump.instance.Settings(Settings).Got = true;
-            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20) Slowjump.instance.Settings(Settings).Got = true;
+            if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.instance.Settings(Settings).Got = true; LocalSaveData.QuickfallGot = true;
+            if (PlayerData.instance.colosseumSilverCompleted) Slowfall.instance.Settings(Settings).Got = true; LocalSaveData.SlowfallGot = true;
+            if (PlayerData.instance.hasShadowDash) PowerfulDash.instance.Settings(Settings).Got = true; LocalSaveData.PowerfulDashGot = true;
+            if (PlayerData.instance.hasNailArt) SturdyNail.instance.Settings(Settings).Got = true; LocalSaveData.SturdyNailGot = true;
+            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked) MarkofStrength.instance.Settings(Settings).Got = true; LocalSaveData.MarkofStrengthGot = true;
+            if (PlayerData.instance.hasDreamGate) SoulHunger.instance.Settings(Settings).Got = true; LocalSaveData.SoulHungerGot = true;
+            if (PlayerData.instance.hasDreamNail) SoulSlow.instance.Settings(Settings).Got = true; LocalSaveData.SoulSlowGot = true;
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey) BetterCDash.instance.Settings(Settings).Got = true; LocalSaveData.BetterCDashGot = true;
+            if (PlayerData.instance.killedHollowKnight) HKBlessing.instance.Settings(Settings).Got = true; LocalSaveData.HKBlessingGot = true;
+            if (PlayerData.instance.hasKingsBrand) HealthyShell.instance.Settings(Settings).Got = true; LocalSaveData.HealthyShellGot = true;
+            if (PlayerData.instance.killedHollowKnightPrime) GlassCannon.instance.Settings(Settings).Got = true; LocalSaveData.GlassCannonGot = true;
+            if (PlayerData.instance.bankerAccountPurchased) WealthyAmulet.instance.Settings(Settings).Got = true; LocalSaveData.WealthyAmuletGot = true;
+            if (PlayerData.instance.colosseumGoldCompleted) RavenousSoul.instance.Settings(Settings).Got = true; LocalSaveData.RavenousSoulGot = true;
+            if (PlayerData.instance.canOvercharm) OpportunisticDefeat.instance.Settings(Settings).Got = true; LocalSaveData.OpportunisticDefeatGot = true;
+            if (PlayerData.instance.collectorDefeated) SoulSpell.instance.Settings(Settings).Got = true; LocalSaveData.SoulSpellGot = true;
+            if (PlayerData.instance.grubsCollected > 10) SlowTime.instance.Settings(Settings).Got = true; LocalSaveData.SlowTimeGot = true;
+            if (PlayerData.instance.statueStateCollector.completedTier2) SpeedTime.instance.Settings(Settings).Got = true; LocalSaveData.SpeedTimeGot = true;
+            if (PlayerData.instance.mageLordDreamDefeated) GeoSwitch.instance.Settings(Settings).Got = true; LocalSaveData.GeoSwitchGot = true;
+            if (PlayerData.instance.killedMageLord) SoulSwitch.instance.Settings(Settings).Got = true; LocalSaveData.SoulSwitchGot = true;
+            if (PlayerData.instance.nailsmithConvoArt) SoulSpeed.instance.Settings(Settings).Got = true; LocalSaveData.SoulSpeedGot = true;
+            if (PlayerData.instance.zotePrecept > 56) ZoteBorn.instance.Settings(Settings).Got = true; LocalSaveData.ZoteBornGot = true;
+            if (PlayerData.instance.visitedWhitePalace) ElderStone.instance.Settings(Settings).Got = true; LocalSaveData.ElderStoneGot = true;
+            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.instance.Settings(Settings).Got = true; LocalSaveData.SlyDealGot = true;
+            if (PlayerData.instance.honedNail) GiantNail.instance.Settings(Settings).Got = true; LocalSaveData.GiantNailGot = true;
+            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.instance.Settings(Settings).Got = true; LocalSaveData.MatosBlessingGot = true;
+            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey) Quickjump.instance.Settings(Settings).Got = true; LocalSaveData.QuickjumpGot = true;
+            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20) Slowjump.instance.Settings(Settings).Got = true; LocalSaveData.SlowjumpGot = true;
 
-            PowerfulDash.instance.Settings(Settings).Cost = 10;
             if (PlayerData.instance.maxHealth < 1)
             {
                 HeroController.instance.AddToMaxHealth(1);
             }
             AchievementHelper.AddAchievement("voidsoulachievement", EmbeddedSprite.Get("VoidSoulAchievement.png"), "Soul of Void", "Gain and wear the Void Soul charm.", false);
-            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidsoulachievement");
+            
 
             //change local save data
             if (!LocalSaveData.QuickfallGot && Quickfall.instance.Settings(Settings).Got) LocalSaveData.QuickfallGot = true;
@@ -315,6 +308,22 @@ namespace Fyrenest
             //        map.GetComponent<SpriteRenderer>().sprite = mapSprite;
             //    }
             //}
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                Log("Initiating OnWorldInit()");
+                //Call OnWorldInit for all Room subclasses
+                foreach (Room room in rooms)
+                {
+                    room.OnWorldInit();
+                    Log("Initialized " + room.RoomName);
+                }
+                Log("Re-initialized all rooms.");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                // Toggle if Fyrenest is enabled.
+                LocalSaveData.FyrenestEnabled = !LocalSaveData.FyrenestEnabled;
+            }
         }
 
         public bool insanity = false;
@@ -423,6 +432,19 @@ namespace Fyrenest
         }
         public string LanguageGet(string key, string sheetTitle, string orig)
         {
+            if (!Enabled) return orig;
+
+            foreach (TextReplacement textReplacement in texts)
+            {
+                if (textReplacement.Key == key && (textReplacement.SheetKey == "" || textReplacement.SheetKey == sheetTitle))
+                {
+                    return textReplacement.Text;
+                }
+            }
+            if (TextEdits.TryGetValue((key, sheetTitle), out var text))
+            {
+                return text();
+            }
             if (key == "HU_DEFEAT" && sheetTitle == "Ghosts")
             {
                 return "My mind... it clears. Have we been sleeping?<page>No, I am not speaking to you, little knight.<page>...I remember... ...those proud lords, were they truly monsters? Their eyes, bright and clear. Why, why did I fear them so? They were going to help...<page>...it was I who brought the madness...<page>...No, not I. You, the voice... ...I remember now... ...But finally, you have stopped, you cruel voice...<page>...Who are you? Whose voice wonders through my mind?...<page>...How?...";
@@ -632,11 +654,7 @@ namespace Fyrenest
             }
             if (sheetTitle == "Lore Tablets" && key == "TUT_TAB_02")
             {
-                return "For those who enter Fyrenest from the far lands of Hallownest and The Glimmering Realm, note this. Beyond this point you enter the land of the Pale King's birthplace. Step across this threshold and obey our laws. Bear witness to one of the last civilisations, one of the eternal Kingdoms.\n\nFyrenest.";
-            }
-            if (sheetTitle == "Lore Tablets" && key == "ARCHIVE_02")
-            {
-                return "ZONEMY WILL BRING LIGHT. ZONEMY WILL BRING POWER. ZONEMY WILL BRING PEACE, VOID AGAINST THE LIGHT.";
+                return "For those who enter Fyrenest from the far lands of Hallownest and The Glimmering Realm, note this. Beyond this point you enter the land of the light. Step across this threshold and obey our laws. Bear witness to one of the last civilisations, one of the eternal Kingdoms.\n\nFyrenest.";
             }
             if (sheetTitle == "Lore Tablets" && key == "RANDOM_POEM_STUFF")
             {
@@ -669,6 +687,113 @@ namespace Fyrenest
             if (orig.ToLower().Contains("the world of infected vessel"))
             {
                 return orig.Replace("Infected Vessel", "Hollow Knight");
+            }
+            if (key == "WITCH_REWARD_8A")
+            {
+                return "Yes. The time has come.<page>The Dream Nail... And you as well, Wielder. It is time for you both to awaken.<page>The Essence you have collected... Finally, I will be able to re-enact the second stage of my plan. Pure potential! Let the power course through you and into the Dream Nail!<page>Hold it aloft, Wielder!<page>AWAKEN!";
+            }
+            if (key == "WITCH_FINAL_1")
+            {
+                return "So much Essence... Finally. So bright! I will be able to retake this land.<page>You see, the folk of my tribe were born from a light. Light similar to Essence, similar to that powerful blade, though much brighter still.<page>They were content to bask in that light and honoured it. Worshipped it. For a time...<br>But we lost our way. Forgot our traditions...<page>But another light appeared in our world... A wyrm that took the form of a king. He was born here, from the remanents of Fyrenest's essence and light. Fyrenest's power was forever destroyed, absorbed by a narcissistic king.<page>How fickle my ancestors must have been. They forsook the light that spawned them. Turned their backs to it... Forgot it even.<page>I have rectified their mistakes. I will ascend to a might never seen before. All those champions you slew, all those warriors you killed, I have been harvesting their power. Did you see the prison I set their spirits in? A eternal fighting ring.<page>You have been collecting essence since you came here. Going out and fetching more for me. Now I have enough to ascend. Ascension is my final goal. You see, I am the light! I am the blinding radiance Fyrenest needs! Everyone will worship me for the end of time.<page>No one shall forget me. No one shall lose their way. I will be their god! Their ruler!";
+            }
+            if (key == "WITCH_MEET_A")
+            {
+                return "Ah, welcome back to the waking world. Those Dreamers. They inhabit every civilisation wherever you go. They are nothing, just ignore them.";
+            }
+            if (key == "WITCH_REWARD_5")
+            {
+                return "So, you already have 700 Essence. Take your gift and continue collecting Essence for me.<page>I need more if I want to ascend. Just know that once you have 900, you must come back and visit me.";
+            }
+            if (key == "WITCH_REWARD_7")
+            {
+                return "So, you already have 1500 Essence. Soon you will gain a special gift.<page>Continue on your path, Wielder. I know not what guides you, nor what will it is that drives you forward. But know, if that drive disappears, you will pay dearly. Once you have collected 1800 Essence though, I will be here waiting.<page>Take this gift, may it grant you strength and help you to collect the Essence of this world!";
+            }
+            if (key == "WITCH_REWARD_4")
+            {
+                return "Ahhhhh. 500 Essence. You're a master in the making. Well done! Well done! I've a small reward for you. Don't let it get in your head though, we still have a long way to go. I need more.<page>Plucked from one of my most precious memories, this Charm will bring you and the Dream Nail closer together still. The secrets of this kingdom won't be able to hide from you any longer!<page>Take it, and return once you have collected 700 Essence. More gifts await you... and me...";
+            }
+            if (key == "WITCH_GENERIC")
+            {
+                return "Explore Fyrenest and collect Essence. There are beings of great power that harbor extreme power. Seek them out, reveal them, and gather the light inside...";
+            }
+            if (key == "WITCH_MEET_B")
+            {
+                return "Ahhhh, you've found your way back to me. When you awoke you just left. You made a good choice coming back here. I have a use for your services.";
+            }
+            if (key == "WITCH_MEET_B")
+            {
+                return "Ahhhh, you've found your way back to me. When you awoke you just left. You made a good choice coming back here. I have a use for your services.";
+            }
+            if (key == "WITCH_REWARD_8B")
+            {
+                return "Ahhhh, ah ha ha ha ha, yes...<page>No dream can hide itself from you now. You can peer into the darkest places... You just need to find the right crack.<page>What will you do with such a power, Wielder? Whose memories will you hunt down?<page>Hah. Do as you wish, once my plan is fulfilled. Find the last remaining scraps of Essence. Seek it out. Find it, and bring it to me. I want it all.";
+            }
+            if (key == "WITCH_FINAL_3")
+            {
+                return "Finally. I ascend! The time has come!\n\nI WILL RULE ALL OF FYRENEST! NOTHING SHALL STOP ME!<page>I SHALL BE ETERNAL, I SHALL BE THE LIGHT!";
+            }
+            if (key == "WITCH_INTRO")
+            {
+                return "Those figures, those Dreamers... they reached out with what little power they still have and dragged you into that hidden place. They feel threatened by you. They were weak.<page>They couldn't do what needed to be done.<br>Let's see if you fare better.<page>Wait, that talisman you now wield, the Dream Nail... it can cut through the veil that separates the waking world from our dreams. Maybe you shall fare better.<page>Though I must admit, that sacred blade has dulled over time. Together perhaps, we can restore its power. You only have to bring me Essence. Yes... That works.<page>Essence... they are precious fragments of light and energy collected from dreams. Collect it wherever you find any, and bring it to me. Once we have enough, we can work wonders together. We will re-create all of Fyrenest!<page>Go out into the world, Wielder. Hunt down the Essence that lingers there!<page>Collect 100 Essence and return to me. I will teach you more... The ways of ascension.";
+            }
+            if (key == "WITCH_FINAL_2")
+            {
+                return "It is time for us to be remembered.<page>It is time for the light to be remembered, to be seen again.";
+            }
+            if (key == "HINT_WITCH_DREAMPLANT")
+            {
+                return "Essence can be found wherever dreams take root.<page>Have you seen them? Those whispering plants that grow all over this old Kingdom? I believe there is one just outside. Why not strike it with your Dream Nail, and see what happens? Collect my Essence.";
+            }
+            if (key == "WITCH_REWARD_1")
+            {
+                return "Hmm, already you've collected 100 Essence. Quick work! Things come naturally to you, don't they?<page>No wonder the Dreamers tried to bury you in that old dream. Perhaps being prisoners themselves, they desired your company?<page>In any case, now their prison is better sealed and their Essence is still being harvested. Do not worry about those Dreamers. They won't bother us anymore. Take this old trinket as encouragement from me, and return when you have collected 200 Essence.";
+            }
+            if (key == "WITCH_REWARD_6")
+            {
+                return "The Dream Nail glows bright... It holds over 1200 Essence. Looking into it I can see so many memories peering back at me. So many asking to be remembered.<page>None of us can live forever, and so we ask those who survive to remember us.<page>Hold something in your mind and it lives on with you, but forget it and you seal it away forever. That is the only death that matters.<page>Huh, so they say! Enough of that though. Take this relic and come back to me with 1500 Essence. Go, get me more Essence!";
+            }
+            if (key == "WITCH_REWARD_2A")
+            {
+                return "Ahhh... Your Dream Nail holds over 200 Essence. You're proving your talent in its collection.<page>Have you seen that great door just outside? My tribe closed it long ago and forbade its opening.<page>But, since I want more essence, I am going to open it. The spirits of strong beings you have killed will be imprisoned there. While imprisoned, I can harvest their energy, giving me even more Essence.<page>You can also visit, and battle them over and over. Every victory gives me more Essence.";
+            }
+            for (int i = 1; i < 10; i++)
+            {
+                if (key == "WITCH_QUEST_"+i.ToString())
+                {
+                    return "You still require more essence before I give you another reward.";
+                }
+            }
+            if (key == "WITCH_REWARD_2B")
+            {
+                return "There we go! The door to the prison is open! Go ahead and fight them if you want. Just know, the Essence will go straight to me, not your dream nail. And I won't reward you for prowess in combat against them.";
+            }
+            if (key == "WITCH_QUEST_5B")
+            {
+                return "My, my, look at you! Once you collect 900 Essence, I will teach you something hidden for a very long time. You are going to like it.";
+            }
+            if (key == "WITCH_GREET")
+            {
+                return "Ah, Wielder, you've returned. Let me have a look at the Dream Nail...";
+            }
+            if (key == "WITCH_REWARD_5B")
+            {
+                return "The Dream Nail now holds 900 Essence within its core!<page>Yes, you're starting to see them. The connections between us and the dreams we leave behind, like prints in the dust. The time has come for you to learn how to revisit the places connected to you!<page>Hold the Dream Nail tight, wielder, and imagine a great gate opening before you!";
+            }
+            if (key == "WITCH_HINT_XERO")
+            {
+                return "Sometimes people can be infused with Essence. Some of the former members of our tribe conducted experiments on themselves. I created an experiment on a willing tribe member, and it turned out exactly the way it was designed. I am the only one who knows how to do an Essence infusion successfully. One day, with enough Essence, I will do it on myself.<page>Although they are bountiful sources of Essence, instead of slaying them we banished them across the kingdom.<page>You should search carefully near graves and other monuments. Why, I believe I saw an interesting gravestone here in the Resting Grounds.<page>If you do decide to disturb those dreams though, be prepared for a fight... Their spirits are easily angered.";
+            }
+            if (key == "WITCH_DREAM1")
+            {
+                return "What a terrible fate they've visited upon you.<page>To cast you away into this space between body and soul.<page>Will you accept their judgement and fade slowly away?<page>Or will you take the weapon before you, and cut your way out of this sad, forgotten dream?";
+            }
+            if (key == "WITCH_DREAM_FALL")
+            {
+                return "Though you may fall, your will shall carry you forward.<page>A dream is endless, but a Kingdom is not.<page>The power to wake this world from its slumber... Only worshipping the light will restore that.";
+            }
+            if (key == "WITCH_DREAM")
+            {
+                return "Once I get the Essence, I will be unstoppable. I will re-create Fyrenest in my own image. People will worship the light once more. Wait. I sense...<br>Get out of my mind. I trusted you with a powerful weapon such as this, and you disobey me? GET OUT!";
             }
             return orig;
         }
@@ -764,15 +889,6 @@ namespace Fyrenest
             return value;
         }
 
-        private string GetCharmStrings(string key, string sheetName, string orig)
-        {
-            if (TextEdits.TryGetValue((key, sheetName), out var text))
-            {
-                return text();
-            }
-            return orig;
-        }
-
         internal void AddFsmEdit(string objName, string fsmName, Action<PlayMakerFSM> edit)
         {
             var key = (objName, fsmName);
@@ -864,11 +980,9 @@ namespace Fyrenest
         public Sprite SpriteGet(string fileName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream("Fyrenest.Resources."+fileName))
-            {
-                Sprite sprite = SpriteManager.Load(stream);
-                return sprite;
-            }
+            using var stream = assembly.GetManifestResourceStream("Fyrenest.Resources." + fileName);
+            Sprite sprite = SpriteManager.Load(stream);
+            return sprite;
         }
         private void CheckCharmPopup()
         {
@@ -918,11 +1032,10 @@ namespace Fyrenest
         /// <summary>
         /// Instances of all classes derived from Room
         /// </summary>
-        List<Room> rooms = new List<Room>();
+        readonly List<Room> rooms = new();
 
-        public TextChanger TextChanger = new TextChanger();
-
-        PrefabManager PrefabMan = new PrefabManager();
+        public static TextChanger TextChanger = new();
+        readonly PrefabManager PrefabMan = new();
 
         /// <summary>
         /// The room instance corresponding to the currently loaded scene
@@ -931,7 +1044,7 @@ namespace Fyrenest
 
         public Room PreviousRoom = null;
 
-        public RoomMirrorer RoomMirrorer = new RoomMirrorer();
+        public RoomMirrorer RoomMirrorer = new();
 
         /// <summary>
         /// Is the mod activated in the current file?
@@ -949,7 +1062,7 @@ namespace Fyrenest
 
             //Make sure the main menu text is changed, but disable all other functionalitly
             SetEnabled(false);
-            TextChanger.Enabled = true;
+            Enabled = true;
 
             //Instantiate all Room subclasses
             foreach (Type type in this.GetType().Assembly.GetTypes())
@@ -982,12 +1095,7 @@ namespace Fyrenest
         /// </summary>
         public void InitializeWorld(On.UIManager.orig_StartNewGame orig, UIManager self, bool permaDeath, bool bossRush)
         {
-            if (!Enabled)
-            {
-                //make sure text changer gets disabled properly if the mod isn't enabled
-                TextChanger.Enabled = false;
-            }
-            else
+            if (Enabled)
             {
                 Log("Initializing World");
 
@@ -1082,11 +1190,10 @@ namespace Fyrenest
 
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnBeforeSceneLoad;
 
-
+            ModHooks.CharmUpdateHook += OnCharmUpdate;
             ModHooks.GetPlayerBoolHook += ReadCharmBools;
             ModHooks.SetPlayerBoolHook += WriteCharmBools;
             ModHooks.GetPlayerIntHook += ReadCharmCosts;
-            ModHooks.LanguageGetHook += GetCharmStrings;
             // This will run after Rando has already set up its item placements.
             On.PlayMakerFSM.OnEnable += EditFSMs;
             On.PlayerData.CountCharms += CountOurCharms;
@@ -1100,8 +1207,6 @@ namespace Fyrenest
             //intialize the Prefabs
             PrefabMan.InitializePrefabs(preloadedObjects);
 
-            //initialize the TextChanger, RoomMirrorer, GameCompletion and Menu modules
-            TextChanger.Hook();
 
             RoomMirrorer.Hook();
 
@@ -1196,6 +1301,11 @@ namespace Fyrenest
             Log("Initializing Part 2 Complete.\n\nAll Initializing Complete.");
         }
 
+        private void OnCharmUpdate(PlayerData data, HeroController controller)
+        {
+            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got) MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidsoulachievement");
+        }
+
         /// <summary>
         /// Called before every scene load, locks a bunch of events to certain states
         /// </summary>
@@ -1228,9 +1338,12 @@ namespace Fyrenest
                 SetBool("corniferAtHome", false);
                 SetBool("city2_sewerDoor", true); //open Emilitia entrance
                 SetBool("bathHouseWall", true); //break wall in right city elevator
-                SetBool("gladeDoorOpened", false); //lock glade door permanently
                 SetBool("whitePalaceMidWarp", false); //so the TFK dream warp works
                 //SetBool("quirrelLeftEggTemple", true); //despawn quirrel in TBE
+
+
+                // TEST IF COMMAND WORKS, AND IF SO, THEN DO MANTIS TALK
+                ReplaceText("DESC_MANTIS_LORD", "Leaders of the Mantis tribe and its finest warriors. In legend, they were said to fight a god-like being of immense power, and its misguided followers. One among them was a mysterious bug who hides away somewhere in Fyrenest, who is now the last of the followers.");
             }
         }
         /// <summary>
@@ -1238,7 +1351,20 @@ namespace Fyrenest
         /// </summary>
         static void ReplaceText(string key, string text, string sheet = "")
         {
-            Fyrenest.instance.TextChanger.AddReplacement(key, text, sheetKey: sheet);
+            Fyrenest.instance.AddReplacement(key, text, sheetKey: sheet);
+        }
+
+        /// <summary>
+        /// All changed texts
+        /// </summary>
+        List<TextReplacement> texts = new();
+
+        /// <summary>
+        /// Add a new text change
+        /// </summary>
+        public void AddReplacement(string key, string text, string sheetKey = "")
+        {
+            texts.Add(new TextReplacement(key, text, sheetKey));
         }
 
         /// <summary>
@@ -1280,8 +1406,6 @@ namespace Fyrenest
             {
                 SetEnabled(false);
             }
-
-            TextChanger.Enabled = Enabled;
         }
 
         /// <summary>
@@ -1325,6 +1449,12 @@ namespace Fyrenest
             {
                 if (room.RoomName == scene)
                 {
+                    if (room.RoomName.StartsWith("RestingGrounds"))
+                    {
+                        room.SetSaturation(0);
+                        room.SetEnvironment(0);
+                        room.SetColor(Color.gray);
+                    }
                     ActiveRoom = room;
                     room.OnBeforeLoad();
                 }
@@ -1372,22 +1502,36 @@ namespace Fyrenest
 
             //disable everything except text changer
             SetEnabled(false);
-            TextChanger.Enabled = true;
 
             GameObject title = GameObject.Find("LogoTitle");
             if (title != null)
             {
                 var assembly = Assembly.GetExecutingAssembly();
 
-                using (var stream = assembly.GetManifestResourceStream("Fyrenest.Resources.title.png"))
-                {
-                    Sprite titleSprite = SpriteManager.Load(stream);
-                    title.GetComponent<SpriteRenderer>().sprite = titleSprite;
-                    //slightly blue, to make it stand apart from the background
-                    title.GetComponent<SpriteRenderer>().color = new UnityEngine.Color(193 / 255f, 225 / 255f, 253 / 255f);
-                    title.transform.SetScaleMatching(3.2f);
-                }
+                using var stream = assembly.GetManifestResourceStream("Fyrenest.Resources.title.png");
+                Sprite titleSprite = SpriteManager.Load(stream);
+                title.GetComponent<SpriteRenderer>().sprite = titleSprite;
+                //slightly blue, to make it stand apart from the background
+                title.GetComponent<SpriteRenderer>().color = new UnityEngine.Color(193 / 255f, 225 / 255f, 253 / 255f);
+                title.transform.SetScaleMatching(3.2f);
             }
+        }
+    }
+
+    /// <summary>
+    /// Identifies a changed text
+    /// </summary>
+    class TextReplacement
+    {
+        public string Key;
+        public string SheetKey;
+        public string Text;
+
+        public TextReplacement(string key, string text, string sheetKey = "")
+        {
+            Key = key;
+            Text = text;
+            SheetKey = sheetKey;
         }
     }
 }
