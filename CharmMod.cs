@@ -20,15 +20,43 @@ namespace Fyrenest
 {
     public class Fyrenest : Mod, IMod, ICustomMenuMod, ILocalSettings<CustomLocalSaveData>, ITogglableMod
     {
-        //Note, for the ModToggle variable, it is now unused.
-
-        public static int charmSelect = 0;
-
         public override string GetVersion() => "3 - Lore Update";
 
+        #region Variable Declarations
+        public static int charmSelect = 0;
         public static Fyrenest Loadedinstance { get; set; }
-
         public static CustomLocalSaveData LocalSaveData { get; set; } = new CustomLocalSaveData();
+
+        /// <summary>
+        /// Instances of all classes derived from Room
+        /// </summary>
+        readonly List<Room> rooms = new();
+
+        public static TextChanger TextChanger = new();
+        readonly PrefabManager PrefabMan = new();
+        // The room instance corresponding to the currently loaded scene
+        public Room ActiveRoom = null;
+        public Room PreviousRoom = null;
+        public RoomMirrorer RoomMirrorer = new();
+        // If the mod is activated
+        public bool Enabled = false;
+        public void OnLoadLocal(CustomLocalSaveData s) => LocalSaveData = s;
+        public CustomLocalSaveData OnSaveLocal() => LocalSaveData;
+        public const int CurrentRevision = 3;
+
+        public int NewCharms = Charms.Count; //STARTS AT 1
+        public int OldCharms = 40; //STARTS AT 1
+
+        internal static Fyrenest instance;
+
+        private readonly Dictionary<string, Func<bool, bool>> BoolGetters = new();
+        private readonly Dictionary<string, Action<bool>> BoolSetters = new();
+        private readonly Dictionary<string, Func<int, int>> IntGetters = new();
+        private readonly Dictionary<(string, string), Action<PlayMakerFSM>> FSMEdits = new();
+        private readonly List<(int Period, Action Func)> Tickers = new();
+        public static List<IAbility> Abilities;
+        public static Dictionary<string, Dictionary<string, GameObject>> Preloads;
+        #endregion
 
         private readonly static List<Charm> Charms = new()
         {
@@ -67,20 +95,22 @@ namespace Fyrenest
             VoidSoul.instance
         };
 
-        public int NewCharms = Charms.Count; //STARTS AT 1
-        public int OldCharms = 40; //STARTS AT 1
-        
-        internal static Fyrenest instance;
+        public Fyrenest() : base("Fyrenest")
+        {
 
-        private readonly Dictionary<string, Func<bool, bool>> BoolGetters = new();
-        private readonly Dictionary<string, Action<bool>> BoolSetters = new();
-        private readonly Dictionary<string, Func<int, int>> IntGetters = new();
-        private readonly Dictionary<(string, string), Action<PlayMakerFSM>> FSMEdits = new();
-        private readonly List<(int Period, Action Func)> Tickers = new();
-        public static List<IAbility> Abilities;
-        public static Dictionary<string, Dictionary<string, GameObject>> Preloads;
+            //Make sure the main menu text is changed, but disable all other functionalitly
+            SetEnabled(false);
+            Enabled = true;
 
-
+            //Instantiate all Room subclasses
+            foreach (Type type in this.GetType().Assembly.GetTypes())
+            {
+                if (type.BaseType == typeof(Room))
+                {
+                    rooms.Add((Room)Activator.CreateInstance(type));
+                }
+            }
+        }
 
         private void LoadAbilities()
         {
@@ -108,6 +138,7 @@ namespace Fyrenest
             PlayerData.instance.CalculateNotchesUsed();
         }
 
+        #region LocalSaveData
         // The local data to store that is specific to saves.
         public class CustomLocalSaveData
         {
@@ -178,11 +209,13 @@ namespace Fyrenest
             public int revision = 0;
             public bool FyrenestEnabled = false;
         }
+        #endregion
 
         private void TransitionSet()
         {
             PlayerData.instance.CalculateNotchesUsed();
         }
+
         private void OnPause(On.UIManager.orig_UIGoToPauseMenu orig, UIManager self)
         {
             Time.timeScale = 0.0f;
@@ -210,26 +243,16 @@ namespace Fyrenest
         }
         private void OnUpdate()
         {
-            //if (insanity)
-            //{
-            //    for (int i = 0; i < 40; i++)
-            //    {
-            //        PlayerData.instance.SetInt($"charmCost_{i}", 0);
-            //    }
-            //    foreach (Charm charm in Charms)
-            //    {
-            //        charm.Settings(Settings).Cost = 0;
-            //    }
-            //}
-            //else
-            //{
+            if (PlayerData.instance.dreamOrbs >= 2400)
+            {
+                Room.instance.SetTransition("RestingGrounds_07", "right1", "RestingGrounds_17", "right1");
+            }
             //change dreamshield to cost 2 notches.
             PlayerData.instance.charmCost_38 = 2;
             foreach (Charm charm in Charms)
             {
                 charm.Settings(Settings).Cost = charm.DefaultCost;
             }
-            //}
             
             //give charms when certain things are done.
             if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.instance.Settings(Settings).Got = true; LocalSaveData.QuickfallGot = true;
@@ -430,6 +453,8 @@ namespace Fyrenest
                  proceed: true
              );
         }
+
+        #region LanguageReplacements
         public string LanguageGet(string key, string sheetTitle, string orig)
         {
             if (!Enabled) return orig;
@@ -797,7 +822,9 @@ namespace Fyrenest
             }
             return orig;
         }
+        #endregion
 
+        #region Random Useless Stuff 
         public float grav = 0f;
         public float gravsaved = 0f;
 
@@ -1018,7 +1045,7 @@ namespace Fyrenest
             if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
             if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
         }
-
+        #endregion
 
         public void Unload()
         {
@@ -1026,51 +1053,6 @@ namespace Fyrenest
             {
                 charm.Settings(Settings).Got = false;
                 charm.Settings(Settings).Equipped = false;
-            }
-        }
-
-        /// <summary>
-        /// Instances of all classes derived from Room
-        /// </summary>
-        readonly List<Room> rooms = new();
-
-        public static TextChanger TextChanger = new();
-        readonly PrefabManager PrefabMan = new();
-
-        /// <summary>
-        /// The room instance corresponding to the currently loaded scene
-        /// </summary>
-        public Room ActiveRoom = null;
-
-        public Room PreviousRoom = null;
-
-        public RoomMirrorer RoomMirrorer = new();
-
-        /// <summary>
-        /// Is the mod activated in the current file?
-        /// </summary>
-        public bool Enabled = false;
-
-        public void OnLoadLocal(CustomLocalSaveData s) => LocalSaveData = s;
-        public CustomLocalSaveData OnSaveLocal() => LocalSaveData;
-
-        public const int CurrentRevision = 3;
-
-
-        public Fyrenest() : base("Fyrenest")
-        {
-
-            //Make sure the main menu text is changed, but disable all other functionalitly
-            SetEnabled(false);
-            Enabled = true;
-
-            //Instantiate all Room subclasses
-            foreach (Type type in this.GetType().Assembly.GetTypes())
-            {
-                if (type.BaseType == typeof(Room))
-                {
-                    rooms.Add((Room)Activator.CreateInstance(type));
-                }
             }
         }
 
@@ -1449,12 +1431,6 @@ namespace Fyrenest
             {
                 if (room.RoomName == scene)
                 {
-                    if (room.RoomName.StartsWith("RestingGrounds"))
-                    {
-                        room.SetSaturation(0);
-                        room.SetEnvironment(0);
-                        room.SetColor(Color.gray);
-                    }
                     ActiveRoom = room;
                     room.OnBeforeLoad();
                 }

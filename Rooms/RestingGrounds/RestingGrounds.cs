@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 namespace Fyrenest.Rooms.RestingGrounds
 {
@@ -80,22 +81,25 @@ namespace Fyrenest.Rooms.RestingGrounds
 
         public override void OnBeforeLoad()
         {
-            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 50, 5, Quaternion.Euler(0, 0, 45));
-            if (PlayerData.instance.dreamReward9)
+            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 49, 5);
+            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 52, 4, Quaternion.Euler(0, 0, 315));
+            //Add new transition
+            GameObject gate1 = UnityEngine.Object.Instantiate(Prefabs.TOP_TRANSITION.Object, new Vector3(15.5f, 14, 0), Quaternion.identity);
+            gate1.transform.SetScaleY(300);
+            gate1.SetActive(true);
+            gate1.name = "top1";
+            SetTransition("RestingGrounds_17", "top1", "RestingGrounds_08", "left1", false);
+            //PlaceTransition(TransitionType.top, "RestingGrounds_17", "top1", "RestingGrounds_08", "left1", 15.5f, 14);
+            SetTransition("RestingGrounds_17", "top1", "RestingGrounds_17", "right1", true);
+            if (PlayerData.instance.dreamOrbs >= 2400)
             {
-                PlaceGO(Prefabs.PANTHEON_V.Object, 15.5f, 7);
-                PlaceGO(Prefabs.TOP_TRANSITION.Object, 15.5f, 12);
-                SetTransition("RestingGrounds_17", "top1", "RestingGrounds_17", "right1", true);
+                SetTransition("RestingGrounds_07", "right1", "RestingGrounds_17", "right1");
+                PlaceGO(Prefabs.PANTHEON_V.Object, 15.5f, 9);
+                IsFlipped = true;
             }
             SetSaturation(0);
             SetColor(Color.gray);
             SetEnvironment(0);
-        }
-
-        public override void OnWorldInit()
-        {
-            PlaceGO(Prefabs.LEFT_TRANSITION.Object, 15, 17);
-            SetTransition("RestingGrounds_17", "left1", "Deepnest_10", "right1", true);
         }
     }
     internal class Fungus3_35 : Room

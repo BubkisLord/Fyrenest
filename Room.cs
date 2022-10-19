@@ -3,6 +3,7 @@ using ItemChanger;
 using ItemChanger.Placements;
 using ItemChanger.Tags;
 using ItemChanger.UIDefs;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,12 @@ namespace Fyrenest
     /// </summary>
     public abstract class Room
     {
+        public static Room instance;
+        /// <summary>
+        /// The different types of transition gateways
+        /// </summary>
+        public enum TransitionType { top, left, right, bottom }
+
         /// <summary>
         /// The scene name of the room to be modified (if none is provided, OnBeforeLoad and OnLoad never trigger)
         /// </summary>
@@ -41,6 +48,7 @@ namespace Fyrenest
         protected Room(string roomName)
         {
             RoomName = roomName;
+            instance = this;
         }
 
         /// <summary>
@@ -63,6 +71,26 @@ namespace Fyrenest
         /// </summary>
         public virtual void OnLoad() { }
 
+        /// <summary>
+        /// Creates a transition and sets its destination.
+        /// </summary>
+        /// <param name="sourceScene">Must be the scene it is called from.</param>
+        /// <param name="sourceGateName">Name of the gate - eg. bot1, left2, etc.</param>
+        /// <param name="targetScene">The target scene the transition will take you to.</param>
+        /// <param name="targetGate">Name of the recieving gate - eg. bot1, right1, etc.</param>
+        /// <param name="transitionType">The type of transition it is. (top, left, right, bottom)</param>
+        /// <param name="x">The x coordinate of the gate.</param>
+        /// <param name="y">The y coordinate of the gate.</param>
+        /// <param name="oneWay">Whether the transition is one-way.</param>
+        public void PlaceTransition(TransitionType transitionType, string sourceScene, string sourceGateName, string targetScene, string targetGate, float x, float y, bool oneWay = false)
+        {
+            //Add new transition
+            GameObject gate1 = UnityEngine.Object.Instantiate(Prefabs.TOP_TRANSITION.Object, new Vector3(15.5f, 12, 0), Quaternion.identity);
+            gate1.transform.SetScaleY(300);
+            gate1.SetActive(true);
+            gate1.name = sourceGateName;
+            SetTransition(sourceScene, sourceGateName, targetScene, targetGate, oneWay);
+        }
 
         /// <summary>
         /// Changes an item location using ItemChanger (Call in OnWorldInit)
