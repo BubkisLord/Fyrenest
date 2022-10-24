@@ -16,10 +16,5 @@ namespace Fyrenest.Rooms.Deepnest
     internal class Deepnest_10 : Room
     {
         public Deepnest_10() : base("Deepnest_10") { }
-
-        public override void OnWorldInit()
-        {
-            SetTransition("Deepnest_10", "right1", "Fungus2_01", "left2");
-        }
     }
 }
