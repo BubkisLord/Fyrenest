@@ -88,6 +88,7 @@ Geo Switch -> Kill the Soul Tyrant
 Speed Soul -> Talk to the Nailsmith at Sheo's hut
 
 # Programming Information
+Ignore this...
 ```using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following

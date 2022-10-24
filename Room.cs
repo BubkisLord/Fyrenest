@@ -82,14 +82,78 @@ namespace Fyrenest
         /// <param name="x">The x coordinate of the gate.</param>
         /// <param name="y">The y coordinate of the gate.</param>
         /// <param name="oneWay">Whether the transition is one-way.</param>
-        public void PlaceTransition(TransitionType transitionType, string sourceScene, string sourceGateName, string targetScene, string targetGate, float x, float y, bool oneWay = false)
+        public void PlaceTransition(string sourceScene, string sourceGate, string targetScene, string targetGate, float x, float y, Vector2 size, Vector2 respawnPoint, GameManager.SceneLoadVisualizations visualizations, bool oneWay = false)
         {
-            //Add new transition
-            GameObject gate1 = UnityEngine.Object.Instantiate(Prefabs.TOP_TRANSITION.Object, new Vector3(15.5f, 12, 0), Quaternion.identity);
-            gate1.transform.SetScaleY(300);
-            gate1.SetActive(true);
-            gate1.name = sourceGateName;
-            SetTransition(sourceScene, sourceGateName, targetScene, targetGate, oneWay);
+            CreateGateway(sourceGate, x, y, size, targetScene, targetGate, respawnPoint, false, visualizations);
+            SetTransition(sourceScene, sourceGate, targetScene, targetGate, oneWay);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceGateName"></param>
+        /// <param name="x">Position of x coord of gate</param>
+        /// <param name="y">Position of y coord of gate</param>
+        /// <param name="size">The size of the transition gate</param>
+        /// <param name="targetScene">The target of transition</param>
+        /// <param name="targetGate">The target recieving gate</param>
+        /// <param name="respawnPoint">Sets a respawn point 'respawnPoint' far away</param>
+        /// <param name="left">Whether it is a left-facing gate</param>
+        /// <param name="oneWay">Whether the transition is one-way or not</param>
+        /// <param name="vis"></param>
+        public void CreateGateway(string sourceGateName, float x, float y, Vector2 size, string targetScene, string targetGate, Vector2 respawnPoint, bool oneWay, GameManager.SceneLoadVisualizations vis)
+        {
+            bool left;
+            if (sourceGateName.ToLower().Contains("left")) left = true;
+            else left = false;
+            GameObject gate = new GameObject(sourceGateName);
+            gate.transform.SetPosition2D(x, y);
+            var tp = gate.AddComponent<TransitionPoint>();
+            if (!oneWay)
+            {
+                var bc = gate.AddComponent<BoxCollider2D>();
+                bc.size = size;
+                bc.isTrigger = true;
+                tp.SetTargetScene(targetScene);
+                tp.entryPoint = targetGate;
+            }
+            tp.alwaysEnterLeft = left;
+            tp.alwaysEnterRight = !left;
+
+            GameObject rm = new GameObject("Hazard Respawn Marker");
+            rm.transform.parent = gate.transform;
+            rm.transform.SetPosition2D(x + respawnPoint.x, y + respawnPoint.y);
+            var tmp = rm.AddComponent<HazardRespawnMarker>();
+            tmp.respawnFacingRight = !left;
+            tp.respawnMarker = rm.GetComponent<HazardRespawnMarker>();
+            tp.sceneLoadVisualization = vis;
+        }/*
+        private void CreateBench(string benchName, Vector3 pos, string sceneName)
+        {
+            GameObject bench = UnityEngine.Object.Instantiate(Prefabs.PALACE_BENCH.Object);
+            bench.SetActive(true);
+            bench.transform.position = pos;
+            bench.name = benchName;
+            var benchFsm = bench.LocateMyFSM("Bench Control");
+            benchFsm.FsmVariables.FindFsmString("Scene Name").Value = sceneName;
+            benchFsm.FsmVariables.FindFsmString("Spawn Name").Value = benchName;
+        }*/
+        private void CreateBreakableWall(string sceneName, string name, Vector3 pos, Vector3 angles, Vector3 scale, Vector2 size, string playerDataBool)
+        {
+            GameObject breakableWall = UnityEngine.Object.Instantiate(Prefabs.BREAKABLE_WALL.Object);
+            breakableWall.SetActive(true);
+            breakableWall.name = name;
+            breakableWall.transform.position = pos;
+            breakableWall.transform.eulerAngles = angles;
+            breakableWall.transform.localScale = scale;
+
+            var wallBc2d = breakableWall.GetComponent<BoxCollider2D>();
+            wallBc2d.size = size;
+            wallBc2d.offset = Vector2.zero;
+
+            var wallFsm = breakableWall.LocateMyFSM("breakable_wall_v2");
+            wallFsm.FsmVariables.GetFsmBool("Activated").Value = false;
+            wallFsm.FsmVariables.GetFsmBool("Ruin Lift").Value = false;
+            wallFsm.FsmVariables.GetFsmString("PlayerData Bool").Value = playerDataBool;
         }
 
         /// <summary>

@@ -36,6 +36,7 @@ namespace Fyrenest.Rooms.RestingGrounds
 
         public override void OnBeforeLoad()
         {
+            PlaceTransition("RestingGrounds_10", "right1", "RestingGrounds_08", "left1", 180, 3, new Vector2(2, 2), new Vector2(-3, 0), GameManager.SceneLoadVisualizations.Default);
             SetSaturation(0);
             SetColor(Color.gray);
             SetEnvironment(0);
@@ -75,31 +76,54 @@ namespace Fyrenest.Rooms.RestingGrounds
 
         }
     }
+    internal class GG_Atrium_Roof : Room
+    {
+        public GG_Atrium_Roof() : base("GG_Atrium_Roof") { }
+
+        public override void OnLoad()
+        {
+            GameManager.instance.LoadScene("RestingGrounds_17");
+        }
+    }
     internal class DreamShieldRoom: Room
     {
         public DreamShieldRoom() : base("RestingGrounds_17") { }
-
+        public override void OnWorldInit()
+        {
+            SetTransition("RestingGrounds_17", "top1", "RestingGrounds_08", "left1", false);
+        }
+        public override void OnLoad()
+        {
+            SetSaturation(0);
+            SetColor(Color.gray);
+            SetEnvironment(0);
+        }
         public override void OnBeforeLoad()
         {
-            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 49, 5);
+            SetSaturation(0);
+            SetColor(Color.gray);
+            SetEnvironment(0);
+            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 49, 5.2f);
+            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 54, 3.6f);
             PlaceGO(Prefabs.LARGE_PLATFORM.Object, 52, 4, Quaternion.Euler(0, 0, 315));
             //Add new transition
             GameObject gate1 = UnityEngine.Object.Instantiate(Prefabs.TOP_TRANSITION.Object, new Vector3(15.5f, 14, 0), Quaternion.identity);
             gate1.transform.SetScaleY(300);
+            gate1.transform.SetScaleZ(10);
             gate1.SetActive(true);
             gate1.name = "top1";
-            SetTransition("RestingGrounds_17", "top1", "RestingGrounds_08", "left1", false);
             //PlaceTransition(TransitionType.top, "RestingGrounds_17", "top1", "RestingGrounds_08", "left1", 15.5f, 14);
-            SetTransition("RestingGrounds_17", "top1", "RestingGrounds_17", "right1", true);
             if (PlayerData.instance.dreamOrbs >= 2400)
             {
-                SetTransition("RestingGrounds_07", "right1", "RestingGrounds_17", "right1");
+                BossSequenceDoor.Completion completion;
+                completion = new BossSequenceDoor.Completion();
+                completion.canUnlock = true;
+                PlayerData.instance.bossDoorStateTier5 = completion;
+                SetTransition("RestingGrounds_07", "right1", "RestingGrounds_17", "right1", true);
                 PlaceGO(Prefabs.PANTHEON_V.Object, 15.5f, 9);
-                IsFlipped = true;
+                if (Fyrenest.instance.PreviousRoom.RoomName == "RestingGrounds_07") IsFlipped = true;
+                else IsFlipped = false;
             }
-            SetSaturation(0);
-            SetColor(Color.gray);
-            SetEnvironment(0);
         }
     }
     internal class Fungus3_35 : Room
@@ -200,13 +224,10 @@ namespace Fyrenest.Rooms.RestingGrounds
 
         public override void OnBeforeLoad()
         {
+            DestroyGO("Stag_Pole_Break");
             SetSaturation(0);
             SetColor(Color.gray);
             SetEnvironment(0);
-            if (PlayerData.instance.dreamReward9)
-            {
-                SetTransition("RestingGrounds_07", "right1", "RestingGrounds_17", "right1"); 
-            }
         }
     }
     internal class RestingGrounds_06 : Room

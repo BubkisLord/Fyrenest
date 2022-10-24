@@ -14,13 +14,13 @@ namespace Fyrenest.Rooms.Abyss
         {
             SetDarkness(true);
 
-            //spawn shade from final boss here
-            if (HeroController.instance.playerData.shadeScene == "Room_Final_Boss_Atrium")
-            {
-                HeroController.instance.playerData.shadeScene = "Abyss_09";
-                HeroController.instance.playerData.shadePositionX = 240;
-                HeroController.instance.playerData.shadePositionY = 26;
-            }
+            ////spawn shade from final boss here
+            //if (HeroController.instance.playerData.shadeScene == "Room_Final_Boss_Atrium")
+            //{
+            //    HeroController.instance.playerData.shadeScene = "Room_Final_Boss_Atrium";
+            //    HeroController.instance.playerData.shadePositionX = 240;
+            //    HeroController.instance.playerData.shadePositionY = 26;
+            //}
         }
     }
 }

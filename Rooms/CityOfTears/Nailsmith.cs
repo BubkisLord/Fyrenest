@@ -8,6 +8,6 @@ namespace Fyrenest.Rooms.CityOfTears
 {
     internal class Nailsmith : Room
     {
-        public Nailsmith() : base("Room_nailsmith") { IsFlipped = true; }
+        public Nailsmith() : base("Room_nailsmith") { }
     }
 }

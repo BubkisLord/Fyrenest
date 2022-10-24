@@ -1,0 +1,25 @@
+﻿using ItemChanger;
+using ItemChanger.Components;
+using ItemChanger.Internal;
+using ItemChanger.Locations;
+using ItemChanger.Locations.SpecialLocations;
+using ItemChanger.Placements;
+using ItemChanger.UIDefs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Fyrenest.Rooms.CrystalPeak
+{
+    internal class Mines_37 : Room
+    {
+        public Mines_37() : base("Mines_37") { }
+
+        public override void OnBeforeLoad()
+        {
+            PlaceTransition("Mines_37", "left1", "Deepnest_09", "left1", 2.25f, 24, new Vector2(1.5f, 2.5f), new Vector2(2, 0), GameManager.SceneLoadVisualizations.Default);
+        }
+    }
+}
