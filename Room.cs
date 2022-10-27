@@ -255,7 +255,7 @@ namespace Fyrenest
         /// </summary>
         public void ReplaceText(string key, string text, string sheetKey = "")
         {
-            Fyrenest.instance.AddReplacement(key, text, sheetKey);
+            ReplaceText(key, text, sheetKey);
         }
 
         /// <summary>

@@ -3,15 +3,7 @@ using ItemChanger.Components;
 using ItemChanger.Internal;
 using ItemChanger.Locations;
 using ItemChanger.Locations.SpecialLocations;
-using ItemChanger.Placements;
-using ItemChanger.UIDefs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fyrenest.Rooms.Abyss
+namespace Fyrenest.Rooms.Dirtmouth
 {
     internal class Dirtmouth : Room
     {
