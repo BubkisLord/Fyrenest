@@ -9,7 +9,7 @@ namespace Fyrenest.Rooms.CityOfTears
 {
     internal class City2_10b : Room
     {
-        public City2_10b() : base("Ruins2_10b") { IsFlipped = true; }
+        public City2_10b() : base("Ruins2_10b") { }
 
         public override void OnLoad()
         {

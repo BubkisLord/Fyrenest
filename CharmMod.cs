@@ -21,11 +21,21 @@ namespace Fyrenest
 {
     public class Fyrenest : Mod, IMod, ICustomMenuMod, ILocalSettings<CustomLocalSaveData>, ITogglableMod
     {
+        /// <summary>
+        /// Gets the version of the mod
+        /// </summary>
         public override string GetVersion() => "3 - Lore Update";
 
         #region Variable Declarations
+        /// <summary>
+        /// The number of the selected charm (for the mod menu).
+        /// </summary>
         public static int charmSelect = 0;
         public static Fyrenest Loadedinstance { get; set; }
+
+        /// <summary>
+        /// The data for the loaded save
+        /// </summary>
         public static CustomLocalSaveData LocalSaveData { get; set; } = new CustomLocalSaveData();
 
         /// <summary>
@@ -34,18 +44,35 @@ namespace Fyrenest
         readonly List<Room> rooms = new();
 
         readonly PrefabManager PrefabMan = new();
-        // The room instance corresponding to the currently loaded scene
+        /// <summary>
+        /// The room instance corresponding to the currently loaded scene.
+        /// </summary>
         public Room ActiveRoom = null;
+        /// <summary>
+        /// The room that the player was previously in.
+        /// </summary>
         public Room PreviousRoom = null;
+
         public RoomMirrorer RoomMirrorer = new();
-        // If the mod is activated
+
+        /// <summary>
+        /// If the mod is activated
+        /// </summary>
         public bool Enabled = false;
         public void OnLoadLocal(CustomLocalSaveData s) => LocalSaveData = s;
+        
         public CustomLocalSaveData OnSaveLocal() => LocalSaveData;
         public const int CurrentRevision = 3;
 
-        public int NewCharms = Charms.Count; //STARTS AT 1
-        public int OldCharms = 40; //STARTS AT 1
+        /// <summary>
+        /// Amount of new charms made by the mod.
+        /// </summary>
+        public int NewCharms = Charms.Count; //STARTS AT 1 FOR SOME REASON
+
+        /// <summary>
+        /// Amount of original charms.
+        /// </summary>
+        public int OldCharms = 40; //STARTS AT 1 FOR SOME REASON
 
         internal static Fyrenest instance;
 
@@ -57,6 +84,9 @@ namespace Fyrenest
         public static Dictionary<string, Dictionary<string, GameObject>> Preloads;
         #endregion
 
+        /// <summary>
+        /// A list of all added charms.
+        /// </summary>
         private readonly static List<Charm> Charms = new()
         {
             Quickfall.instance,
@@ -108,6 +138,207 @@ namespace Fyrenest
                     rooms.Add((Room)Activator.CreateInstance(type));
                 }
             }
+        }
+
+
+
+        /// <summary>
+        /// Called when the mod is loaded
+        /// </summary>
+        public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
+        {
+            Log("Initializing Mod.\nInitializing Part 1...");
+
+            instance = this;
+
+            //set up hooks
+            On.GameManager.OnNextLevelReady += OnSceneLoad;
+            On.UIManager.StartNewGame += InitializeWorld;
+            On.HeroController.TakeDamage += OnDamage;
+
+            On.MenuStyleTitle.SetTitle += OnMainMenu;
+
+            On.HeroController.Start += OnGameStart;
+
+            On.GrimmEnemyRange.GetTarget += DisableGrimmchildShooting;
+
+            //Events.OnEnterGame += CorrectGrubfather;
+            Events.OnEnterGame += OnSaveLoad;
+
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnBeforeSceneLoad;
+
+            ModHooks.CharmUpdateHook += OnCharmUpdate;
+
+            ModHooks.LanguageGetHook += GetCharmStrings;
+            ModHooks.GetPlayerBoolHook += ReadCharmBools;
+            ModHooks.SetPlayerBoolHook += WriteCharmBools;
+            ModHooks.GetPlayerIntHook += ReadCharmCosts;
+            // This will run after Rando has already set up its item placements.
+            On.PlayMakerFSM.OnEnable += EditFSMs;
+            On.PlayerData.CountCharms += CountOurCharms;
+            ModHooks.AfterSavegameLoadHook += OnLoadSave;
+            ModHooks.HeroUpdateHook += OnUpdate;
+            On.GameManager.SaveGame += OnSave;
+            ModHooks.SavegameLoadHook += ModHooks_SavegameLoadHook;
+            On.PlayerData.CountGameCompletion += SetGameCompletion;
+
+            //intialize the Prefabs
+            PrefabMan.InitializePrefabs(preloadedObjects);
+
+
+            RoomMirrorer.Hook();
+            TextReplacements.instance.Hook();
+
+            //GameCompletion.Hook();
+
+            FyrenestModeMenu.Register();
+
+            //Call OnInit for all Room subclasses
+            foreach (Room room in rooms)
+            {
+                room.OnInit();
+                Log("Initialized " + room.RoomName);
+            }
+
+            //load general text changes
+            //GeneralChanges.ChangeText();
+
+            Log("Initialization Part 1 Complete.");
+            if (Fyrenest.Loadedinstance != null) return;
+            Fyrenest.Loadedinstance = this;
+
+            Preloads = preloadedObjects;
+
+            //On.HeroController.Awake += delegate (On.HeroController.orig_Awake orig, HeroController self) {
+            //    orig.Invoke(self);
+
+            //    foreach (IAbility ability in Abilities)
+            //    {
+            //        Log($"Loading ability {ability.Name}!");
+            //        ability.Load();
+            //    }
+            //};
+            Log("Initializing Part 2...");
+
+            foreach (var charm in Charms)
+            {
+                var num = CharmHelper.AddSprites(EmbeddedSprite.Get(charm.Sprite))[0];
+                charm.Num = num;
+                var settings = charm.Settings;
+                IntGetters[$"charmCost_{num}"] = _ => settings(Settings).Cost;
+                AddTextEdit($"CHARM_NAME_{num}", "UI", charm.Name);
+                AddTextEdit($"CHARM_DESC_{num}", "UI", () => charm.Description);
+                BoolGetters[$"equippedCharm_{num}"] = _ => settings(Settings).Equipped;
+                BoolSetters[$"equippedCharm_{num}"] = value => settings(Settings).Equipped = value;
+                BoolGetters[$"gotCharm_{num}"] = _ => settings(Settings).Got;
+                BoolSetters[$"gotCharm_{num}"] = value => settings(Settings).Got = value;
+                BoolGetters[$"newCharm_{num}"] = _ => settings(Settings).New;
+                BoolSetters[$"newCharm_{num}"] = value => settings(Settings).New = value;
+                charm.Hook();
+                foreach (var edit in charm.FsmEdits)
+                {
+                    AddFsmEdit(edit.obj, edit.fsm, edit.edit);
+                }
+                Tickers.AddRange(charm.Tickers);
+
+                var item = new ItemChanger.Items.CharmItem()
+                {
+                    charmNum = charm.Num,
+                    name = charm.Name.Replace(" ", "_"),
+                    UIDef = new MsgUIDef()
+                    {
+                        name = new LanguageString("UI", $"CHARM_NAME_{charm.Num}"),
+                        shopDesc = new LanguageString("UI", $"CHARM_DESC_{charm.Num}"),
+                    }
+                };
+                // Tag the item for ConnectionMetadataInjector, so that MapModS and
+                // other mods recognize the items we're adding as charms.
+                var mapmodTag = item.AddTag<InteropTag>();
+                mapmodTag.Message = "RandoSupplementalMetadata";
+                mapmodTag.Properties["ModSource"] = GetName();
+                mapmodTag.Properties["PoolGroup"] = "Charms";
+                Finder.DefineCustomItem(item);
+            }
+            for (var i = 1; i <= 40; i++)
+            {
+                var num = i; // needed for closure to capture a different copy of the variable each time
+                BoolGetters[$"equippedCharm_{num}"] = value => value;
+                IntGetters[$"charmCost_{num}"] = value => value;
+            }
+
+            StartTicking();
+
+            if (ModHooks.GetMod("DebugMod") != null)
+            {
+                DebugModHook.GiveAllCharms(() =>
+                {
+                    GrantAllOurCharms();
+                    PlayerData.instance.CountCharms();
+                });
+            }
+            Log("Initializing Part 2 Complete.\n\nAll Initializing Complete.");
+        }
+
+        private void SetGameCompletion(On.PlayerData.orig_CountGameCompletion orig, global::PlayerData self)
+        {
+            orig(self);
+
+            if (!Enabled) return;
+
+            float Completion = 0;
+
+            // 35% Max
+            Completion += Charms.Count(c => c.Settings(Settings).Got);
+
+            // 36% Max
+            if (PlayerData.instance.metIselda) Completion++;
+
+            // 37% Max
+            if (PlayerData.instance.iseldaConvoGrimm) Completion++;
+
+            // 42% Max
+            if (PlayerData.instance.elderbugGaveFlower) Completion += 5;
+
+            // 43% Max
+            if (PlayerData.instance.tisoDead) Completion++;
+
+            // 45% Max
+            if (PlayerData.instance.dreamNailUpgraded) Completion += 2;
+
+            // 69% Max
+            Completion += Mathf.Clamp(PlayerData.instance.dreamOrbs, 0, 2400) / 100;
+
+            // 79% Max
+            Completion += Mathf.Clamp(PlayerData.instance.rancidEggs, 0, 10);
+
+            // 83% Max
+            Completion += Mathf.Clamp(PlayerData.instance.royalCharmState, 0, 4);
+
+            // 84% Max
+            if (PlayerData.instance.salubraBlessing) Completion++;
+
+            // 93% Max
+            if (PlayerData.instance.notchFogCanyon) Completion++;
+            if (PlayerData.instance.notchShroomOgres) Completion++;
+            if (PlayerData.instance.gotGrimmNotch) Completion++;
+            if (PlayerData.instance.salubraNotch1) Completion++;
+            if (PlayerData.instance.salubraNotch2) Completion++;
+            if (PlayerData.instance.salubraNotch3) Completion++;
+            if (PlayerData.instance.salubraNotch4) Completion++;
+            if (PlayerData.instance.slyNotch1) Completion++;
+            if (PlayerData.instance.slyNotch2) Completion++;
+
+            // 97% Max
+            Completion += Mathf.Clamp(PlayerData.instance.maxHealth, 5, 9) - 5;
+
+            // 100% Max
+            if (PlayerData.instance.metBanker) Completion++;
+            if (PlayerData.instance.metCornifer) Completion++;
+            if (PlayerData.instance.metGiraffe) Completion++;
+
+            Completion = Mathf.Clamp(Completion, 0, 100);
+
+            self.completionPercentage = Completion;
         }
 
         private void ModHooks_SavegameLoadHook(int obj)
@@ -210,17 +441,6 @@ namespace Fyrenest
             PlayerData.instance.mapWaterways = true;
             PlayerData.instance.hasMap = true;
             PlayerData.instance.UpdateGameMap();
-        }
-
-        private void OnPause(On.UIManager.orig_UIGoToPauseMenu orig, UIManager self)
-        {
-            Time.timeScale = 0.0f;
-            orig(self);
-        }
-        private void OnUnPause(On.UIManager.orig_UIClosePauseMenu orig, UIManager self)
-        {
-            Time.timeScale = 1.0f;
-            orig(self);
         }
 
         private int ReadCharmCosts(string intName, int value)
@@ -362,7 +582,9 @@ namespace Fyrenest
 
         public string selectedCharm = Charms[charmSelect].ToString().Replace("Fyrenest.", "").Replace(".instance", "");
 
-        //UNUSED
+        /// <summary>
+        /// UNUSED - YOU SHOULD NOT NEED THIS VARIABLE
+        /// </summary>
         public static int ModToggle = 0;
 
         private Menu MenuRef;
@@ -616,6 +838,7 @@ namespace Fyrenest
             orig(self);
             self.SetInt("charmsOwned", self.GetInt("charmsOwned") + Charms.Count(c => c.Settings(Settings).Got));
         }
+
         internal static void UpdateNailDamage()
         {
             static IEnumerator WaitThenUpdate()
@@ -787,144 +1010,6 @@ namespace Fyrenest
                 }
             }
             LocalSaveData.revision = CurrentRevision;
-        }
-
-
-        /// <summary>
-        /// Called when the mod is loaded
-        /// </summary>
-        public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
-        {
-            Log("Initializing Mod.\nInitializing Part 1...");
-
-            instance = this;
-
-            //set up hooks
-            On.GameManager.OnNextLevelReady += OnSceneLoad;
-            On.UIManager.StartNewGame += InitializeWorld;
-            On.HeroController.TakeDamage += OnDamage;
-
-            On.MenuStyleTitle.SetTitle += OnMainMenu;
-
-            On.HeroController.Start += OnGameStart;
-
-            On.GrimmEnemyRange.GetTarget += DisableGrimmchildShooting;
-
-            //Events.OnEnterGame += CorrectGrubfather;
-            Events.OnEnterGame += OnSaveLoad;
-
-            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnBeforeSceneLoad;
-
-            ModHooks.CharmUpdateHook += OnCharmUpdate;
-
-            ModHooks.LanguageGetHook += GetCharmStrings;
-            ModHooks.GetPlayerBoolHook += ReadCharmBools;
-            ModHooks.SetPlayerBoolHook += WriteCharmBools;
-            ModHooks.GetPlayerIntHook += ReadCharmCosts;
-            // This will run after Rando has already set up its item placements.
-            On.PlayMakerFSM.OnEnable += EditFSMs;
-            On.PlayerData.CountCharms += CountOurCharms;
-            ModHooks.AfterSavegameLoadHook += OnLoadSave;
-            ModHooks.HeroUpdateHook += OnUpdate;
-            On.UIManager.UIGoToPauseMenu += OnPause;
-            On.UIManager.UIClosePauseMenu += OnUnPause;
-            On.GameManager.SaveGame += OnSave;
-            ModHooks.SavegameLoadHook += ModHooks_SavegameLoadHook;
-            //intialize the Prefabs
-            PrefabMan.InitializePrefabs(preloadedObjects);
-
-
-            RoomMirrorer.Hook();
-            TextReplacements.instance.Hook();
-            
-            //GameCompletion.Hook();
-
-            FyrenestModeMenu.Register();
-
-            //Call OnInit for all Room subclasses
-            foreach (Room room in rooms)
-            {
-                room.OnInit();
-                Log("Initialized " + room.RoomName);
-            }
-
-            //load general text changes
-            //GeneralChanges.ChangeText();
-
-            Log("Initialization Part 1 Complete.");
-            if (Fyrenest.Loadedinstance != null) return;
-            Fyrenest.Loadedinstance = this;
-
-            Preloads = preloadedObjects;
-
-            //On.HeroController.Awake += delegate (On.HeroController.orig_Awake orig, HeroController self) {
-            //    orig.Invoke(self);
-
-            //    foreach (IAbility ability in Abilities)
-            //    {
-            //        Log($"Loading ability {ability.Name}!");
-            //        ability.Load();
-            //    }
-            //};
-            Log("Initializing Part 2...");
-
-            foreach (var charm in Charms)
-            {
-                var num = CharmHelper.AddSprites(EmbeddedSprite.Get(charm.Sprite))[0];
-                charm.Num = num;
-                var settings = charm.Settings;
-                IntGetters[$"charmCost_{num}"] = _ => settings(Settings).Cost;
-                AddTextEdit($"CHARM_NAME_{num}", "UI", charm.Name);
-                AddTextEdit($"CHARM_DESC_{num}", "UI", () => charm.Description);
-                BoolGetters[$"equippedCharm_{num}"] = _ => settings(Settings).Equipped;
-                BoolSetters[$"equippedCharm_{num}"] = value => settings(Settings).Equipped = value;
-                BoolGetters[$"gotCharm_{num}"] = _ => settings(Settings).Got;
-                BoolSetters[$"gotCharm_{num}"] = value => settings(Settings).Got = value;
-                BoolGetters[$"newCharm_{num}"] = _ => settings(Settings).New;
-                BoolSetters[$"newCharm_{num}"] = value => settings(Settings).New = value;
-                charm.Hook();
-                foreach (var edit in charm.FsmEdits)
-                {
-                    AddFsmEdit(edit.obj, edit.fsm, edit.edit);
-                }
-                Tickers.AddRange(charm.Tickers);
-
-                var item = new ItemChanger.Items.CharmItem()
-                {
-                    charmNum = charm.Num,
-                    name = charm.Name.Replace(" ", "_"),
-                    UIDef = new MsgUIDef()
-                    {
-                        name = new LanguageString("UI", $"CHARM_NAME_{charm.Num}"),
-                        shopDesc = new LanguageString("UI", $"CHARM_DESC_{charm.Num}"),
-                    }
-                };
-                // Tag the item for ConnectionMetadataInjector, so that MapModS and
-                // other mods recognize the items we're adding as charms.
-                var mapmodTag = item.AddTag<InteropTag>();
-                mapmodTag.Message = "RandoSupplementalMetadata";
-                mapmodTag.Properties["ModSource"] = GetName();
-                mapmodTag.Properties["PoolGroup"] = "Charms";
-                Finder.DefineCustomItem(item);
-            }
-            for (var i = 1; i <= 40; i++)
-            {
-                var num = i; // needed for closure to capture a different copy of the variable each time
-                BoolGetters[$"equippedCharm_{num}"] = value => value;
-                IntGetters[$"charmCost_{num}"] = value => value;
-            }
-
-            StartTicking();
-
-            if (ModHooks.GetMod("DebugMod") != null)
-            {
-                DebugModHook.GiveAllCharms(() =>
-                {
-                    GrantAllOurCharms();
-                    PlayerData.instance.CountCharms();
-                });
-            }
-            Log("Initializing Part 2 Complete.\n\nAll Initializing Complete.");
         }
 
         private void OnCharmUpdate(PlayerData data, HeroController controller)
@@ -1129,4 +1214,77 @@ namespace Fyrenest
             SheetKey = sheetKey;
         }
     }
-}
+}/*
+If the textures don't work, put this back into a file, otherwise, leave it here.
+namespace Fyrenest.Consts
+{
+    public class TextureStrings
+    {
+        #region Misc
+        public const string QuickfallKey = "Quickfall";
+        private const string QuickfallFile = "Fyrenest.Resources.Quickfall.png";
+        public const string SlowfallKey = "Slowfall";
+        private const string SlowfallFile = "Fyrenest.Resources.Slowfall.png";
+        public const string SturdyNailKey = "SturdyNail";
+        private const string SturdyNailFile = "Fyrenest.Resources.SturdyNail.png";
+        public const string BetterCDashKey = "BetterCDash";
+        private const string BetterCDashFile = "Fyrenest.Resources.BetterCDash.png";
+        public const string GlassCannonKey = "GlassCannon";
+        private const string GlassCannonFile = "Fyrenest.Resources.GlassCannon.png";
+        public const string HKBlessingKey = "HKBlessing";
+        private const string HKBlessingFile = "Fyrenest.Resources.HKBlessing.png";
+        public const string HuntersMarkKey = "HuntersMark";
+        private const string HuntersMarkFile = "Fyrenest.Resources.HuntersMark.png";
+        public const string PowerfulDashKey = "PowerfulDash";
+        private const string PowerfulDashFile = "Fyrenest.Resources.PowerfulDash.png";
+        public const string WealthyAmuletKey = "WealthyAmulet";
+        private const string WealthyAmuletFile = "Fyrenest.Resources.WealthyAmulet.png";
+        public const string TripleJumpKey = "TripleJump";
+        private const string TripleJumpFile = "Fyrenest.Resources.TripleJump.png";
+        #endregion Misc
+
+        private readonly Dictionary<string, Sprite> _dict;
+
+        public TextureStrings()
+        {
+            Assembly asm = Assembly.GetExecutingAssembly();
+            _dict = new Dictionary<string, Sprite>();
+            Dictionary<string, string> tmpTextures = new Dictionary<string, string>();
+            tmpTextures.Add(QuickfallKey, QuickfallFile);
+            tmpTextures.Add(SlowfallKey, SlowfallFile);
+            tmpTextures.Add(SturdyNailKey, SturdyNailFile);
+            tmpTextures.Add(BetterCDashKey, BetterCDashFile);
+            tmpTextures.Add(GlassCannonKey, GlassCannonFile);
+            tmpTextures.Add(HKBlessingKey, HKBlessingFile);
+            tmpTextures.Add(HuntersMarkKey, HuntersMarkFile);
+            tmpTextures.Add(PowerfulDashKey, PowerfulDashFile);
+            tmpTextures.Add(WealthyAmuletKey, WealthyAmuletFile);
+            tmpTextures.Add(TripleJumpKey, TripleJumpFile);
+            foreach (var t in tmpTextures)
+            {
+                using (Stream s = asm.GetManifestResourceStream(t.Value))
+                {
+                    if (s == null) continue;
+
+                    byte[] buffer = new byte[s.Length];
+                    s.Read(buffer, 0, buffer.Length);
+                    s.Dispose();
+
+                    //Create texture from bytes
+                    var tex = new Texture2D(2, 2);
+
+                    tex.LoadImage(buffer, true);
+
+                    // Create sprite from texture
+                    // Split is to cut off the TestOfTeamwork.Resources. and the .png
+                    _dict.Add(t.Key, Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f)));
+                }
+            }
+        }
+
+        public Sprite Get(string key)
+        {
+            return _dict[key];
+        }
+    }
+}*/

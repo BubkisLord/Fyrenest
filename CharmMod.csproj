@@ -406,6 +406,7 @@
 		<EmbeddedResource Include="Resources\title.png"></EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="Consts\" />
 	  <Folder Include="Rooms\WhitePalace\" />
 	  <Folder Include="Rooms\HowlingCliffs\" />
 	</ItemGroup>
