@@ -181,6 +181,8 @@ namespace Fyrenest
             On.GameManager.SaveGame += OnSave;
             ModHooks.SavegameLoadHook += ModHooks_SavegameLoadHook;
             On.PlayerData.CountGameCompletion += SetGameCompletion;
+            Events.OnEnterGame += GiveStartingItemsAndSetEnabled;
+            // On.GameMap Look at this later
 
             //intialize the Prefabs
             PrefabMan.InitializePrefabs(preloadedObjects);
@@ -277,6 +279,13 @@ namespace Fyrenest
                 });
             }
             Log("Initializing Part 2 Complete.\n\nAll Initializing Complete.");
+        }
+
+        private void GiveStartingItemsAndSetEnabled()
+        {
+            if (LocalSaveData.FyrenestEnabled) Enabled = true;
+            if (Enabled) LocalSaveData.FyrenestEnabled = true;
+            PlayerData.instance.bossDoorEntranceTextSeen = 1;
         }
 
         private void SetGameCompletion(On.PlayerData.orig_CountGameCompletion orig, global::PlayerData self)
