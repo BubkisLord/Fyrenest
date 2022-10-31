@@ -7,7 +7,7 @@ namespace Fyrenest
         public override string Name => "Sturdy Nail";
         public override string Description => "This strong charm allows the bearer to slash with more powerful strikes.\n\nGreatly increases the strength of the bearer's nail.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         public SturdyNail() {}

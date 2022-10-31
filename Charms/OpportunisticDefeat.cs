@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Opportunistic Defeat";
         public override string Description => "When worn, the bearer takes the most of getting hit.\n\nWhen attacked, you gain both soul and geo. Plus, every 4th time you get hit, you don't take damage.";
         public override int DefaultCost => 1;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private OpportunisticDefeat() {}

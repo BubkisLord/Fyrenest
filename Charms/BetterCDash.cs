@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Enraged Crystal Dash";
         public override string Description => "A purple charm resembling the Sprintmaster charm.\n\nMakes the Crystal Dash more powerful, doing more damage, and moves with powerful speed.";
         public override int DefaultCost => 3;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 

@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "ZoteBorn";
         public override string Description => "This magnificent charm bears the likeless of the one, the only Zote The Mighty!\n\nEmbodies the might, the strength, the sheer power of Zote The Mighty into the bearer.";
         public override int DefaultCost => 6;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private ZoteBorn() {}

@@ -11,7 +11,7 @@ namespace Fyrenest
         public override string Name => "Speed Time";
         public override string Description => "When holding this charm, everything seems to speed up slightly.\n\nThis charm alters the very fabric of time. When worn, the bearer and anything around it speeds up.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 

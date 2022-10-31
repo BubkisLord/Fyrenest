@@ -11,7 +11,7 @@ namespace Fyrenest
         public override string Name => "Quickfall";
         public override string Description => "This charm falls faster than it should when dropped.\n\nWhen worn, the bearer falls at a very fast rate.";
         public override int DefaultCost => 1;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 

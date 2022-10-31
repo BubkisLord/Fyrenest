@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Switching Soul";
         public override string Description => "Draws power from your shell to give you soul.";
         public override int DefaultCost => 5;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private SoulSwitch() {}

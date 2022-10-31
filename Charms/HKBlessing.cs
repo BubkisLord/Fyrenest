@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Hollow Knight's Blessing";
         public override string Description => "Contains the blessing of The Hollow Knight.\n\nMakes lifeblood charms more powerful.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 

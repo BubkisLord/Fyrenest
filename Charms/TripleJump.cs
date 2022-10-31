@@ -42,7 +42,7 @@
 		{
 			get
 			{
-				return "Fungus1_17";
+				return "Town";
 			}
 		}
 
@@ -50,7 +50,7 @@
 		{
 			get
 			{
-				return 71.5f;
+				return 0;
 			}
 		}
 
@@ -58,7 +58,7 @@
 		{
 			get
 			{
-				return 24.4f;
+				return 0;
 			}
 		}
 

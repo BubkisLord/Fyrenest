@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Spell Soul";
         public override string Description => "Spells are much bigger, but you get half the soul from enemies.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private SoulSpell() { }

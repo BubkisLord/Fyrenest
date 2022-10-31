@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Healthy Shell";
         public override string Description => "Makes your shell glossy and black.\n\nYou continously gain health when hurt.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private HealthyShell() {}

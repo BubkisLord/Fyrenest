@@ -57,7 +57,7 @@ namespace Fyrenest
 		{
 			get
 			{
-				return "Ruins2_11";
+				return "Town";
 			}
 		}
 
@@ -147,11 +147,11 @@ namespace Fyrenest
 				damageEnemies.attackType = AttackTypes.Spell;
 				damageEnemies.circleDirection = true;
 				damageEnemies.damageDealt = 21;
-				damageEnemies.ignoreInvuln = true;
+				damageEnemies.ignoreInvuln = false;
 				damageEnemies.direction = 180f;
 				damageEnemies.moveDirection = true;
 				damageEnemies.magnitudeMult = 1f;
-				damageEnemies.specialType = 0;
+				damageEnemies.specialType = SpecialTypes.None;
 			}
 			else
 				return;

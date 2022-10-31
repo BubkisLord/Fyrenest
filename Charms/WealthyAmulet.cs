@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Amulet of Wealth";
         public override string Description => "Allows the bearer to accumulate large amounts of geo.\n\nYou gain geo when attacking an enemy, but it costs 100 geo to heal.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 

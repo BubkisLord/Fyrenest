@@ -7,7 +7,7 @@ namespace Fyrenest
         public override string Name => "Giant's Nail";
         public override string Description => "This charm enlarges your nail dramatically.\n\nYou gain an extraordinary amount of power, having the your nail transformed into a giant's.";
         public override int DefaultCost => 4;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private GiantNail() { }

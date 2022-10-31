@@ -50,7 +50,7 @@ namespace Fyrenest
 		{
 			get
 			{
-				return "Fungus1_17";
+				return "Town";
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace Fyrenest
 		{
 			get
 			{
-				return 71.5f;
+				return 0;
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace Fyrenest
 		{
 			get
 			{
-				return 24.4f;
+				return 0;
 			}
 		}
 

@@ -10,7 +10,7 @@ namespace Fyrenest
         public override string Name => "Slow Soul";
         public override string Description => "This thick, callous charm glows brightly when near your shell.\n\nWhen worn, the bearer gains increased max health but makes you slower.";
         public override int DefaultCost => 4;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 

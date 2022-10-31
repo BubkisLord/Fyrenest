@@ -288,13 +288,11 @@ namespace Fyrenest
         public static void PlaceAllCharms()
         {
             var placements = new List<AbstractPlacement>();
-            foreach (var charm in Charms)
+            foreach (Charm charm in Charms)
             {
                 var name = charm.Name.Replace(" ", "_");
-                placements.Add(
-                    new CoordinateLocation() { x = charm.X, y = charm.Y, elevation = 0, sceneName = charm.Scene, name = name }
-                    .Wrap()
-                    .Add(Finder.GetItem(name)));
+                var placement = new CoordinateLocation() { x = charm.X, y = charm.Y, elevation = 0, sceneName = charm.Scene, name = name }.Wrap() as MutablePlacement;
+                placement.Add(charm);
             }
             ItemChangerMod.AddPlacements(placements, conflictResolution: PlacementConflictResolution.Ignore);
         }

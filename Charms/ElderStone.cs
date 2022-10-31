@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "ElderStone";
         public override string Description => "This magnificent charm bears the likeless of the Elderbug.\n\nEmbodies the frailness, the weakness, and the wisdom of the Elderbug into the bearer.";
         public override int DefaultCost => 5;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private ElderStone() {}

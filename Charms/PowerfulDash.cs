@@ -7,7 +7,7 @@ namespace Fyrenest
         public override string Name => "Powerful Dash";
         public override string Description => "This dark blue charm propels the wearer through the air.\n\nCan be used with the Sharp Shadow charm and the Dashmaster charm.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 

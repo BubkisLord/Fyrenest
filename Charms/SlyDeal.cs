@@ -8,8 +8,8 @@ namespace Fyrenest
         public override string Description => "This small, lightweight charm bears the likeless of a small bug called Sly.\n\nAlso has a side effect and embodies a foul stench of rancid eggs into the bearer.";
         public override int DefaultCost => 3;
         public override string Scene => "Town";
-        public override float X => 197.2f;
-        public override float Y => 8.4f;
+        public override float X => 0;
+        public override float Y => 0;
         private SlyDeal() {}
         public override CharmSettings Settings(SaveSettings s) => s.SlyDeal;
 

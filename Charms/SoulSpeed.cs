@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Name => "Speed Soul";
         public override string Description => "Slowly takes soul for a great increase in speed.";
         public override int DefaultCost => 1;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
         private SoulSpeed() {}

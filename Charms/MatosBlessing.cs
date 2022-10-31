@@ -7,7 +7,7 @@ namespace Fyrenest
         public override string Name => "Mato's Blessing";
         public override string Description => "Imbues the power of Mato into your nail, focusing the strength and honour of a true master.\n\nWhen hitting an enemy with a cyclone slash, you draw health, geo and energy from the target, making you more powerful.";
         public override int DefaultCost => 2;
-        public override string Scene => "Ruins2_11";
+        public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
 
