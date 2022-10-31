@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Runtime.CompilerServices;
-using Modding;
-using Modding.Delegates;
-using On;
-using UnityEngine;
-
-namespace Fyrenest
+﻿namespace Fyrenest
 {
 	internal class TripleJump : Charm
 	{
-		private TripleJump()
+		public TripleJump()
 		{
 		}
 

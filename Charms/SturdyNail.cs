@@ -10,7 +10,7 @@ namespace Fyrenest
         public override string Scene => "Ruins2_11";
         public override float X => 0f;
         public override float Y => 0f;
-        private SturdyNail() {}
+        public SturdyNail() {}
         
         public override CharmSettings Settings(SaveSettings s) => s.SturdyNail;
 

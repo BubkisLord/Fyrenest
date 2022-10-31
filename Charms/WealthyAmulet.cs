@@ -13,7 +13,7 @@ namespace Fyrenest
         public override float X => 0f;
         public override float Y => 0f;
 
-        private WealthyAmulet() {}
+        public WealthyAmulet() {}
 
         public override CharmSettings Settings(SaveSettings s) => s.WealthyAmulet;
 

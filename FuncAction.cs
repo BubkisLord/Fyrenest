@@ -1,5 +1,3 @@
-using HutongGames.PlayMaker;
-
 namespace Fyrenest
 {
     internal class FuncAction : FsmStateAction

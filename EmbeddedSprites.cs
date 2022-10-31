@@ -1,7 +1,3 @@
-using UnityEngine;
-using System.Reflection;
-using System.IO;
-
 namespace Fyrenest
 {
     internal static class EmbeddedSprite

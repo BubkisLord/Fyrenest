@@ -16,6 +16,10 @@ global using ItemChanger.Modules;
 global using UnityEngine.SceneManagement;
 global using System.Net;
 global using static Fyrenest.Fyrenest;
+global using HutongGames.PlayMaker;
+using ItemChanger.Locations;
+using ItemChanger.Placements;
+using UnityEngine.UIElements;
 
 namespace Fyrenest
 {
@@ -161,7 +165,7 @@ namespace Fyrenest
             On.HeroController.Start += OnGameStart;
 
             On.GrimmEnemyRange.GetTarget += DisableGrimmchildShooting;
-
+            
             //Events.OnEnterGame += CorrectGrubfather;
             Events.OnEnterGame += OnSaveLoad;
 
@@ -281,11 +285,53 @@ namespace Fyrenest
             Log("Initializing Part 2 Complete.\n\nAll Initializing Complete.");
         }
 
+        public static void PlaceAllCharms()
+        {
+            var placements = new List<AbstractPlacement>();
+            foreach (var charm in Charms)
+            {
+                var name = charm.Name.Replace(" ", "_");
+                placements.Add(
+                    new CoordinateLocation() { x = charm.X, y = charm.Y, elevation = 0, sceneName = charm.Scene, name = name }
+                    .Wrap()
+                    .Add(Finder.GetItem(name)));
+            }
+            ItemChangerMod.AddPlacements(placements, conflictResolution: PlacementConflictResolution.Ignore);
+        }
+
+        //private static void TestPlacements()
+        //{
+        //    ItemChangerMod.AddPlacements(new List<AbstractPlacement>()
+        //    {
+        //        AddCharmPlacement(VoidSoul.instance),
+        //        AddCharmPlacementExtended(TripleJump.instance, "GG_Atrium", 155.6f, 61.4f)
+        //    }, conflictResolution: PlacementConflictResolution.Ignore);
+        //}
+
+        //private static MutablePlacement AddCharmPlacement(Charm charm)
+        //{
+        //    var repairPlacement = new CoordinateLocation() { x = charm.X, y = charm.Y, elevation = 0, sceneName = charm.Scene, name = charm.Name }.Wrap() as MutablePlacement;
+        //    for (int i = 0; i < Charms.Count; i++)
+        //    {
+        //        if (Charms[i].Name == charm.Name) repairPlacement.Add(Charms[i]);
+        //    }
+        //    return repairPlacement;
+        //}
+
+        //private static MutablePlacement AddCharmPlacementExtended(Charm charm, string Scene, float x, float y)
+        //{
+        //    var repairPlacement = new CoordinateLocation() { x = x, y = y, elevation = 0, sceneName = Scene, name = charm.Name }.Wrap() as MutablePlacement;
+        //    for (int i = 0; i < Charms.Count; i++)
+        //    {
+        //        if (Charms[i].Name == charm.Name) repairPlacement.Add(Charms[i]);
+        //    }
+        //    return repairPlacement;
+        //}
+
         private void GiveStartingItemsAndSetEnabled()
         {
             if (LocalSaveData.FyrenestEnabled) Enabled = true;
             if (Enabled) LocalSaveData.FyrenestEnabled = true;
-            PlayerData.instance.bossDoorEntranceTextSeen = 1;
         }
 
         private void SetGameCompletion(On.PlayerData.orig_CountGameCompletion orig, global::PlayerData self)
@@ -366,7 +412,6 @@ namespace Fyrenest
             public bool BetterCDashGot = false;
             public bool GlassCannonGot = false;
             public bool HKBlessingGot = false;
-            public bool MarkofStrengthGot = false;
             public bool PowerfulDashGot = false;
             public bool HealthyShellGot = false;
             public bool OpportunisticDefeatGot = false;
@@ -390,6 +435,7 @@ namespace Fyrenest
             public bool BlueBloodGot = false;
             public bool SlowjumpGot = false;
             public bool QuickjumpGot = false;
+            public bool TripleJumpGot = false;
 
 
             public bool QuickfallDonePopup = false;
@@ -398,7 +444,6 @@ namespace Fyrenest
             public bool BetterCDashDonePopup = false;
             public bool GlassCannonDonePopup = false;
             public bool HKBlessingDonePopup = false;
-            public bool MarkofStrengthDonePopup = false;
             public bool PowerfulDashDonePopup = false;
             public bool HealthyShellDonePopup = false;
             public bool OpportunisticDefeatDonePopup = false;
@@ -422,6 +467,7 @@ namespace Fyrenest
             public bool BlueBloodDonePopup = false;
             public bool QuickjumpDonePopup = false;
             public bool SlowjumpDonePopup = false;
+            public bool TripleJumpDonePopup = false;
 
             public int revision = 0;
             public bool FyrenestEnabled = false;
@@ -557,6 +603,7 @@ namespace Fyrenest
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
                 Log("Initiating OnWorldInit()");
+                PlaceAllCharms();
                 //Call OnWorldInit for all Room subclasses
                 foreach (Room room in rooms)
                 {
@@ -570,6 +617,7 @@ namespace Fyrenest
                 // Toggle if Fyrenest is enabled.
                 LocalSaveData.FyrenestEnabled = true;
                 Log("Initiating OnWorldInit()");
+                PlaceAllCharms();
                 //Call OnWorldInit for all Room subclasses
                 foreach (Room room in rooms)
                 {
@@ -892,7 +940,6 @@ namespace Fyrenest
             if (PlayerData.instance.colosseumSilverCompleted && !LocalSaveData.SlowfallDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Slowfall.png"), "Gained Charm"); LocalSaveData.SlowfallDonePopup = true;
             if (PlayerData.instance.hasShadowDash && !LocalSaveData.PowerfulDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("PowerfulDash.png"), "Gained Charm"); LocalSaveData.PowerfulDashDonePopup = true;
             if (PlayerData.instance.hasNailArt && !LocalSaveData.SturdyNailDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SturdyNail.png"), "Gained Charm"); LocalSaveData.SturdyNailDonePopup = true;
-            if (PlayerData.instance.statueStateMantisLordsExtra.isUnlocked && !LocalSaveData.MarkofStrengthDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("MarkofStrength.png"), "Gained Charm"); LocalSaveData.MarkofStrengthDonePopup = true;
             if (PlayerData.instance.hasDreamGate && !LocalSaveData.SoulHungerDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulHunger.png"), "Gained Charm"); LocalSaveData.SoulHungerDonePopup = true;
             if (PlayerData.instance.hasDreamNail && !LocalSaveData.SoulSlowDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSlow.png"), "Gained Charm"); LocalSaveData.SoulSlowDonePopup = true;
             if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !LocalSaveData.BetterCDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("BetterCDash.png"), "Gained Charm"); LocalSaveData.BetterCDashDonePopup = true;
@@ -966,6 +1013,7 @@ namespace Fyrenest
                 LocalSaveData.FyrenestEnabled = true;
                 LocalSaveData.revision = CurrentRevision;
 
+                PlaceAllCharms();
                 //Call OnWorldInit for all Room subclasses
                 foreach (Room room in rooms)
                 {
@@ -1004,6 +1052,37 @@ namespace Fyrenest
         public void OnSaveLoad()
         {
             if (!LocalSaveData.FyrenestEnabled) return;
+
+            if (LocalSaveData.BetterCDashGot) BetterCDash.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.BlueBloodGot) BlueBlood.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.ElderStoneGot) ElderStone.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.GeoSwitchGot) GeoSwitch.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.GiantNailGot) GiantNail.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.GlassCannonGot) GlassCannon.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.HealthyShellGot) HealthyShell.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.HKBlessingGot) HKBlessing.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.MatosBlessingGot) MatosBlessing.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.OpportunisticDefeatGot) OpportunisticDefeat.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.PowerfulDashGot) PowerfulDash.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.QuickfallGot) Quickfall.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.QuickjumpGot) Quickjump.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.RavenousSoulGot) RavenousSoul.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.ShellShieldGot) ShellShield.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SlowfallGot) Slowfall.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SlowjumpGot) Slowjump.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SlowTimeGot) SlowTime.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SlyDealGot) SlyDeal.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SoulHungerGot) SoulHunger.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SoulSlowGot) SoulSlow.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SoulSpeedGot) SoulSpeed.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SoulSpellGot) SoulSpell.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SoulSwitchGot) SoulSwitch.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SpeedTimeGot) SpeedTime.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.SturdyNailGot) SturdyNail.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.TripleJumpGot) TripleJump.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.VoidSoulGot) VoidSoul.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.WealthyAmuletGot) WealthyAmulet.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.ZoteBornGot) ZoteBorn.instance.Settings(Settings).Got = true;
 
             if (LocalSaveData.revision < CurrentRevision)
             {

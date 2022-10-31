@@ -13,7 +13,7 @@ using Satchel.BetterMenus;
 namespace Fyrenest
 {
     /// <summary>
-    /// Handles the "Glimmering Realm" game mode menu
+    /// Handles the "Fyrenest" game mode menu
     /// </summary>
     internal class FyrenestModeMenu : ModeMenuConstructor
     {
@@ -40,10 +40,10 @@ namespace Fyrenest
             var mainLabel = new MenuLabel(SteelSoulSelector, "Fyrenest");
 
 
-            var mapLabel = new MenuLabel(SteelSoulSelector, "Map coming soon... It got corrupted.", MenuLabel.Style.Body);
+            var mapLabel = new MenuLabel(SteelSoulSelector, "Sorry this menu is so bad.", MenuLabel.Style.Body);
             var discordLabel = new MenuLabel(SteelSoulSelector, "Give ideas for new charms and new area layouts on the HK Modding Discord Server.\nSuggestions are always welcome!", MenuLabel.Style.Body);
 
-            var startButton = new BigButton(SteelSoulSelector, "Start", "");
+            var startButton = new BigButton(SteelSoulSelector, "Start", "Start the game");
             startButton.OnClick += StartGame;
 
             steelSoulToggle.SetNeighbor(Neighbor.Down, startButton);

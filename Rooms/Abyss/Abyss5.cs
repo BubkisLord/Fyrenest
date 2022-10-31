@@ -11,6 +11,10 @@ namespace Fyrenest.Rooms.Abyss
     internal class Abyss5 : Room
     {
         public Abyss5() : base("Abyss_05") { IsFlipped = true; }
+        public override void OnBeforeLoad()
+        {
+            IsFlipped = true;   
+        }
         public override void OnLoad()
         {
             DestroyGO("Dusk Knight");
