@@ -17,9 +17,9 @@ global using UnityEngine.SceneManagement;
 global using System.Net;
 global using static Fyrenest.Fyrenest;
 global using HutongGames.PlayMaker;
-using ItemChanger.Locations;
-using ItemChanger.Placements;
-using UnityEngine.UIElements;
+global using ItemChanger.Locations;
+global using ItemChanger.Placements;
+global using UnityEngine.UIElements;
 
 namespace Fyrenest
 {
@@ -785,21 +785,21 @@ namespace Fyrenest
         }
         public void MaxHealthReset()
         {
-            var CurrentMaxHp = PlayerData.instance.maxHealth;
-            var WantedMaxHp = 5;
-            var MaxHpChangeAmount = WantedMaxHp - CurrentMaxHp;
+            int CurrentMaxHp = PlayerData.instance.maxHealth;
+            int WantedMaxHp = 5;
+            int MaxHpChangeAmount = WantedMaxHp - CurrentMaxHp;
             HeroController.instance.AddToMaxHealth(MaxHpChangeAmount);
             PlayerData.instance.MaxHealth();
             HeroController.instance.MaxHealth();
-            SoulSlow.instance.Settings(Fyrenest.instance.Settings).Equipped = true;
-            SoulSlow.instance.Settings(Fyrenest.instance.Settings).Equipped = false;
+            SoulSlow.instance.Settings(Settings).Equipped = true;
+            SoulSlow.instance.Settings(Settings).Equipped = false;
         }
 
         public void HealthReset()
         {
-            var hp = PlayerData.instance.health;
-            var maxhp = PlayerData.instance.maxHealth;
-            var changeamount = maxhp - hp;
+            int hp = PlayerData.instance.health;
+            int maxhp = PlayerData.instance.maxHealth;
+            int changeamount = maxhp - hp;
             HeroController.instance.AddHealth(changeamount);
         }
 
@@ -934,36 +934,36 @@ namespace Fyrenest
         }
         private void CheckCharmPopup()
         {
-            if (PlayerData.instance.colosseumBronzeCompleted && !LocalSaveData.QuickfallDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Quickfall.png"), "Gained Charm"); LocalSaveData.QuickfallDonePopup = true;
-            if (PlayerData.instance.colosseumSilverCompleted && !LocalSaveData.SlowfallDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Slowfall.png"), "Gained Charm"); LocalSaveData.SlowfallDonePopup = true;
-            if (PlayerData.instance.hasShadowDash && !LocalSaveData.PowerfulDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("PowerfulDash.png"), "Gained Charm"); LocalSaveData.PowerfulDashDonePopup = true;
-            if (PlayerData.instance.hasNailArt && !LocalSaveData.SturdyNailDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SturdyNail.png"), "Gained Charm"); LocalSaveData.SturdyNailDonePopup = true;
-            if (PlayerData.instance.hasDreamGate && !LocalSaveData.SoulHungerDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulHunger.png"), "Gained Charm"); LocalSaveData.SoulHungerDonePopup = true;
-            if (PlayerData.instance.hasDreamNail && !LocalSaveData.SoulSlowDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSlow.png"), "Gained Charm"); LocalSaveData.SoulSlowDonePopup = true;
-            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !LocalSaveData.BetterCDashDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("BetterCDash.png"), "Gained Charm"); LocalSaveData.BetterCDashDonePopup = true;
-            if (PlayerData.instance.killedHollowKnight && !LocalSaveData.HKBlessingDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("HKBlessing.png"), "Gained Charm"); LocalSaveData.HKBlessingDonePopup = true;
-            if (PlayerData.instance.hasKingsBrand && !LocalSaveData.HealthyShellDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("HealthyShell.png"), "Gained Charm"); LocalSaveData.HealthyShellDonePopup = true;
-            if (PlayerData.instance.killedHollowKnightPrime && !LocalSaveData.GlassCannonDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("GlassCannon.png"), "Gained Charm"); LocalSaveData.GlassCannonDonePopup = true;
-            if (PlayerData.instance.bankerAccountPurchased && !LocalSaveData.WealthyAmuletDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("WealthyAmulet.png"), "Gained Charm"); LocalSaveData.WealthyAmuletDonePopup = true;
-            if (PlayerData.instance.colosseumGoldCompleted && !LocalSaveData.RavenousSoulDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("RavenousSoul.png"), "Gained Charm"); LocalSaveData.RavenousSoulDonePopup = true;
-            if (PlayerData.instance.canOvercharm && !LocalSaveData.OpportunisticDefeatDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("OpportunisticDefeat.png"), "Gained Charm"); LocalSaveData.OpportunisticDefeatDonePopup = true;
-            if (PlayerData.instance.collectorDefeated && !LocalSaveData.SoulSpellDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSpell.png"), "Gained Charm"); LocalSaveData.SoulSpellDonePopup = true;
-            if (PlayerData.instance.grubsCollected > 10 && !LocalSaveData.SlowTimeDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SlowTime.png"), "Gained Charm"); LocalSaveData.SlowTimeDonePopup = true;
-            if (PlayerData.instance.statueStateCollector.completedTier2 && !LocalSaveData.SpeedTimeDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SpeedTime.png"), "Gained Charm"); LocalSaveData.SpeedTimeDonePopup = true;
-            if (PlayerData.instance.mageLordDreamDefeated && !LocalSaveData.GeoSwitchDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("GeoSwitch.png"), "Gained Charm"); LocalSaveData.GeoSwitchDonePopup = true;
-            if (PlayerData.instance.killedMageLord && !LocalSaveData.SoulSwitchDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSwitch.png"), "Gained Charm"); LocalSaveData.SoulSwitchDonePopup = true;
-            if (PlayerData.instance.nailsmithConvoArt && !LocalSaveData.SoulSpeedDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SoulSpeed.png"), "Gained Charm"); LocalSaveData.SoulSpeedDonePopup = true;
-            if (PlayerData.instance.zotePrecept > 56 && !LocalSaveData.ZoteBornDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("ZoteBorn.png"), "Gained Charm"); LocalSaveData.ZoteBornDonePopup = true;
-            if (PlayerData.instance.visitedWhitePalace && !LocalSaveData.ElderStoneDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Elderstone.png"), "Gained Charm"); LocalSaveData.ElderStoneDonePopup = true;
-            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100 && !LocalSaveData.SlyDealDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("SlyDeal.png"), "Gained Charm"); LocalSaveData.SlyDealDonePopup = true;
-            if (PlayerData.instance.honedNail && !LocalSaveData.GiantNailDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("GiantNail.png"), "Gained Charm"); LocalSaveData.GiantNailDonePopup = true;
-            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && !LocalSaveData.MatosBlessingDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("MatosBlessing.png"), "Gained Charm"); LocalSaveData.MatosBlessingDonePopup = true;
-            if (PlayerData.instance.honedNail && !LocalSaveData.ShellShieldDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("ShellShield.png"), "Gained Charm"); LocalSaveData.ShellShieldDonePopup = true;
-            if (PlayerData.instance.honedNail && !LocalSaveData.VoidSoulDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulPopup.png"), "Gained Charm"); LocalSaveData.VoidSoulDonePopup = true;
+            if (PlayerData.instance.colosseumBronzeCompleted && !LocalSaveData.QuickfallDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Quickfall.png"), "Gained Charm"); LocalSaveData.QuickfallDonePopup = true;
+            if (PlayerData.instance.colosseumSilverCompleted && !LocalSaveData.SlowfallDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Slowfall.png"), "Gained Charm"); LocalSaveData.SlowfallDonePopup = true;
+            if (PlayerData.instance.hasShadowDash && !LocalSaveData.PowerfulDashDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("PowerfulDash.png"), "Gained Charm"); LocalSaveData.PowerfulDashDonePopup = true;
+            if (PlayerData.instance.hasNailArt && !LocalSaveData.SturdyNailDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SturdyNail.png"), "Gained Charm"); LocalSaveData.SturdyNailDonePopup = true;
+            if (PlayerData.instance.hasDreamGate && !LocalSaveData.SoulHungerDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SoulHunger.png"), "Gained Charm"); LocalSaveData.SoulHungerDonePopup = true;
+            if (PlayerData.instance.hasDreamNail && !LocalSaveData.SoulSlowDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SoulSlow.png"), "Gained Charm"); LocalSaveData.SoulSlowDonePopup = true;
+            if (PlayerData.instance.hasSuperDash && PlayerData.instance.gaveSlykey && !LocalSaveData.BetterCDashDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("BetterCDash.png"), "Gained Charm"); LocalSaveData.BetterCDashDonePopup = true;
+            if (PlayerData.instance.killedHollowKnight && !LocalSaveData.HKBlessingDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("HKBlessing.png"), "Gained Charm"); LocalSaveData.HKBlessingDonePopup = true;
+            if (PlayerData.instance.hasKingsBrand && !LocalSaveData.HealthyShellDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("HealthyShell.png"), "Gained Charm"); LocalSaveData.HealthyShellDonePopup = true;
+            if (PlayerData.instance.killedHollowKnightPrime && !LocalSaveData.GlassCannonDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("GlassCannon.png"), "Gained Charm"); LocalSaveData.GlassCannonDonePopup = true;
+            if (PlayerData.instance.bankerAccountPurchased && !LocalSaveData.WealthyAmuletDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("WealthyAmulet.png"), "Gained Charm"); LocalSaveData.WealthyAmuletDonePopup = true;
+            if (PlayerData.instance.colosseumGoldCompleted && !LocalSaveData.RavenousSoulDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("RavenousSoul.png"), "Gained Charm"); LocalSaveData.RavenousSoulDonePopup = true;
+            if (PlayerData.instance.canOvercharm && !LocalSaveData.OpportunisticDefeatDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("OpportunisticDefeat.png"), "Gained Charm"); LocalSaveData.OpportunisticDefeatDonePopup = true;
+            if (PlayerData.instance.collectorDefeated && !LocalSaveData.SoulSpellDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SoulSpell.png"), "Gained Charm"); LocalSaveData.SoulSpellDonePopup = true;
+            if (PlayerData.instance.grubsCollected > 10 && !LocalSaveData.SlowTimeDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SlowTime.png"), "Gained Charm"); LocalSaveData.SlowTimeDonePopup = true;
+            if (PlayerData.instance.statueStateCollector.completedTier2 && !LocalSaveData.SpeedTimeDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SpeedTime.png"), "Gained Charm"); LocalSaveData.SpeedTimeDonePopup = true;
+            if (PlayerData.instance.mageLordDreamDefeated && !LocalSaveData.GeoSwitchDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("GeoSwitch.png"), "Gained Charm"); LocalSaveData.GeoSwitchDonePopup = true;
+            if (PlayerData.instance.killedMageLord && !LocalSaveData.SoulSwitchDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SoulSwitch.png"), "Gained Charm"); LocalSaveData.SoulSwitchDonePopup = true;
+            if (PlayerData.instance.nailsmithConvoArt && !LocalSaveData.SoulSpeedDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SoulSpeed.png"), "Gained Charm"); LocalSaveData.SoulSpeedDonePopup = true;
+            if (PlayerData.instance.zotePrecept > 56 && !LocalSaveData.ZoteBornDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("ZoteBorn.png"), "Gained Charm"); LocalSaveData.ZoteBornDonePopup = true;
+            if (PlayerData.instance.visitedWhitePalace && !LocalSaveData.ElderStoneDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Elderstone.png"), "Gained Charm"); LocalSaveData.ElderStoneDonePopup = true;
+            if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100 && !LocalSaveData.SlyDealDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("SlyDeal.png"), "Gained Charm"); LocalSaveData.SlyDealDonePopup = true;
+            if (PlayerData.instance.honedNail && !LocalSaveData.GiantNailDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("GiantNail.png"), "Gained Charm"); LocalSaveData.GiantNailDonePopup = true;
+            if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && !LocalSaveData.MatosBlessingDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("MatosBlessing.png"), "Gained Charm"); LocalSaveData.MatosBlessingDonePopup = true;
+            if (PlayerData.instance.honedNail && !LocalSaveData.ShellShieldDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("ShellShield.png"), "Gained Charm"); LocalSaveData.ShellShieldDonePopup = true;
+            if (PlayerData.instance.honedNail && !LocalSaveData.VoidSoulDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulPopup.png"), "Gained Charm"); LocalSaveData.VoidSoulDonePopup = true;
 
             // make it buy from salubra
-            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
-            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) ItemChanger.Internal.MessageController.Enqueue(EmbeddedSprite.Get("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
+            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
+            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
         }
         #endregion
 
@@ -1278,7 +1278,7 @@ namespace Fyrenest
                 Sprite titleSprite = SpriteManager.Load(stream);
                 title.GetComponent<SpriteRenderer>().sprite = titleSprite;
                 //slightly blue, to make it stand apart from the background
-                title.GetComponent<SpriteRenderer>().color = new UnityEngine.Color(193 / 255f, 225 / 255f, 253 / 255f);
+                title.GetComponent<SpriteRenderer>().color = new Color(193 / 255f, 225 / 255f, 253 / 255f);
                 title.transform.SetScaleMatching(3.2f);
             }
         }

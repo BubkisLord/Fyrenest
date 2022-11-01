@@ -131,8 +131,8 @@ namespace Fyrenest
 								{
 									companionFsm = FSMUtility.LocateMyFSM(companion, "Control");
 									fsmState = companionFsm.GetState("Antic");
-									companion.gameObject.transform.SetScaleX(3f);
-									companion.gameObject.transform.SetScaleY(3f);
+									companion.gameObject.transform.SetScaleX(2f);
+									companion.gameObject.transform.SetScaleY(2f);
 								}
 								this._companions.Add(companion);
 							}
