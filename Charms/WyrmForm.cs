@@ -26,7 +26,7 @@ namespace Fyrenest
 		{
 			get
 			{
-				return "Wyrm Form";
+				return "Wings of Air";
 			}
 		}
 
@@ -34,7 +34,7 @@ namespace Fyrenest
 		{
 			get
 			{
-				return "This smooth, pale charm glistens while touching air.\n\nWhen worn, allows the bearer to fly, but at the cost of the bearer's nail to be weakened drastically.";
+				return "This smooth, pale charm glistens while in contact air.\n\nWhen worn, allows the bearer to fly, but at the cost of the bearer's nail to be weakened drastically.";
 			}
 		}
 

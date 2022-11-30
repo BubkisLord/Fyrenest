@@ -1,4 +1,5 @@
 using ItemChanger;
+using System.Runtime.CompilerServices;
 
 namespace Fyrenest
 {

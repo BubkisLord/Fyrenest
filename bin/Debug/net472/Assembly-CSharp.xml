@@ -731,6 +731,12 @@
             </summary>
             <returns>A List of tuples containing scene name, object name</returns>
         </member>
+        <member name="M:Modding.IMod.PreloadSceneHooks">
+            <summary>
+            A list of requested scenes to be preloaded and actions to execute on loading of those scenes
+            </summary>
+            <returns>List of tuples containg scene names and the respective actions.</returns>
+        </member>
         <member name="M:Modding.IMod.Initialize(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,UnityEngine.GameObject}})">
             <summary>
                 Called after preloading of all mods.
@@ -2402,6 +2408,12 @@
             </summary>
             <returns>A List of tuples containing scene name, object name</returns>
         </member>
+        <member name="M:Modding.Mod.PreloadSceneHooks">
+            <summary>
+            A list of requested scenes to be preloaded and actions to execute on loading of those scenes
+            </summary>
+            <returns>List of tuples containg scene names and the respective actions.</returns>
+        </member>
         <member name="M:Modding.Mod.Initialize(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,UnityEngine.GameObject}})">
             <inheritdoc />
             <summary>
@@ -3298,6 +3310,11 @@
                 String to Draw
             </summary>
         </member>
+        <member name="M:Modding.ModVersionDraw.Start">
+            <summary>
+                Run When GameObject is first active.
+            </summary>
+        </member>
         <member name="M:Modding.ModVersionDraw.OnGUI">
             <summary>
                 Run When Gui is shown.
@@ -3372,7 +3389,7 @@
             </summary>
             <param name="progress">The progress that should be displayed. 0.0f - 1.0f</param>
         </member>
-        <member name="M:Modding.Preloader.DoPreload(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.ValueTuple{Modding.ModLoader.ModInstance,System.Collections.Generic.List{System.String}}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.List{System.ValueTuple{Modding.ModLoader.ModInstance,System.Collections.Generic.List{System.String}}}},System.Collections.Generic.IReadOnlyDictionary{Modding.ModLoader.ModInstance,System.Collections.Generic.Dictionary{System.String,System.String}},System.Collections.Generic.IDictionary{Modding.ModLoader.ModInstance,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,UnityEngine.GameObject}}})">
+        <member name="M:Modding.Preloader.DoPreload(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.ValueTuple{Modding.ModLoader.ModInstance,System.Collections.Generic.List{System.String}}}},System.Collections.Generic.IDictionary{Modding.ModLoader.ModInstance,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,UnityEngine.GameObject}}},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.Func{System.Collections.IEnumerator}}})">
             <summary>
                 This is the actual preloading process.
             </summary>
@@ -3672,6 +3689,15 @@
             If some types cannot be loaded (e.g. they derive from a type in an uninstalled mod),
             then only the successfully loaded types are returned.
             </summary>
+        </member>
+        <member name="M:Modding.Utils.AssemblyExtensions.LoadEmbeddedSprite(System.Reflection.Assembly,System.String,System.Single)">
+            <summary>
+            Load an image from the assembly's embedded resources, and return a Sprite.
+            </summary>
+            <param name="asm">The assembly to load from.</param>
+            <param name="path">The path to the image.</param>
+            <param name="pixelsPerUnit">The pixels per unit. Changing this value will scale the size of the sprite accordingly.</param>
+            <returns>A Sprite object.</returns>
         </member>
         <member name="T:Modding.Utils.UnityExtensions">
             <summary>

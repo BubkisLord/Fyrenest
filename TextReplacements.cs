@@ -129,6 +129,10 @@ namespace Fyrenest
             {
                 return orig.Replace("Hollow Knight", "Infected Vessel");
             }
+            if (orig.Contains("#!#"))
+            {
+                return orig.Replace("#!#", "");
+            }
             if (orig.Contains("Pure Vessel"))
             {
                 return orig.Replace("Pure Vessel", "Hollow Vessel");

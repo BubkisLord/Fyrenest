@@ -6,7 +6,7 @@ namespace Fyrenest
     {
         public static readonly OpportunisticDefeat instance = new();
         public override string Sprite => "LessDamage.png";
-        public override string Name => "Opportunistic Defeat";
+        public override string Name => "Tiso's Shield";
         public override string Description => "When worn, the bearer takes the most of getting hit.\n\nWhen attacked, you gain both soul and geo. Plus, every 4th time you get hit, you don't take damage.";
         public override int DefaultCost => 1;
         public override string Scene => "Town";

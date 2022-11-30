@@ -65,11 +65,14 @@ namespace Fyrenest
 		// Token: 0x0400007B RID: 123
 		public CharmSettings SpeedTime = new CharmSettings();
 
-		// Token: 0x0400007C RID: 124
-		public CharmSettings ZoteBorn = new CharmSettings();
+        // Token: 0x0400007C RID: 124
+        public CharmSettings ZoteBorn = new CharmSettings();
 
-		// Token: 0x0400007D RID: 125
-		public CharmSettings SlyDeal = new CharmSettings();
+        // Token: 0x0400007C RID: 124
+        public CharmSettings GravityCharm = new CharmSettings();
+
+        // Token: 0x0400007D RID: 125
+        public CharmSettings SlyDeal = new CharmSettings();
 
 		// Token: 0x0400007E RID: 126
 		public CharmSettings ElderStone = new CharmSettings();
@@ -93,7 +96,9 @@ namespace Fyrenest
 
 		public CharmSettings Fyrechild = new CharmSettings();
 
-		public CharmSettings WyrmForm = new CharmSettings();
+        public CharmSettings WyrmForm = new CharmSettings();
+
+        public CharmSettings BulbousInfection = new CharmSettings();
 
         public CharmSettings TripleJump = new CharmSettings();
 

@@ -7,7 +7,6 @@ using MenuChanger;
 using MenuChanger.Extensions;
 using MenuChanger.MenuElements;
 using MenuChanger.MenuPanels;
-using RandomizerMod.Menu;
 using Satchel.BetterMenus;
 
 namespace Fyrenest
@@ -41,7 +40,7 @@ namespace Fyrenest
 
 
             var mapLabel = new MenuLabel(SteelSoulSelector, "Sorry this menu is so bad.", MenuLabel.Style.Body);
-            var discordLabel = new MenuLabel(SteelSoulSelector, "Give ideas for new charms and new area layouts on the HK Modding Discord Server.\nSuggestions are always welcome!", MenuLabel.Style.Body);
+            var ideasLabel = new MenuLabel(SteelSoulSelector, "Give ideas for new charms and new area layouts on the HK Modding Discord Server.\nSuggestions are always welcome!", MenuLabel.Style.Body);
 
             var startButton = new BigButton(SteelSoulSelector, "Start", "Start the game");
             startButton.OnClick += StartGame;
@@ -53,12 +52,12 @@ namespace Fyrenest
                 mainLabel,
                 steelSoulToggle,
                 mapLabel,
-                discordLabel,
+                ideasLabel,
                 startButton
             });
 
             mapLabel.Translate(new UnityEngine.Vector2(250, 0));
-            discordLabel.Translate(new UnityEngine.Vector2(480, 50));
+            ideasLabel.Translate(new UnityEngine.Vector2(480, 50));
             startButton.Translate(new UnityEngine.Vector2(-91, 75));
         }
 

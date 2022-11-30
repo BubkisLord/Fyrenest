@@ -374,24 +374,9 @@
             Creates a BigItemPopup with the given parameters. All parameters can be null except the sprite and name.
             </summary>
         </member>
-        <member name="T:ItemChanger.Components.ContainerInfo">
+        <member name="T:ItemChanger.Components.ContainerInfoComponent">
             <summary>
             Component to be attached to a container GameObject to allow the Container class to make changes.
-            </summary>
-        </member>
-        <member name="T:ItemChanger.Components.ContainerGiveInfo">
-            <summary>
-            Instructions for a container to give items.
-            </summary>
-        </member>
-        <member name="T:ItemChanger.Components.ChangeSceneInfo">
-            <summary>
-            Instructions for a container to change scene.
-            </summary>
-        </member>
-        <member name="T:ItemChanger.Components.CostInfo">
-            <summary>
-            Instructions for a container to enforce a Cost.
             </summary>
         </member>
         <member name="T:ItemChanger.Components.DropIntoPlace">
@@ -470,10 +455,11 @@
             Returns true if the container can be instantiated. For some containers, this value is variable in which objects were preloaded.
             </summary>
         </member>
-        <member name="M:ItemChanger.Container.GetNewContainer(ItemChanger.AbstractPlacement,System.Collections.Generic.IEnumerable{ItemChanger.AbstractItem},ItemChanger.FlingType,ItemChanger.Cost,System.Nullable{ItemChanger.Transition})">
+        <member name="M:ItemChanger.Container.GetNewContainer(ItemChanger.ContainerInfo)">
             <summary>
             Produces a new object of this container type.
             </summary>
+            <exception cref="T:System.NotImplementedException">The container does not support instantiation.</exception>
         </member>
         <member name="M:ItemChanger.Container.ApplyTargetContext(UnityEngine.GameObject,UnityEngine.GameObject,System.Single)">
             <summary>
@@ -490,19 +476,79 @@
             Fsm hook for all container edits. Called on an item with the ContainerInfo component at the start and end of ItemChanger's PlayMakerFSM.OnEnable hook.
             </summary>
         </member>
-        <member name="M:ItemChanger.Container.AddGiveEffectToFsm(PlayMakerFSM,ItemChanger.Components.ContainerGiveInfo)">
+        <member name="M:ItemChanger.Container.AddGiveEffectToFsm(PlayMakerFSM,ItemChanger.ContainerGiveInfo)">
             <summary>
             Called during the container fsm hook to set up the container to give items.
             </summary>
         </member>
-        <member name="M:ItemChanger.Container.AddChangeSceneToFsm(PlayMakerFSM,ItemChanger.Components.ChangeSceneInfo)">
+        <member name="M:ItemChanger.Container.AddChangeSceneToFsm(PlayMakerFSM,ItemChanger.ChangeSceneInfo)">
             <summary>
             Called during the container fsm hook to set up the container to change scene.
             </summary>
         </member>
-        <member name="M:ItemChanger.Container.AddCostToFsm(PlayMakerFSM,ItemChanger.Components.CostInfo)">
+        <member name="M:ItemChanger.Container.AddCostToFsm(PlayMakerFSM,ItemChanger.CostInfo)">
             <summary>
             Called during the container fsm hook to set up the container to have a cost.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.ContainerInfo">
+            <summary>
+            Data for instructing a Container class to make changes. The ContainerGiveInfo field must not be null.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.#ctor(System.String,ItemChanger.AbstractPlacement,ItemChanger.FlingType)">
+            <summary>
+            Creates ContainerInfo with standard ContainerGiveInfo.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.#ctor(System.String,ItemChanger.AbstractPlacement,System.Collections.Generic.IEnumerable{ItemChanger.AbstractItem},ItemChanger.FlingType)">
+            <summary>
+            Creates ContainerInfo with standard ContainerGiveInfo.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.#ctor(System.String,ItemChanger.AbstractPlacement,ItemChanger.FlingType,ItemChanger.Cost)">
+            <summary>
+            Creates ContainerInfo with standard ContainerGiveInfo. If the cost parameter is not null, initializes costInfo with the cost.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.#ctor(System.String,ItemChanger.AbstractPlacement,System.Collections.Generic.IEnumerable{ItemChanger.AbstractItem},ItemChanger.FlingType,ItemChanger.Cost)">
+            <summary>
+            Creates ContainerInfo with standard ContainerGiveInfo. If the cost parameter is not null, initializes costInfo with the cost.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.#ctor(System.String,ItemChanger.AbstractPlacement,ItemChanger.FlingType,ItemChanger.Cost,ItemChanger.ChangeSceneInfo)">
+            <summary>
+            Creates ContainerInfo with standard ContainerGiveInfo and the provided ChangeSceneInfo. If the cost parameter is not null, initializes costInfo with the cost.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.#ctor(System.String,ItemChanger.AbstractPlacement,System.Collections.Generic.IEnumerable{ItemChanger.AbstractItem},ItemChanger.FlingType,ItemChanger.Cost,ItemChanger.ChangeSceneInfo)">
+            <summary>
+            Creates ContainerInfo with standard ContainerGiveInfo and the provided ChangeSceneInfo. If the cost parameter is not null, initializes costInfo with the cost.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.#ctor">
+            <summary>
+            Creates uninitialized ContainerInfo. The giveInfo and containerType fields must be initialized before use.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.ContainerInfo.FindContainerInfo(UnityEngine.GameObject)">
+            <summary>
+            Searches for ContainerInfo on a ContainerInfoComponent. Returns null if neither is found.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.ContainerGiveInfo">
+            <summary>
+            Instructions for a container to give items.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.ChangeSceneInfo">
+            <summary>
+            Instructions for a container to change scene.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.CostInfo">
+            <summary>
+            Instructions for a container to enforce a Cost.
             </summary>
         </member>
         <member name="T:ItemChanger.Containers.ChestContainer">
@@ -530,7 +576,7 @@
             Container for creating and modifying shiny items.
             </summary>
         </member>
-        <member name="M:ItemChanger.Containers.SoulTotemContainer.AddGiveEffectToFsm(PlayMakerFSM,ItemChanger.Components.ContainerGiveInfo)">
+        <member name="M:ItemChanger.Containers.SoulTotemContainer.AddGiveEffectToFsm(PlayMakerFSM,ItemChanger.ContainerGiveInfo)">
             <remarks>
             Soul totems are implemented as follows:
             - The totem type is the type of the first SoulTotemItem in the items list, or B if no SoulTotemItems were included. It is also B if Soul Totem preloads were reduced.
@@ -661,9 +707,68 @@
             Cost which subtracts the specified amount from the GeoCounter. Can only be paid when the result of the subtraction would be nonnegative.
             </summary>
         </member>
-        <member name="P:ItemChanger.IDeployer.SceneName">
+        <member name="T:ItemChanger.Deployer">
             <summary>
-            Used as a key for the scene change event, and thus should not mutate.
+            Abstract IDeployer which creates an object and places it at the specified coordinates.
+            Inheritors must specify how the object is instantiated; the base class handles positioning and activation.
+            </summary>
+        </member>
+        <member name="P:ItemChanger.Deployer.Test">
+            <summary>
+            Optional property. If non-null and evaluates false, the GameObject is not deployed.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.Deployer.Deploy">
+            <summary>
+            Method which calls Instantiate, and then appropriately places the new object. Returns the object to allow further action by overriders.
+            <br/>The base implementation sets position, gives the object a safe position-based name, and updates any PersistentBoolItem, PersistentIntItem, or GeoRock components with the new name.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Deployers.EnemyBlockerDeployer">
+            <summary>
+            Deployer which creates a region which enemies cannot enter.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Deployers.HintBoxDeployer">
+            <summary>
+            Deployer which creates a HintBox, a region which displays a dream dialogue message when the hero enters.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Deployers.ObjectDestroyer">
+            <summary>
+            IDeployer which destroys an object specified by name or path.
+            </summary>
+        </member>
+        <member name="F:ItemChanger.Deployers.ObjectDestroyer.NameMatchType.FirstName">
+            <summary>
+            Destroys the first gameobject found in hierarchy with the provided ObjectName name.
+            </summary>
+        </member>
+        <member name="F:ItemChanger.Deployers.ObjectDestroyer.NameMatchType.Path">
+            <summary>
+            Destroys the first gameobject found in hierarchy with the provided ObjectName path.
+            </summary>
+        </member>
+        <member name="F:ItemChanger.Deployers.ObjectDestroyer.NameMatchType.NameSubstring">
+            <summary>
+            Destroys all gameobjects found in hierarchy with name containing the provided ObjectName as a substring.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Deployers.SoulTotemDeployer">
+            <summary>
+            Deployer for placing a simple soul totem.
+            <br/>Use SoulTotemContainer instead to create a soul totem which can handle items.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Deployers.TabletDeployer">
+            <summary>
+            A Deployer which creates a lore tablet at the specified point. 
+            The tablet will not be readable unless the y value is at least 0.1 higher than the knight's position at ground level.
+            </summary>
+        </member>
+        <member name="P:ItemChanger.Deployers.TabletDeployer.Text">
+            <summary>
+            The text to display when the tablet is read by the player.
             </summary>
         </member>
         <member name="T:ItemChanger.MessageType">
@@ -1154,6 +1259,59 @@
             FsmStateAction for setting the player's respawn point to the RespawnPoint found in the active scene.
             </summary>
         </member>
+        <member name="T:ItemChanger.IBool">
+            <summary>
+            Interface which can supply a bool value. Used frequently for serializable bool tests.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.IWritableBool">
+            <summary>
+            IBool which supports write operations.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.BoxedBool">
+            <summary>
+            IBool which represents a constant value.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.PDBool">
+            <summary>
+            IBool which represents a PlayerData bool.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.SDBool">
+            <summary>
+            IBool which represents the value of a PersistentBoolData in SceneData.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.PDIntBool">
+            <summary>
+            IBool which represents comparison on a PlayerData int.
+            <br/>Supports IWritableBool in one direction only (direction depends on comparison operator).
+            </summary>
+        </member>
+        <member name="T:ItemChanger.PlacementAllObtainedBool">
+            <summary>
+            IBool which searches for a placement by name and checks whether all items on the placement are obtained.
+            <br/>If the placement does not exist, defaults to the value of missingPlacementTest, or true if missingPlacementTest is null.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.IDeployer">
+            <summary>
+            Interface for very simple scene change actions, which can be added directly to settings.
+            <br/>The most common use is a Deployer, which creates an object at specified coordinates.
+            </summary>
+        </member>
+        <member name="P:ItemChanger.IDeployer.SceneName">
+            <summary>
+            The scene in which the IDeployer acts. Used as a key for the scene change event, and thus should not mutate.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.IDeployer.OnSceneChange(UnityEngine.SceneManagement.Scene)">
+            <summary>
+            Action to perform when SceneName becomes the active scene.
+            </summary>
+        </member>
         <member name="M:ItemChanger.Internal.LanguageStringManager.GetICString(System.String,System.String)">
             <summary>
             Returns the string with the given sheet and key from the languge.xml. Does not do any other search, nor does it invoke Language.Language.Get, nor does it format the result.
@@ -1265,10 +1423,17 @@
         </member>
         <member name="P:ItemChanger.Internal.SpriteManager.Instance">
             <summary>
-            The SpriteManager with access to embedded ItemChanger pngs.
+            The SpriteManager with access to embedded ItemChanger pngs, constructed with the ItemChanger assembly and prefix "ItemChanger.Resources."
             </summary>
         </member>
         <member name="M:ItemChanger.Internal.SpriteManager.#ctor(System.Reflection.Assembly,System.String)">
+            <summary>
+            Creates a SpriteManager to lazily load and cache Sprites from the embedded png files in the specified assembly.
+            <br/>Only filepaths with the matching prefix are considered, and the prefix is removed to determine sprite names (e.g. "ItemChangerMod.Resources." is the prefix for Instance).
+            <br/>Images will be loaded with default Bilinear filter mode and 100 pixels per unit.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.Internal.SpriteManager.#ctor(System.Reflection.Assembly,System.String,ItemChanger.Internal.SpriteManager.Info)">
             <summary>
             Creates a SpriteManager to lazily load and cache Sprites from the embedded png files in the specified assembly.
             <br/>Only filepaths with the matching prefix are considered, and the prefix is removed to determine sprite names (e.g. "ItemChangerMod.Resources." is the prefix for Instance).
@@ -1277,6 +1442,8 @@
         <member name="M:ItemChanger.Internal.SpriteManager.GetSprite(System.String)">
             <summary>
             Fetches the Sprite with the specified name. If it has not yet been loaded, loads it from embedded resources and caches the result.
+            <br/>The name is the path of the image as an embedded resource, with the SpriteManager prefix and file extension removed.
+            <br/>For example, the image at "ItemChanger.Resources.ShopIcons.Geo.png" has key "ShopIcons.Geo" in SpriteManager.Instance.
             </summary>
         </member>
         <member name="M:ItemChanger.Internal.SpriteManager.Load(System.IO.Stream,UnityEngine.FilterMode)">
@@ -1292,6 +1459,16 @@
         <member name="T:ItemChanger.BoxedSprite">
             <summary>
             ISprite wrapper for Sprite. Use only for items created and disposed at runtime--it is not serializable.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.EmbeddedSprite">
+            <summary>
+            An ISprite which retrieves its sprite from a SpriteManager.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.ItemChangerSprite">
+            <summary>
+            An EmbeddedSprite which retrieves its sprite from SpriteManager.Instance.
             </summary>
         </member>
         <member name="M:ItemChanger.ItemChangerMod.CreateSettingsProfile(System.Boolean)">
@@ -1416,6 +1593,11 @@
         <member name="T:ItemChanger.Items.LoreItem">
             <summary>
             Item which plays a lore sound when the context does not support sending up a lore prompt.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Items.LumaflyLanternItem">
+            <summary>
+            BoolItem that lights up the room the player is in when obtained.
             </summary>
         </member>
         <member name="T:ItemChanger.Items.MapItem">
@@ -1546,6 +1728,11 @@
         <member name="T:ItemChanger.Locations.DualLocation">
             <summary>
             Helper location meant to be unpacked into a DualPlacement
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Locations.EmptyLocation">
+            <summary>
+            A location with no effects. Use, for example, with DualPlacement, or in other situations where a dummy location may be needed.
             </summary>
         </member>
         <member name="T:ItemChanger.Locations.EnemyFsmLocation">
@@ -1905,6 +2092,12 @@
             Module which tracks the number of rancid eggs that have been spent via CumulativeRancidEggCost.
             </summary>
         </member>
+        <member name="T:ItemChanger.Modules.DarknessLevelEditModule">
+            <summary>
+            Module for changing the darkness level of a scene. Permitted values are -1, 0 (normal), 1, 2 (fully dark)
+            <br/>Darkness regions in modified scenes will be disabled.
+            </summary>
+        </member>
         <member name="T:ItemChanger.Modules.DisablePalaceMidWarp">
             <summary>
             Module which causes dreamnailing the Kingsmould corpse in Palace Grounds to always warp the knight to White_Palace_11.
@@ -1977,6 +2170,15 @@
             <param name="cumulative">Should the cost compare against the cumulative flames collected, or the current balance?</param>
             <param name="subtractive">Should paying the cost increment the cumulative flames spent, and decrease the current balance?</param>
         </member>
+        <member name="P:ItemChanger.Modules.FlameCost.amount">
+            <summary>The number of flames.</summary>
+        </member>
+        <member name="P:ItemChanger.Modules.FlameCost.cumulative">
+            <summary>Should the cost compare against the cumulative flames collected, or the current balance?</summary>
+        </member>
+        <member name="P:ItemChanger.Modules.FlameCost.subtractive">
+            <summary>Should paying the cost increment the cumulative flames spent, and decrease the current balance?</summary>
+        </member>
         <member name="T:ItemChanger.Modules.HorizontalTransitionQuakeCancel">
             <summary>
             Module which prevents glitches from diving into a bot -> non-top transition.
@@ -1991,6 +2193,22 @@
             <summary>
             Module which causes Room_Ouiji[left1] to lead to Room_Jinn[left1], and Room_Jinn[left1] to lead to the target of Room_Ouiji[left1].
             The passage is created when entering Jiji or Jinn's hut for the first time.
+            <br/>Independenlty, the module also has an option enabled by default to ensure the target of the Jiji door in Dirtmouth is not changed on steel soul saves.
+            </summary>
+        </member>
+        <member name="F:ItemChanger.Modules.JijiJinnPassage.HandleSteelSoul">
+            <summary>
+            True by default. If true, the module disables the fsm which changes the target of the Jiji door in Dirtmouth on steel soul saves.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Modules.LanguageEditModule">
+            <summary>
+            Module for packaging language edits with an ItemChanger save.
+            </summary>
+        </member>
+        <member name="P:ItemChanger.Modules.LanguageEditModule.LanguageEdit.IgnoreExistingOverrides">
+            <summary>
+            If false, and the key has been set to a nonempty value in a language.xml included with ItemChanger, then the language edit will not run.
             </summary>
         </member>
         <member name="T:ItemChanger.Modules.LeftCityChandelier">
@@ -2006,6 +2224,18 @@
         <member name="T:ItemChanger.Modules.Module">
             <summary>
             Base type for classes which perform self-contained changes that should be applied when a save is created or continued and disabled when the save is unloaded.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.Modules.Module.LoadOnce">
+            <summary>
+            Initializes the module and sets the Loaded property. If the module is already loaded, does nothing.
+            <br/>Preferred to "Initialize", which does not set the Loaded property.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.Modules.Module.UnloadOnce">
+            <summary>
+            Unloads the module and sets the Loaded property. If the module is not loaded, does nothing.
+            <br/>Preferred to "Unload", which does not set the Loaded property.
             </summary>
         </member>
         <member name="T:ItemChanger.Modules.DefaultModuleAttribute">
@@ -2219,6 +2449,11 @@
             Variant of MutablePlacement which only uses the shiny container type.
             </summary>
         </member>
+        <member name="T:ItemChanger.SmallPlatform">
+            <summary>
+            A Deployer which creates a platform at the specified point.
+            </summary>
+        </member>
         <member name="F:ItemChanger.StartDefs.RelativeStartDef.objPath">
             <summary>
             The full path to the GameObject, with '/' separators.
@@ -2232,6 +2467,32 @@
         <member name="M:ItemChanger.StartDefs.TransitionBasedStartDef.FromGate(System.String,System.String,System.Int32)">
             <summary>
             Attempts to find a start location near the corresponding transition. Unlikely to succeed for bottom transitions.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.Tag.Load(System.Object)">
+            <summary>
+            Virtual method called on tags when their parent loads. The base method checks and throws an exception if the tag is already loaded.
+            <br/>This should not be called directly. Instead, use "LoadOnce" to load and set the Loaded property.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The tag is already loaded.</exception>
+        </member>
+        <member name="M:ItemChanger.Tag.Unload(System.Object)">
+            <summary>
+            Virtual method called on tags when their parent unloads. The base method checks and throws an exception if the tag is not loaded.
+            <br/>This should not be called directly. Instead, use "UnloadOnce" to unload and set the Loaded property.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The tag is not loaded.</exception>
+        </member>
+        <member name="M:ItemChanger.Tag.LoadOnce(ItemChanger.TaggableObject)">
+            <summary>
+            Loads the tag and sets the Loaded property. If the tag is already loaded, does nothing.
+            <br/>Preferred to "Load", which does not set the Loaded property.
+            </summary>
+        </member>
+        <member name="M:ItemChanger.Tag.UnloadOnce(ItemChanger.TaggableObject)">
+            <summary>
+            Unloads the tag and sets the Loaded property. If the tag is not loaded, does nothing.
+            <br/>Preferred to "Unload", which does not set the Loaded property.
             </summary>
         </member>
         <member name="T:ItemChanger.Tags.ChangeSceneTag">
@@ -2288,6 +2549,11 @@
         <member name="F:ItemChanger.Tags.ImplicitCostTag.Inherent">
             <summary>
             An inherent cost always applies. A non-inherent cost applies as a substitute when the placement does not have a (non-null) cost.
+            </summary>
+        </member>
+        <member name="T:ItemChanger.Tags.IncompatibilityWarningTag">
+            <summary>
+            Tag which generates a warning message on load if a mutually incompatible placement exists.
             </summary>
         </member>
         <member name="T:ItemChanger.Tags.IInteropTag">
@@ -2382,6 +2648,12 @@
             Placement tag which stores a record of the information shared in the most recent preview of a single cost placement.
             </summary>
         </member>
+        <member name="T:ItemChanger.Tags.SetIBoolOnGiveTag">
+            <summary>
+            Tag which sets an IWriteableBool when its parent item is given.
+            <br/>If attached to a location or placement, sets the bool when VisitState.ObtainedAnyItem is first set on the placement.
+            </summary>
+        </member>
         <member name="T:ItemChanger.Tags.SetPDBoolOnGiveTag">
             <summary>
             Tag which adds setting a PlayerData bool as a side effect to an item.
@@ -2443,6 +2715,14 @@
             <summary>
             Call after ModifyShiny to add cost.
             </summary>
+        </member>
+        <member name="M:ItemChanger.Util.TabletUtility.MakeNewTablet(System.String,System.Func{System.String})">
+            <summary>
+            Creates a lore tablet GameObject with the specified name and lore text.
+            </summary>
+            <param name="tabletName">The name of the tablet.</param>
+            <param name="textGenerator">This method is invoked when the player reads the lore tablet to set the displayed text.</param>
+            <returns>The tablet GameObject.</returns>
         </member>
         <member name="T:System.Index">
             <summary>Represent a type can be used to index a collection either from the start or the end.</summary>

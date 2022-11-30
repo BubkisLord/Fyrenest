@@ -41,6 +41,10 @@ namespace Fyrenest
         /// The data for the loaded save
         /// </summary>
         public static CustomLocalSaveData LocalSaveData { get; set; } = new CustomLocalSaveData();
+        /// <summary>
+        /// Globally saved data - runs across all saves
+        /// </summary>
+        public static CustomGlobalSaveData GlobalSaveData { get; set; } = new CustomGlobalSaveData();
 
         /// <summary>
         /// Instances of all classes derived from Room
@@ -64,8 +68,10 @@ namespace Fyrenest
         /// </summary>
         public bool Enabled = false;
         public void OnLoadLocal(CustomLocalSaveData s) => LocalSaveData = s;
-        
+        public void OnLoadGlobal(CustomGlobalSaveData gs) => GlobalSaveData = gs;
+
         public CustomLocalSaveData OnSaveLocal() => LocalSaveData;
+        public CustomGlobalSaveData OnSaveGlobal() => GlobalSaveData;
         public const int CurrentRevision = 3;
 
         /// <summary>
@@ -93,10 +99,6 @@ namespace Fyrenest
         /// </summary>
         private readonly static List<Charm> Charms = new()
         {
-            Quickfall.instance,
-            Quickjump.instance,
-            Slowfall.instance,
-            Slowjump.instance,
             SturdyNail.instance,
             BetterCDash.instance,
             GlassCannon.instance,
@@ -105,9 +107,9 @@ namespace Fyrenest
             Fyrechild.instance,
             OpportunisticDefeat.instance,
             SoulSpeed.instance,
-            SoulSpell.instance,
             SoulHunger.instance,
             RavenousSoul.instance,
+            SoulSpell.instance,
             SoulSwitch.instance,
             GeoSwitch.instance,
             WealthyAmulet.instance,
@@ -115,6 +117,8 @@ namespace Fyrenest
             SlowTime.instance,
             SpeedTime.instance,
             ZoteBorn.instance,
+            GravityCharm.instance,
+            BulbousInfection.instance,
             SlyDeal.instance,
             ElderStone.instance,
             GiantNail.instance,
@@ -152,6 +156,15 @@ namespace Fyrenest
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
             Log("Initializing Mod.\nInitializing Part 1...");
+
+            Log("Adding Achievements...");
+            AchievementHelper.AddAchievement("voidSoulAchievement", EmbeddedSprite.Get("VoidSoulAchievement.png"), "Soul of Void", "Gain and wear the Void Soul charm.", false);
+            AchievementHelper.AddAchievement("allCharmsGained", EmbeddedSprite.Get("AllCharms.png"), "Charmed Vessel", "Gain all charms in Fyrenest", false);
+            AchievementHelper.AddAchievement("completedVessel", EmbeddedSprite.Get("CompletedVessel.png"), "Completed Vessel", "Gain all charms in the the whole game.", true);
+            if (GlobalSaveData.ALLCharmsGainedAchGot) GameManager.instance.AwardAchievement("completedVessel");
+            if (GlobalSaveData.allCharmsGainedAchGot) GameManager.instance.AwardAchievement("allCharmsGained");
+            if (GlobalSaveData.voidsoulachievementAchGot) GameManager.instance.AwardAchievement("voidSoulAchievement");
+            Log("Successfully Added Achievements.");
 
             instance = this;
 
@@ -399,13 +412,18 @@ namespace Fyrenest
             PlayerData.instance.CalculateNotchesUsed();
         }
 
-        #region LocalSaveData
+        #region SaveData
+        public class CustomGlobalSaveData
+        {
+            public bool allCharmsGainedAchGot = false;
+            public bool voidsoulachievementAchGot = false;
+            public bool ALLCharmsGainedAchGot = false;
+        }
+
         // The local data to store that is specific to saves.
         public class CustomLocalSaveData
         {
             // What charms the player has in the specific save.
-            public bool QuickfallGot = false;
-            public bool SlowfallGot = false;
             public bool SturdyNailGot = false;
             public bool BetterCDashGot = false;
             public bool GlassCannonGot = false;
@@ -434,6 +452,10 @@ namespace Fyrenest
             public bool SlowjumpGot = false;
             public bool QuickjumpGot = false;
             public bool TripleJumpGot = false;
+            public bool GravityCharmGot = false;
+            public bool BulbousInfectionGot = false;
+            public bool WyrmFormGot = false;
+            public bool FyreChildGot = false;
 
 
             public bool QuickfallDonePopup = false;
@@ -466,9 +488,17 @@ namespace Fyrenest
             public bool QuickjumpDonePopup = false;
             public bool SlowjumpDonePopup = false;
             public bool TripleJumpDonePopup = false;
+            public bool GravityCharmDonePopup = false;
+            public bool BulbousInfectionDonePopup = false;
+            public bool WyrmFormDonePopup = false;
+            public bool FyreChildDonePopup = false;
 
             public int revision = 0;
             public bool FyrenestEnabled = false;
+
+            public bool allCharmsGainedShown = false;
+            public bool ALLCharmsGainedShown = false;
+            public bool voidsoulachievementShown = false;
         }
         #endregion
 
@@ -524,8 +554,6 @@ namespace Fyrenest
             }
             
             //give charms when certain things are done.
-            if (PlayerData.instance.colosseumBronzeCompleted) Quickfall.instance.Settings(Settings).Got = true; LocalSaveData.QuickfallGot = true;
-            if (PlayerData.instance.colosseumSilverCompleted) Slowfall.instance.Settings(Settings).Got = true; LocalSaveData.SlowfallGot = true;
             if (PlayerData.instance.hasShadowDash) PowerfulDash.instance.Settings(Settings).Got = true; LocalSaveData.PowerfulDashGot = true;
             if (PlayerData.instance.hasNailArt) SturdyNail.instance.Settings(Settings).Got = true; LocalSaveData.SturdyNailGot = true;
             if (PlayerData.instance.hasDreamGate) SoulHunger.instance.Settings(Settings).Got = true; LocalSaveData.SoulHungerGot = true;
@@ -548,19 +576,16 @@ namespace Fyrenest
             if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.instance.Settings(Settings).Got = true; LocalSaveData.SlyDealGot = true;
             if (PlayerData.instance.honedNail) GiantNail.instance.Settings(Settings).Got = true; LocalSaveData.GiantNailGot = true;
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.instance.Settings(Settings).Got = true; LocalSaveData.MatosBlessingGot = true;
-            if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey) Quickjump.instance.Settings(Settings).Got = true; LocalSaveData.QuickjumpGot = true;
-            if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20) Slowjump.instance.Settings(Settings).Got = true; LocalSaveData.SlowjumpGot = true;
 
             if (PlayerData.instance.maxHealth < 1)
             {
                 HeroController.instance.AddToMaxHealth(1);
             }
-            AchievementHelper.AddAchievement("voidsoulachievement", EmbeddedSprite.Get("VoidSoulAchievement.png"), "Soul of Void", "Gain and wear the Void Soul charm.", false);
-            
+            if (CheckIfGotAllCharms() && !LocalSaveData.allCharmsGainedShown) MessageController.Enqueue(EmbeddedSprite.Get("AllCharms.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("allCharmsGained"); LocalSaveData.allCharmsGainedShown = true; GlobalSaveData.allCharmsGainedAchGot = true;
+            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got && !LocalSaveData.voidsoulachievementShown) MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidSoulAchievement"); LocalSaveData.voidsoulachievementShown = true; GlobalSaveData.voidsoulachievementAchGot = true;
+            if (CheckIfObtainedALLCharms() && !LocalSaveData.ALLCharmsGainedShown) MessageController.Enqueue(EmbeddedSprite.Get("CompletedVessel.png"), "Hidden Achievement Unlocked: Completed Vessel"); GameManager.instance.AwardAchievement("completedVessel"); LocalSaveData.ALLCharmsGainedShown = true; GlobalSaveData.ALLCharmsGainedAchGot = true;
 
             //change local save data
-            if (!LocalSaveData.QuickfallGot && Quickfall.instance.Settings(Settings).Got) LocalSaveData.QuickfallGot = true;
-            if (!LocalSaveData.SlowfallGot && Slowfall.instance.Settings(Settings).Got) LocalSaveData.SlowfallGot = true;
             if (!LocalSaveData.SturdyNailGot && SturdyNail.instance.Settings(Settings).Got) LocalSaveData.SturdyNailGot = true;
             if (!LocalSaveData.BetterCDashGot && BetterCDash.instance.Settings(Settings).Got) LocalSaveData.BetterCDashGot = true;
             if (!LocalSaveData.GlassCannonGot && GlassCannon.instance.Settings(Settings).Got) LocalSaveData.GlassCannonGot = true;
@@ -584,8 +609,10 @@ namespace Fyrenest
             if (!LocalSaveData.GiantNailGot && GiantNail.instance.Settings(Settings).Got) LocalSaveData.GiantNailGot = true;
             if (!LocalSaveData.MatosBlessingGot && MatosBlessing.instance.Settings(Settings).Got) LocalSaveData.MatosBlessingGot = true;
             if (!LocalSaveData.ShellShieldGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.ShellShieldGot = true;
-            if (!LocalSaveData.QuickjumpGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.QuickjumpGot = true;
-            if (!LocalSaveData.SlowjumpGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.SlowjumpGot = true;
+            if (!LocalSaveData.GravityCharmGot && GravityCharm.instance.Settings(Settings).Got) LocalSaveData.GravityCharmGot = true;
+            if (!LocalSaveData.BulbousInfectionGot && BulbousInfection.instance.Settings(Settings).Got) LocalSaveData.BulbousInfectionGot = true;
+            if (!LocalSaveData.FyreChildGot && Fyrechild.instance.Settings(Settings).Got) LocalSaveData.FyreChildGot = true;
+            if (!LocalSaveData.WyrmFormGot && WyrmForm.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
 
             //GameObject map = GameObject.Find("");
             //if (map != null)
@@ -625,7 +652,58 @@ namespace Fyrenest
                 Log("Re-initialized all rooms.");
             }
         }
-
+        public bool CheckIfGotAllCharms()
+        {
+            int counter = 0;
+            foreach (Charm charm in Charms)
+            {
+                if (charm.Settings(Settings).Got)
+                {
+                    counter++;
+                }
+            }
+            if (counter == Charms.Count)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool CheckIfObtainedALLCharms()
+        {
+            int counter = 0;
+            foreach (Charm charm in Charms)
+            {
+                if (charm.Settings(Settings).Got)
+                {
+                    counter++;
+                }
+            }
+            // sorry for that super long line...
+            if (counter == Charms.Count && PlayerData.instance.gotCharm_1 && PlayerData.instance.gotCharm_2 &&
+                PlayerData.instance.gotCharm_3 && PlayerData.instance.gotCharm_4 && PlayerData.instance.gotCharm_5 &&
+                PlayerData.instance.gotCharm_6 && PlayerData.instance.gotCharm_7 && PlayerData.instance.gotCharm_8 &&
+                PlayerData.instance.gotCharm_9 && PlayerData.instance.gotCharm_10 && PlayerData.instance.gotCharm_11 &&
+                PlayerData.instance.gotCharm_12 && PlayerData.instance.gotCharm_13 && PlayerData.instance.gotCharm_14 &&
+                PlayerData.instance.gotCharm_15 && PlayerData.instance.gotCharm_16 && PlayerData.instance.gotCharm_17 &&
+                PlayerData.instance.gotCharm_18 && PlayerData.instance.gotCharm_19 && PlayerData.instance.gotCharm_20 &&
+                PlayerData.instance.gotCharm_21 && PlayerData.instance.gotCharm_22 && PlayerData.instance.gotCharm_23 &&
+                PlayerData.instance.gotCharm_24 && PlayerData.instance.gotCharm_25 && PlayerData.instance.gotCharm_26 &&
+                PlayerData.instance.gotCharm_27 && PlayerData.instance.gotCharm_28 && PlayerData.instance.gotCharm_29 &&
+                PlayerData.instance.gotCharm_30 && PlayerData.instance.gotCharm_31 && PlayerData.instance.gotCharm_32 &&
+                PlayerData.instance.gotCharm_33 && PlayerData.instance.gotCharm_34 && PlayerData.instance.gotCharm_35 &&
+                PlayerData.instance.gotCharm_36 && PlayerData.instance.gotCharm_37 && PlayerData.instance.gotCharm_38 && 
+                PlayerData.instance.gotCharm_39 && PlayerData.instance.gotCharm_40)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public bool insanity = false;
         private void OnSave(On.GameManager.orig_SaveGame orig, GameManager self)
         {
@@ -1062,12 +1140,8 @@ namespace Fyrenest
             if (LocalSaveData.MatosBlessingGot) MatosBlessing.instance.Settings(Settings).Got = true;
             if (LocalSaveData.OpportunisticDefeatGot) OpportunisticDefeat.instance.Settings(Settings).Got = true;
             if (LocalSaveData.PowerfulDashGot) PowerfulDash.instance.Settings(Settings).Got = true;
-            if (LocalSaveData.QuickfallGot) Quickfall.instance.Settings(Settings).Got = true;
-            if (LocalSaveData.QuickjumpGot) Quickjump.instance.Settings(Settings).Got = true;
             if (LocalSaveData.RavenousSoulGot) RavenousSoul.instance.Settings(Settings).Got = true;
             if (LocalSaveData.ShellShieldGot) ShellShield.instance.Settings(Settings).Got = true;
-            if (LocalSaveData.SlowfallGot) Slowfall.instance.Settings(Settings).Got = true;
-            if (LocalSaveData.SlowjumpGot) Slowjump.instance.Settings(Settings).Got = true;
             if (LocalSaveData.SlowTimeGot) SlowTime.instance.Settings(Settings).Got = true;
             if (LocalSaveData.SlyDealGot) SlyDeal.instance.Settings(Settings).Got = true;
             if (LocalSaveData.SoulHungerGot) SoulHunger.instance.Settings(Settings).Got = true;
@@ -1081,6 +1155,10 @@ namespace Fyrenest
             if (LocalSaveData.VoidSoulGot) VoidSoul.instance.Settings(Settings).Got = true;
             if (LocalSaveData.WealthyAmuletGot) WealthyAmulet.instance.Settings(Settings).Got = true;
             if (LocalSaveData.ZoteBornGot) ZoteBorn.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.WyrmFormGot) WyrmForm.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.FyreChildGot) Fyrechild.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.GravityCharmGot) GravityCharm.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.BulbousInfectionGot) BulbousInfection.instance.Settings(Settings).Got = true;
 
             if (LocalSaveData.revision < CurrentRevision)
             {
@@ -1100,7 +1178,7 @@ namespace Fyrenest
 
         private void OnCharmUpdate(PlayerData data, HeroController controller)
         {
-            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got) MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidsoulachievement");
+            
         }
 
         /// <summary>

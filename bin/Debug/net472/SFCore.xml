@@ -1810,6 +1810,31 @@
                 Main menu is loaded.
             </summary>
         </member>
+        <member name="T:SFCore.SFCoreGlobalSettings">
+            <summary>
+                Global settings for SFCore
+            </summary>
+        </member>
+        <member name="F:SFCore.SFCoreGlobalSettings.MaxCustomCharms">
+            <summary>
+                Important to clear and reapply custom charms.
+            </summary>
+        </member>
+        <member name="F:SFCore.SFCoreGlobalSettings.SelectedMenuTheme">
+            <summary>
+                Important to reapply the wanted menu theme.
+            </summary>
+        </member>
+        <member name="T:SFCore.SFCoreSaveSettings">
+            <summary>
+                Save specific settings for SFCore
+            </summary>
+        </member>
+        <member name="F:SFCore.SFCoreSaveSettings.EquippedCustomCharms">
+            <summary>
+                Important to clear and reapply custom charms.
+            </summary>
+        </member>
         <member name="T:SFCore.TitleLogoHelper">
             <summary>
                 Title logo helper class for easily adding custom title logos.
@@ -1918,10 +1943,13 @@
             <returns>The event of the transition.</returns>
         </member>
         <member name="M:SFCore.Utils.FsmUtil.AddFsmTransition(PlayMakerFSM,System.String,System.String,System.String)">
-            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)"/>
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(PlayMakerFSM,System.String,System.String,System.String)"/>
         </member>
         <member name="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)">
-            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)"/>
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(PlayMakerFSM,System.String,System.String,System.String)"/>
+            <param name="state">The fsm state</param>
+            <param name="eventName">The name of transition event</param>
+            <param name="toState">The name of the new state</param>
         </member>
         <member name="M:SFCore.Utils.FsmUtil.AddFsmTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)">
             <inheritdoc cref="M:SFCore.Utils.FsmUtil.AddTransition(HutongGames.PlayMaker.FsmState,System.String,System.String)"/>
@@ -2563,6 +2591,39 @@
             </summary>
             <param name="asm">The Assembly of which to get the version</param>
             <returns>"{Assembly.Version}-{SHA1(assembly binary)}"</returns>
+        </member>
+        <member name="T:SFCore.Utils.WavUtils">
+             <summary>
+             This is changed from the original, to work better with all potential types of wav files,
+             since the original was simple and assumed a lot of formatting according to the riff wav specification.
+            
+             WAV utility for recording and audio playback functions in Unity.
+             Version: 1.0 alpha 1
+            
+             - Use "ToAudioClip" method for loading wav file / bytes.
+             Loads .wav (PCM uncompressed) files at 8,16,24 and 32 bits and converts data to Unity's AudioClip.
+            
+             - Use "FromAudioClip" method for saving wav file / bytes.
+             Converts an AudioClip's float data into wav byte array at 16 bit.
+             </summary>
+             <remarks>
+             For documentation and usage examples: https://github.com/deadlyfingers/UnityWav
+             </remarks>
+        </member>
+        <member name="M:SFCore.Utils.WavUtils.ToAudioClip(System.String)">
+            <summary>
+                Load PCM format *.wav audio file and convert to AudioClip.
+            </summary>
+            <returns>The AudioClip.</returns>
+            <param name="filePath">Local file path to .wav file</param>
+        </member>
+        <member name="M:SFCore.Utils.WavUtils.ToAudioClip(System.Byte[],System.String)">
+            <summary>
+                Convert PCM format *.wav audio bytes to AudioClip.
+            </summary>
+            <returns>The AudioClip.</returns>
+            <param name="fileBytes">The bytes of the wav file</param>
+            <param name="name">Name of the wav file, for logging reasons</param>
         </member>
     </members>
 </doc>

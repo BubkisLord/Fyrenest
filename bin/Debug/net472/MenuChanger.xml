@@ -527,6 +527,21 @@
             <br/>When the timer is started, the label will display the prefix, followed by the current time.
             </summary>
         </member>
+        <member name="M:MenuChanger.MenuElements.TimerLabel.Start">
+            <summary>
+            Resets and starts the timer.
+            </summary>
+        </member>
+        <member name="M:MenuChanger.MenuElements.TimerLabel.StopInternal">
+            <summary>
+            Stops the timer.
+            </summary>
+        </member>
+        <member name="M:MenuChanger.MenuElements.TimerLabel.Split(System.String)">
+            <summary>
+            Stops the timer, sets the prefix to a new value, and restarts the timer. Returns the final time as a string, without prefix.
+            </summary>
+        </member>
         <member name="T:MenuChanger.MenuElements.ToggleButton">
             <summary>
             MenuItem&lt;bool&gt; which indicates its state using colors instead of displaying the value as text.
@@ -592,6 +607,20 @@
             Adds the selectable to be managed directly by the page's navigation.
             </summary>
         </member>
+        <member name="M:MenuChanger.MenuPage.ReplaceNavigation(MenuChanger.MenuPageNavigation)">
+            <summary>
+            Replaces the page's navigation control with a new one, migrates all the selectable elements
+            corrently controlled by the page's navigation into the new one, and recursively resets navigation
+            for the page.
+            </summary>
+            <param name="newNav">The new navigation to use</param>
+        </member>
+        <member name="M:MenuChanger.MenuPage.ResetNavigation">
+            <summary>
+            Resets navigation for each selectable managed directly by the page's navigation.
+            Note that this acts recursively on any ISelectableGroups.        
+            </summary>
+        </member>
         <member name="T:MenuChanger.MenuPageNavigation">
             <summary>
             Class used to handle navigation between root level elements of a MenuPage.
@@ -610,6 +639,11 @@
         <member name="M:MenuChanger.MenuPageNavigation.SelectDefault">
             <summary>
             Selects an element of the MenuPage by default. Called when the MenuPage is showed.
+            </summary>
+        </member>
+        <member name="M:MenuChanger.MenuPageNavigation.ResetNavigation">
+            <summary>
+            Resets navigation on each ISelectableGroup attached to the MPN, and then applies its navigation control to each item.
             </summary>
         </member>
         <member name="T:MenuChanger.MenuPanels.GridItemPanel">
@@ -798,6 +832,57 @@
             The main entry point for adding to the mode menu. Stores the menu constructor to be invoked when the mode menu is built.
             </summary>
         </member>
+        <member name="F:MenuChanger.NavigationTypes.SimpleHorizontalNavigation.Selectables">
+            <summary>
+            A list of selectables. Note: Prefer to use <see cref="P:MenuChanger.NavigationTypes.SimpleHorizontalNavigation.Items"/> and the add/remove methods instead
+            of modifying this list directly
+            </summary>
+        </member>
+        <member name="T:MenuChanger.SpaceParameters">
+            <summary>
+            Static class with various constants for positioning and spacing elements in the (-960, 960) x (-540, 540) MenuPage coordinates
+            </summary>
+        </member>
+        <member name="F:MenuChanger.SpaceParameters.VSPACE_SMALL">
+            <summary>
+            Recommended minimum vertical spacing for SmallButtons.
+            </summary>
+        </member>
+        <member name="F:MenuChanger.SpaceParameters.VSPACE_MEDIUM">
+            <summary>
+            Recommended minimum vertical spacing for SmallButtons and/or labelled EntryFields.
+            </summary>
+        </member>
+        <member name="F:MenuChanger.SpaceParameters.VSPACE_LARGE">
+            <summary>
+            Recommended minimum vertical spacing for BigButtons.
+            </summary>
+        </member>
+        <member name="F:MenuChanger.SpaceParameters.HSPACE_SMALL">
+            <summary>
+            Recommended minimum horizontal spacing for SmallButtons or EntryFields with short (1-2 word) labels.
+            </summary>
+        </member>
+        <member name="F:MenuChanger.SpaceParameters.HSPACE_MEDIUM">
+            <summary>
+            Recommended horizontal spacing between three large columns.
+            </summary>
+        </member>
+        <member name="F:MenuChanger.SpaceParameters.HSPACE_LARGE">
+            <summary>
+            Recommended horizontal spacing between two large columns.
+            </summary>
+        </member>
+        <member name="P:MenuChanger.SpaceParameters.TOP_CENTER">
+            <summary>
+            Recommended positioning for a centered title. Value is (0, 400), but there is room to increase y if space is needed.
+            </summary>
+        </member>
+        <member name="P:MenuChanger.SpaceParameters.TOP_CENTER_UNDER_TITLE">
+            <summary>
+            Recommended positioning for a centered panel or element just below a page title. Value is (0, 300).
+            </summary>
+        </member>
         <member name="T:MenuChanger.ThreadSupport">
             <summary>
             Utility which helps side threads interact with the main Unity thread.
@@ -806,6 +891,19 @@
         <member name="M:MenuChanger.ThreadSupport.BeginInvoke(System.Action)">
             <summary>
             Enqueues the action to be invoked during the next Unity update.
+            <br/>If the action raises an exception, the exception is caught and logged.
+            </summary>
+        </member>
+        <member name="M:MenuChanger.ThreadSupport.BlockUntilInvoked(System.Action)">
+            <summary>
+            Enqueues the action to be invoked during the next Unity update. Blocks the requesting thread until the action has been invoked.
+            <br/>If the action raises an exception, the exception is caught and rethrown on the requester's thread.
+            </summary>
+        </member>
+        <member name="M:MenuChanger.ThreadSupport.BlockUntilInvoked``1(System.Func{``0})">
+            <summary>
+            Enqueues the function to be invoked during the next Unity update. Blocks the requesting thread until the function has been invoked, and returns its result.
+            <br/>If the function raises an exception, the exception is caught and rethrown on the requester's thread.
             </summary>
         </member>
     </members>

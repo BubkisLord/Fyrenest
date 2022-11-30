@@ -3,7 +3,7 @@
 		<!-- Change this to the path of your modded HK installation -->
 		<HollowKnightRefs>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\</HollowKnightRefs>
 		<!-- Change this to the path where you want the ready-to-upload exports to be -->
-		<ExportDir>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\Hollow Knight_Data\Managed\Mods</ExportDir>
+		<ExportDir>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods</ExportDir>
 		<!-- Uncomment this to generate a documentation file to be included with the mod -->
 		<!--<DocumentationFile>$(OutputPath)/$(AssemblyTitle).xml</DocumentationFile>-->
 	</PropertyGroup>
@@ -47,12 +47,9 @@
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\MarkofStrength.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\MatosBlessing.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\PowerfulDash.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
-		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Quickfall.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
-		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Quickjump.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\RavenousSoul.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\ShellShield.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
-		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Slowfall.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
-		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Slowjump.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\GravityCharm.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SlowTime.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SlyDeal.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\SoulHunger.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
@@ -69,7 +66,8 @@
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\WealthyAmulet.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\Wyrmform.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\ZoteBorn.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
-
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\BulbousInfection.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\CompletedVessel.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<PropertyGroup>
 			<OutputFileString>SHA256 - $(AssemblyTitle).dll, Version $(AssemblyVersion):</OutputFileString>
 		</PropertyGroup>
@@ -80,7 +78,7 @@
 	<ItemGroup>
 		<!-- Dependencies -->
 		<Reference Include="MenuChanger">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/MenuChanger/MenuChanger.dll</HintPath>
+		    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods\MenuChanger\MenuChanger.dll</HintPath>
 		</Reference>
 		<Reference Include="Satchel">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Satchel/Satchel.dll</HintPath>
