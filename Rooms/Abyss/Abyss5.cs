@@ -13,7 +13,7 @@ namespace Fyrenest.Rooms.Abyss
         public Abyss5() : base("Abyss_05") { IsFlipped = true; }
         public override void OnBeforeLoad()
         {
-            IsFlipped = true;   
+            IsFlipped = true;
         }
         public override void OnLoad()
         {

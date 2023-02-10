@@ -1,25 +1,14 @@
-﻿using ItemChanger;
-using ItemChanger.Components;
-using ItemChanger.Internal;
-using ItemChanger.Locations;
-using ItemChanger.Locations.SpecialLocations;
-using ItemChanger.Placements;
-using ItemChanger.UIDefs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fyrenest.Rooms.KingdomsEdge
+﻿namespace Fyrenest.Rooms.KingdomsEdge
 {
     internal class KingdomsEdge : Room
     {
         public KingdomsEdge() : base("Deepnest_East_01") { }
         public override void OnWorldInit()
         {
-            AbstractPlacement placement = Finder.GetLocation(LocationNames.Kings_Brand).Wrap();
+            // replace god tuner with void soul
+            AbstractPlacement placement = Finder.GetLocation(LocationNames.Godtuner).Wrap();
             AbstractItem aitem = new VoidSoul();
+            aitem.OnGive += OnGivenVoidSoul;
             aitem.UIDef = new MsgUIDef()
             {
                 name = new BoxedString("VoidSoul"),
@@ -27,6 +16,11 @@ namespace Fyrenest.Rooms.KingdomsEdge
             };
             placement.Add(aitem);
             ItemChangerMod.AddPlacements(new AbstractPlacement[] { placement }, PlacementConflictResolution.MergeKeepingNew);
+        }
+        private void OnGivenVoidSoul(ReadOnlyGiveEventArgs obj)
+        {
+            VoidSoul.instance.SetObtained();
+            VoidSoul.instance.Settings(Fyrenest.instance.Settings).Got = true;
         }
     }
 }

@@ -2084,6 +2084,16 @@
         <member name="M:SFCore.Utils.FsmUtil.RemoveFsmTransition(HutongGames.PlayMaker.FsmState,System.String)">
             <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveTransition(HutongGames.PlayMaker.FsmState,System.String)"/>
         </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveGlobalTransition(PlayMakerFSM,System.String)">
+            <summary>
+                Removes a global transition in a PlayMakerFSM.
+            </summary>
+            <param name="fsm">The fsm</param>
+            <param name="eventName">The event of the global transition</param>
+        </member>
+        <member name="M:SFCore.Utils.FsmUtil.RemoveFsmGlobalTransition(PlayMakerFSM,System.String)">
+            <inheritdoc cref="M:SFCore.Utils.FsmUtil.RemoveGlobalTransition(PlayMakerFSM,System.String)"/>
+        </member>
         <member name="M:SFCore.Utils.FsmUtil.RemoveAction(PlayMakerFSM,System.String,System.Int32)">
             <summary>
                 Removes an action in a PlayMakerFSM.

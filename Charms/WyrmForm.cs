@@ -10,7 +10,7 @@ namespace Fyrenest
 {
 	internal class WyrmForm : Charm
 	{
-		private WyrmForm()
+		public WyrmForm()
 		{
 		}
 
@@ -83,7 +83,7 @@ namespace Fyrenest
 			ModHooks.SetPlayerBoolHook += new SetBoolProxy(this.UpdateNailDamageOnEquip);
 		}
 
-		private int BuffNail(string intName, int damage)
+		public int BuffNail(string intName, int damage)
 		{
 			bool flag = intName == "nailDamage" && base.Equipped();
 			if (flag)
@@ -93,7 +93,7 @@ namespace Fyrenest
 			return damage;
 		}
 
-		private bool UpdateNailDamageOnEquip(string boolName, bool value)
+		public bool UpdateNailDamageOnEquip(string boolName, bool value)
 		{
 			bool flag = boolName == string.Format("equippedCharm_{0}", base.Num);
 			if (flag)
@@ -103,7 +103,7 @@ namespace Fyrenest
 			return value;
 		}
 
-		private bool AllowDoubleJump(On.HeroController.orig_CanDoubleJump orig, HeroController self)
+		public bool AllowDoubleJump(On.HeroController.orig_CanDoubleJump orig, HeroController self)
 		{
 			bool PretendToHaveWings(string boolName, bool value) =>
 				boolName == "hasDoubleJump" ? (value || Equipped()) : value;
@@ -123,7 +123,7 @@ namespace Fyrenest
 			return result3;
 		}
 
-		private void AllowExtraJumps(On.HeroController.orig_DoDoubleJump orig, HeroController self)
+		public void AllowExtraJumps(On.HeroController.orig_DoDoubleJump orig, HeroController self)
 		{
 			bool flag = !base.Equipped();
 			if (flag)
@@ -139,7 +139,7 @@ namespace Fyrenest
 			}
 		}
 
-		private static IEnumerator RefreshWings()
+		public static IEnumerator RefreshWings()
 		{
 			yield return new WaitUntil(() => !InputHandler.Instance.inputActions.jump.IsPressed);
 			ReflectionHelper.SetField<HeroController, bool>(HeroController.instance, "doubleJumped", false);

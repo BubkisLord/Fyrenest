@@ -14,6 +14,9 @@ files (the "Software") with any other existing projects, software or other
 documentation of any kind without the author/creator's permission. Permission to
 sell copies of the Software is not permitted without the author/creator's permission.
 
+Note that this license may be changed at any time, and with it, you must adjust accordingly
+to make sure that you are following its restrictions.
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE

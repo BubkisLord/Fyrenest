@@ -8,6 +8,7 @@ using ItemChanger.UIDefs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
@@ -43,8 +44,8 @@ namespace Fyrenest.Rooms.RestingGrounds
         }
         public override void OnWorldInit()
         {
-            // Go to the grassy room in Queen's Station instead of normal Resting Grounds stag station.
-            SetTransition("RestingGrounds_05", "right2", "Fungus3_35", "right1");
+            // Go to the banker in fog canyon instead of normal Resting Grounds stag station.
+            // SetTransition("RestingGrounds_05", "right2", "Fungus3_35", "right1");
 
             // Switch Slug room and Sheo's Hut room (not the inside room).
             SetTransition("Fungus1_26", "left1", "Fungus1_15", "right1");
@@ -61,19 +62,33 @@ namespace Fyrenest.Rooms.RestingGrounds
             SetItem(LocationNames.Soul_Eater, ItemNames.Great_Slash);
             SetItem(LocationNames.Geo_Rock_Resting_Grounds_Catacombs_Left, ItemNames.Dash_Slash);
             SetItem(LocationNames.Hallownest_Seal_Resting_Grounds_Catacombs, ItemNames.Nailmasters_Glory);
-            
-            //Place Soul Eater in Salubra's house so it is still obtainable.
-            SetItem(LocationNames.Salubra, ItemNames.Soul_Eater, true, 2000, alternateName: "Unknown Charm", alternateDesc: "I found this charm floating outside my house. I brought it in, but I haven't worn it. I'm sure a brave knight such as you would dare to wear this possibly damgerous item!\n\nI also made it expensive, because it might be super special! I may have great prices, but not that great!");
+
+            //Place Giant's Nail in Salubra's house so it is still obtainable.
+            // currently doesnt work.
+            var placements = new List<AbstractPlacement>();
+            var name = "Giant's Nail";
+            var placement = new CoordinateLocation() { x = GiantNail.instance.X, y = GiantNail.instance.Y, elevation = 0, sceneName = GiantNail.instance.Scene, name = name }.Wrap() as MutablePlacement;
+            placements.Add(placement);
+            ItemChangerMod.AddPlacements(placements, conflictResolution: PlacementConflictResolution.Ignore);
 
             // Make it possible to get to the now-hidden spirit glade.
             SetItem(LocationNames.Resting_Grounds_Map, ItemNames.Resting_Grounds_Stag, geoCost: 170);
+            
+            // Make it possible to get Soul Eater
+            SetItem(LocationNames.Whispering_Root_Ancestral_Mound, ItemNames.Soul_Eater);
+
+            // Make more whispering roots so essence collection is easier
+            SetItem(LocationNames.Geo_Rock_Crossroads_Root_Dupe_1, ItemNames.Whispering_Root_Crossroads);
+            SetItem(LocationNames.Geo_Rock_Crossroads_Root_Dupe_2, ItemNames.Whispering_Root_Crossroads);
+            SetItem(LocationNames.Geo_Rock_Crossroads_Root, ItemNames.Whispering_Root_Crossroads);
+            SetItem(LocationNames.Geo_Rock_Below_Gorb, ItemNames.Whispering_Root_Crossroads);
+            SetItem(LocationNames.Geo_Rock_Below_Gorb_Dupe, ItemNames.Whispering_Root_Ancestral_Mound);
 
             // Map all rooms upon loading with Fyrenest enabled.
             PlayerData.instance.mapAllRooms = true;
 
             // Make a stand-alone area with the hidden spirit glade.
             SetTransition("RestingGrounds_08", "left1", "RestingGrounds_09", "right1");
-
         }
     }
     internal class GG_Atrium_Roof : Room
@@ -106,24 +121,9 @@ namespace Fyrenest.Rooms.RestingGrounds
             PlaceGO(Prefabs.LARGE_PLATFORM.Object, 49, 5.2f);
             PlaceGO(Prefabs.LARGE_PLATFORM.Object, 54, 3.6f);
             PlaceGO(Prefabs.LARGE_PLATFORM.Object, 52, 4, Quaternion.Euler(0, 0, 315));
-            //Add new transition
-            GameObject gate1 = UnityEngine.Object.Instantiate(Prefabs.TOP_TRANSITION.Object, new Vector3(15.5f, 14, 0), Quaternion.identity);
-            gate1.transform.SetScaleY(300);
-            gate1.transform.SetScaleZ(10);
-            gate1.SetActive(true);
-            gate1.name = "top1";
-            //PlaceTransition(TransitionType.top, "RestingGrounds_17", "top1", "RestingGrounds_08", "left1", 15.5f, 14);
-            if (PlayerData.instance.dreamOrbs >= 2400)
-            {
-                BossSequenceDoor.Completion completion;
-                completion = new BossSequenceDoor.Completion();
-                completion.canUnlock = true;
-                PlayerData.instance.bossDoorStateTier5 = completion;
-                SetTransition("RestingGrounds_07", "right1", "RestingGrounds_17", "right1", true);
-                PlaceGO(Prefabs.PANTHEON_V.Object, 15.5f, 9);
-                if (Fyrenest.instance.PreviousRoom.RoomName == "RestingGrounds_07") IsFlipped = true;
-                else IsFlipped = false;
-            }
+            PlaceTransition("RestingGrounds_17", "top1", "RestingGrounds_08", "left1", 15.5f, 14, new Vector2(10,10), new Vector2(-5,0),GameManager.SceneLoadVisualizations.Default);
+
+            SetTransition("RestingGrounds_17", "top1", "RestingGrounds_08", "left1", false);
         }
     }
     internal class Fungus3_35 : Room
@@ -250,6 +250,17 @@ namespace Fyrenest.Rooms.RestingGrounds
             SetSaturation(0);
             SetColor(Color.gray);
             SetEnvironment(0);
+            if (PlayerData.instance.dreamOrbs >= 2400)
+            {
+                SetTransition("RestingGrounds_07", "right1", "Fungus1_28", "left2");
+            }
+        }
+        public override void OnLoad()
+        {
+            if (PlayerData.instance.dreamOrbs >= 2400)
+            {
+                SetTransition("RestingGrounds_07", "right1", "Fungus1_28", "left2");
+            }
         }
     }
     internal class RestingGrounds_08 : Room

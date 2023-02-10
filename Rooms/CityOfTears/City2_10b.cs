@@ -7,18 +7,17 @@ using UnityEngine;
 
 namespace Fyrenest.Rooms.CityOfTears
 {
-    internal class City2_10b : Room
+    internal class GG_Waterways : Room
     {
-        public City2_10b() : base("Ruins2_10b") { }
+        public GG_Waterways() : base("GG_Waterways") { }
 
         public override void OnLoad()
         {
-            /*PlaceGO(Prefabs.LARGE_PLATFORM.Object, 28, 138, Quaternion.Euler(0, 0, 90));
-            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 28, 140, Quaternion.Euler(0, 0, 90));*/
-
-            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 5, 91);
-            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 15, 93);
-            PlaceGO(Prefabs.LARGE_PLATFORM.Object, 25, 91);
+            DestroyGO("Dream Enter");
+        }
+        public override void OnBeforeLoad()
+        {
+            DestroyGO("Dream Enter");
         }
     }
 }

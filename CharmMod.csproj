@@ -68,6 +68,7 @@
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\ZoteBorn.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\BulbousInfection.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="Resources\CompletedVessel.png;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="bin\Debug\net472\Fyrenest.dll;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/" />
 		<PropertyGroup>
 			<OutputFileString>SHA256 - $(AssemblyTitle).dll, Version $(AssemblyVersion):</OutputFileString>
 		</PropertyGroup>
@@ -82,6 +83,9 @@
 		</Reference>
 		<Reference Include="Satchel">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Satchel/Satchel.dll</HintPath>
+		</Reference>
+		<Reference Include="AbilityChanger">
+			<HintPath>Resources\AbilityChanger.dll</HintPath>
 		</Reference>
 		<Reference Include="ModCommon">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/ModCommon/ModCommon.dll</HintPath>
@@ -402,10 +406,5 @@
 	<ItemGroup>
 		<!-- Title Inclusion - To change main title on startup of game. -->
 		<EmbeddedResource Include="Resources\title.png"></EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Consts\" />
-	  <Folder Include="Rooms\WhitePalace\" />
-	  <Folder Include="Rooms\HowlingCliffs\" />
 	</ItemGroup>
 </Project>

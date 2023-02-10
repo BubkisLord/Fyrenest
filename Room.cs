@@ -82,10 +82,14 @@ namespace Fyrenest
         /// <param name="x">The x coordinate of the gate.</param>
         /// <param name="y">The y coordinate of the gate.</param>
         /// <param name="oneWay">Whether the transition is one-way.</param>
-        public void PlaceTransition(string sourceScene, string sourceGate, string targetScene, string targetGate, float x, float y, Vector2 size, Vector2 respawnPoint, GameManager.SceneLoadVisualizations visualizations, bool oneWay = false)
+        public void PlaceTransition(string sourceScene, string sourceGate, string targetScene, string targetGate, float x, float y, Vector2 size, Vector2 respawnPoint, GameManager.SceneLoadVisualizations visualizations = GameManager.SceneLoadVisualizations.Default, bool oneWay = false)
         {
             CreateGateway(sourceGate, x, y, size, targetScene, targetGate, respawnPoint, false, visualizations);
-            SetTransition(sourceScene, sourceGate, targetScene, targetGate, oneWay);
+            SetTransition(sourceScene, sourceGate, targetScene, targetGate, true);
+            if (!oneWay)
+            {
+                SetTransition(targetScene, targetGate, sourceScene, sourceGate);
+            }
         }
         /// <summary>
         /// 

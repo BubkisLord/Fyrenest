@@ -340,3 +340,4 @@ C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.dll
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.pdb
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.xml
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\Satchel.xml
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\AbilityChanger.dll

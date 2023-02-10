@@ -26,6 +26,21 @@ namespace Fyrenest
         #region LanguageReplacements
         public string LanguageGet(string key, string sheetTitle, string orig)
         {
+            if (key == "XERO_TALK")
+            {
+                return "Stop there! Those who try to leave this kingdom are cursed, like those who forget the light. Better to stay stuck here, until time itself sleeps.<page>Hope and freedom. I thought that strength alone could grant me these things. In my dreams I would cut that dark with my nails, but then I turned my weapons upon the light.<page>When I awoke in this place, I began to understand. Those who hope for freedom are already doomed, as are those who forget that they do not have it.<page>Do you still hope, wanderer? Will you obey the light? Or will you raise your weapon and doom us both?";
+            }
+
+            if (key == "MAGE_LORD")
+            {
+                return "In my dreams I could see it. The Kingdom's salvation, the fight against the light... the answer was in the soul that animates our bodies.<page>There was a darkness there... It could have saved us all...<page>But why?! He opposed everything I did...<page>His jealousy... his madness... he believed he could embody the light itself!<page>But he will never be able to. He will never have enough of the energy... The energy which resides in all living things...<page>Some call it a purified version of soul, some call it fragments of the light itself. But, some others... others who truly understand... They call it...<page>Essence.";
+            }
+
+            if (key == "GALIEN_DEFEAT")
+            {
+                return "Unbelievable... I am defeated at last! So this is what it feels like to be bested...<page>Still though, I am strong, am I not? When you see our master, surely you'll tell him of my valour...?<page>Yes... he sent you here to test me, didn't he? I knew he had not forgotten brave Galien.<page>I am ready... to finally be free. Finally... free of those chains...<page>...My sentence is over... Let me be free...<page>...please...";
+            }
+
             if (key == "DESC_MANTIS_LORD")
             {
                 return "Leaders of the Mantis tribe and its finest warriors. In legend, they were said to fight a god-like being of immense power, and its misguided followers. One among them was a mysterious bug who hides away somewhere in Fyrenest, who is now the last of the followers.";
@@ -283,6 +298,10 @@ namespace Fyrenest
             {
                 return "So much Essence... Finally. So bright! I will be able to retake this land.<page>You see, the folk of my tribe were born from a light. Light similar to Essence, similar to that powerful blade, though much brighter still.<page>They were content to bask in that light and honoured it. Worshipped it. For a time...<br>But we lost our way. Forgot our traditions...<page>But another light appeared in our world... A wyrm that took the form of a king. He was born here, from the remanents of Fyrenest's essence and light. Fyrenest's power was forever destroyed, absorbed by a narcissistic king.<page>How fickle my ancestors must have been. They forsook the light that spawned them. Turned their backs to it... Forgot it even.<page>I have rectified their mistakes. I will ascend to a might never seen before. All those champions you slew, all those warriors you killed, I have been harvesting their power. Did you see the prison I set their spirits in? A eternal fighting ring.<page>You have been collecting essence since you came here. Going out and fetching more for me. Now I have enough to ascend. Ascension is my final goal. You see, I am the light! I am the blinding radiance Fyrenest needs! Everyone will worship me for the end of time.<page>No one shall forget me. No one shall lose their way. I will be their god! Their ruler!";
             }
+            if (key == "WITCH_FINAL_2")
+            {
+                return "Finally. I ascend! The time has come!\n\nI WILL RULE ALL OF FYRENEST! NOTHING SHALL STOP ME!<page>I SHALL BE ETERNAL, I SHALL BE THE LIGHT!<page>It was a mistake to give all your essence to me. Nevertheless, I am thankful. A new kingdom will be born.<page>A kingdom built upon betrayal.";
+            }
             if (key == "WITCH_FINAL_3")
             {
                 return "IT IS HAPPENING!\nI AM ASCENDING!<page>SO BRIGHT!<page>I SEE THE LIGHT! THE RADIANCE!<page>ME.";
@@ -319,18 +338,10 @@ namespace Fyrenest
             {
                 return "Ahhhh, ah ha ha ha ha, yes...<page>No dream can hide itself from you now. You can peer into the darkest places... You just need to find the right crack.<page>What will you do with such a power, Wielder? Whose memories will you hunt down?<page>Hah. Do as you wish, once my plan is fulfilled. Find the last remaining scraps of Essence. Seek it out. Find it, and bring it to me. I want it all.";
             }
-            if (key == "WITCH_FINAL_2")
-            {
-                return "Finally. I ascend! The time has come!\n\nI WILL RULE ALL OF FYRENEST! NOTHING SHALL STOP ME!<page>I SHALL BE ETERNAL, I SHALL BE THE LIGHT!";
-            }
             if (key == "WITCH_INTRO")
             {
                 return "Those figures, those Dreamers... they reached out with what little power they still have and dragged you into that hidden place. They feel threatened by you. They were weak.<page>They couldn't do what needed to be done.<br>Let's see if you fare better.<page>Wait, that talisman you now wield, the Dream Nail... it can cut through the veil that separates the waking world from our dreams. Maybe you shall fare better.<page>Though I must admit, that sacred blade has dulled over time. Together perhaps, we can restore its power. You only have to bring me Essence. Yes... That works.<page>Essence... they are precious fragments of light and energy collected from dreams. Collect it wherever you find any, and bring it to me. Once we have enough, we can work wonders together. We will re-create all of Fyrenest!<page>Go out into the world, Wielder. Hunt down the Essence that lingers there!<page>Collect 100 Essence and return to me. I will teach you more... The ways of ascension.";
             }
-            //if (key == "WITCH_FINAL_2")
-            //{
-            //    return "It is time for us to be remembered.<page>It is time for the light to be remembered, to be seen again.";
-            //}
             if (key == "HINT_WITCH_DREAMPLANT")
             {
                 return "Essence can be found wherever dreams take root.<page>Have you seen them? Those whispering plants that grow all over this old Kingdom? I believe there is one just outside. Why not strike it with your Dream Nail, and see what happens? Collect my Essence.";

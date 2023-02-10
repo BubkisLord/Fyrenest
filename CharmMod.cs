@@ -28,9 +28,10 @@ namespace Fyrenest
         /// <summary>
         /// Gets the version of the mod
         /// </summary>
-        public override string GetVersion() => "3 - Lore Update";
+        public override string GetVersion() => "3.1 - Transition Update";
 
         #region Variable Declarations
+
         /// <summary>
         /// The number of the selected charm (for the mod menu).
         /// </summary>
@@ -41,6 +42,7 @@ namespace Fyrenest
         /// The data for the loaded save
         /// </summary>
         public static CustomLocalSaveData LocalSaveData { get; set; } = new CustomLocalSaveData();
+        
         /// <summary>
         /// Globally saved data - runs across all saves
         /// </summary>
@@ -542,10 +544,6 @@ namespace Fyrenest
         }
         private void OnUpdate()
         {
-            if (PlayerData.instance.dreamOrbs >= 2400)
-            {
-                Room.instance.SetTransition("RestingGrounds_07", "right1", "RestingGrounds_17", "right1");
-            }
             //change dreamshield to cost 2 notches.
             PlayerData.instance.charmCost_38 = 2;
             foreach (Charm charm in Charms)
@@ -613,6 +611,7 @@ namespace Fyrenest
             if (!LocalSaveData.BulbousInfectionGot && BulbousInfection.instance.Settings(Settings).Got) LocalSaveData.BulbousInfectionGot = true;
             if (!LocalSaveData.FyreChildGot && Fyrechild.instance.Settings(Settings).Got) LocalSaveData.FyreChildGot = true;
             if (!LocalSaveData.WyrmFormGot && WyrmForm.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
+            if (!LocalSaveData.VoidSoulGot && VoidSoul.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
 
             //GameObject map = GameObject.Find("");
             //if (map != null)

@@ -20,7 +20,8 @@ namespace Fyrenest.Rooms.CrystalPeak
         public override void OnWorldInit()
         {
             // Make this go somewhere other than the deepnest stag station
-            PlaceTransition("Mines_37", "left1", "Crossroads_30", "left1", 2.25f, 24, new Vector2(1.5f, 2.5f), new Vector2(2, 0), GameManager.SceneLoadVisualizations.Default);
+            PlaceTransition("Mines_37", "left1", "Crossroads_30", "left1", 2.25f, 24, new Vector2(1.5f, 2.5f), new Vector2(2, 0));
+            SetTransition("Mines_37", "left1", "Crossroads_30", "left1");
         }
     }
     internal class Crossroads_30 : Room

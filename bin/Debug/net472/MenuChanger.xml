@@ -54,9 +54,9 @@
             Attribute which indicates that changes to this member should cause validation of another member's value.
             </summary>
         </member>
-        <member name="F:MenuChanger.Attributes.TriggerValidationAttribute.memberName">
+        <member name="F:MenuChanger.Attributes.TriggerValidationAttribute.memberNames">
             <summary>
-            The member which should be validated when this member is changed.
+            The members which should be validated when this member is changed, in the order that validation should occur.
             </summary>
         </member>
         <member name="M:MenuChanger.Attributes.TriggerValidationAttribute.#ctor(System.String)">
@@ -621,6 +621,11 @@
             Note that this acts recursively on any ISelectableGroups.        
             </summary>
         </member>
+        <member name="P:MenuChanger.MenuPage.BlockGoBack">
+            <summary>
+            If true, GoBack calls have no effect.
+            </summary>
+        </member>
         <member name="T:MenuChanger.MenuPageNavigation">
             <summary>
             Class used to handle navigation between root level elements of a MenuPage.
@@ -897,14 +902,16 @@
         <member name="M:MenuChanger.ThreadSupport.BlockUntilInvoked(System.Action)">
             <summary>
             Enqueues the action to be invoked during the next Unity update. Blocks the requesting thread until the action has been invoked.
-            <br/>If the action raises an exception, the exception is caught and rethrown on the requester's thread.
+            <br/>If the action raises an exception, the exception is caught and rethrown on the requester's thread as a <see cref="T:MenuChanger.ThreadSupportException"/>.
             </summary>
+            <exception cref="T:MenuChanger.ThreadSupportException"></exception>
         </member>
         <member name="M:MenuChanger.ThreadSupport.BlockUntilInvoked``1(System.Func{``0})">
             <summary>
             Enqueues the function to be invoked during the next Unity update. Blocks the requesting thread until the function has been invoked, and returns its result.
-            <br/>If the function raises an exception, the exception is caught and rethrown on the requester's thread.
+            <br/>If the function raises an exception, the exception is caught and rethrown on the requester's thread as a <see cref="T:MenuChanger.ThreadSupportException"/>.
             </summary>
+            <exception cref="T:MenuChanger.ThreadSupportException"></exception>
         </member>
     </members>
 </doc>
