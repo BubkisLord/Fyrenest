@@ -25,8 +25,6 @@ namespace Fyrenest.Rooms.KingdomsEdge
                 name = new BoxedString("VoidSoul"),
                 sprite = new BoxedSprite(EmbeddedSprite.Get("VoidSoul.png")),
             };
-            // Add a cost to get.
-            //aitem.AddTag<CostTag>().Cost = new GeoCost(1200);
             placement.Add(aitem);
             ItemChangerMod.AddPlacements(new AbstractPlacement[] { placement }, PlacementConflictResolution.MergeKeepingNew);
         }
