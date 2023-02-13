@@ -92,7 +92,7 @@
         </member>
         <member name="F:SFCore.CharmHelper.BuildEquippedCharms_Start_hook">
             <summary>
-                A detour for a private method that has no body.
+                A hook for a private method that has no body.
             </summary>
         </member>
         <member name="M:SFCore.CharmHelper.#cctor">
@@ -135,12 +135,7 @@
                 Initializes equipped charms.
             </summary>
         </member>
-        <member name="M:SFCore.CharmHelper.OnBuildEquippedCharmsStart_single">
-            <summary>
-                On hook to initialize charms and equipped charms.
-            </summary>
-        </member>
-        <member name="M:SFCore.CharmHelper.OnBuildEquippedCharmsStart(On.BuildEquippedCharms.orig_Start,BuildEquippedCharms)">
+        <member name="M:SFCore.CharmHelper.OnBuildEquippedCharmsStart_single(System.Action{BuildEquippedCharms},BuildEquippedCharms)">
             <summary>
                 On hook to initialize charms and equipped charms.
             </summary>

@@ -1,4 +1,5 @@
 using GlobalEnums;
+using GravityMod;
 using Modding.Utils;
 using Object = UnityEngine.Object;
 
@@ -29,7 +30,7 @@ namespace Fyrenest
             if (Equipped())
             {
                 count++;
-                if (count > 10)
+                if (count > 30)
                 {
                     count = 0;
                     foreach (var go in Object.FindObjectsOfType<Rigidbody2D>()
@@ -37,9 +38,6 @@ namespace Fyrenest
                                  .Where(go => go.name != HeroController.instance.gameObject.name))
                     {
                         go.gameObject.GetOrAddComponent<GravityComponent>();
-                        var rb = go.gameObject.GetComponent<Rigidbody2D>();
-                        rb.gravityScale *= 3;
-                        rb.velocity *= 3;
                     }
                 }
             }

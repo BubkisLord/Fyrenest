@@ -1,4 +1,4 @@
-﻿namespace Fyrenest;
+﻿namespace GravityMod;
 
 public class GravityComponent : MonoBehaviour
 {
@@ -32,10 +32,7 @@ public class GravityComponent : MonoBehaviour
             rb2d.isKinematic = false;
             rb2d.freezeRotation = false;
 
-            if (!isEnemy)
-            {
-                rb2d.gravityScale = 1f;
-            }
+            rb2d.gravityScale = 1.75f;
 
             Collider2D[] components = gameObject.GetComponents<Collider2D>();
             for (int i = 0; i < components.Length; i++)

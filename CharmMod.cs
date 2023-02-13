@@ -556,7 +556,8 @@ namespace Fyrenest
             {
                 charm.Settings(Settings).Cost = charm.DefaultCost;
             }
-            
+
+            #region Ugly block of code (do not look at it, it is GROSS AS)
             //give charms when certain things are done.
             if (PlayerData.instance.hasShadowDash) PowerfulDash.instance.Settings(Settings).Got = true; LocalSaveData.PowerfulDashGot = true;
             if (PlayerData.instance.hasNailArt) SturdyNail.instance.Settings(Settings).Got = true; LocalSaveData.SturdyNailGot = true;
@@ -580,16 +581,6 @@ namespace Fyrenest
             if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.instance.Settings(Settings).Got = true; LocalSaveData.SlyDealGot = true;
             if (PlayerData.instance.honedNail) GiantNail.instance.Settings(Settings).Got = true; LocalSaveData.GiantNailGot = true;
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.instance.Settings(Settings).Got = true; LocalSaveData.MatosBlessingGot = true;
-
-            if (PlayerData.instance.maxHealth < 1)
-            {
-                HeroController.instance.AddToMaxHealth(1);
-            }
-            if (CheckIfGotAllCharms() && !LocalSaveData.allCharmsGainedShown) MessageController.Enqueue(EmbeddedSprite.Get("AllCharms.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("allCharmsGained"); LocalSaveData.allCharmsGainedShown = true; GlobalSaveData.allCharmsGainedAchGot = true;
-            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got && !LocalSaveData.voidsoulachievementShown) MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidSoulAchievement"); LocalSaveData.voidsoulachievementShown = true; GlobalSaveData.voidsoulachievementAchGot = true;
-            if (CheckIfObtainedALLCharms() && !LocalSaveData.ALLCharmsGainedShown) MessageController.Enqueue(EmbeddedSprite.Get("CompletedVessel.png"), "Hidden Achievement Unlocked: Completed Vessel"); GameManager.instance.AwardAchievement("completedVessel"); LocalSaveData.ALLCharmsGainedShown = true; GlobalSaveData.ALLCharmsGainedAchGot = true;
-
-            //change local save data
             if (!LocalSaveData.SturdyNailGot && SturdyNail.instance.Settings(Settings).Got) LocalSaveData.SturdyNailGot = true;
             if (!LocalSaveData.BetterCDashGot && BetterCDash.instance.Settings(Settings).Got) LocalSaveData.BetterCDashGot = true;
             if (!LocalSaveData.GlassCannonGot && GlassCannon.instance.Settings(Settings).Got) LocalSaveData.GlassCannonGot = true;
@@ -618,6 +609,16 @@ namespace Fyrenest
             //if (!LocalSaveData.FyreChildGot && Fyrechild.instance.Settings(Settings).Got) LocalSaveData.FyreChildGot = true;
             if (!LocalSaveData.WyrmFormGot && WyrmForm.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
             if (!LocalSaveData.VoidSoulGot && VoidSoul.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
+            #endregion
+
+            #region More dumb code stuff
+            if (PlayerData.instance.maxHealth < 1)
+            {
+                HeroController.instance.AddToMaxHealth(1);
+            }
+            if (CheckIfGotAllCharms() && !LocalSaveData.allCharmsGainedShown) MessageController.Enqueue(EmbeddedSprite.Get("AllCharms.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("allCharmsGained"); LocalSaveData.allCharmsGainedShown = true; GlobalSaveData.allCharmsGainedAchGot = true;
+            if (VoidSoul.instance.Equipped() && VoidSoul.instance.Settings(Settings).Got && !LocalSaveData.voidsoulachievementShown) MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulAchievement.png"), "Unlocked Achievement"); GameManager.instance.AwardAchievement("voidSoulAchievement"); LocalSaveData.voidsoulachievementShown = true; GlobalSaveData.voidsoulachievementAchGot = true;
+            if (CheckIfObtainedALLCharms() && !LocalSaveData.ALLCharmsGainedShown) MessageController.Enqueue(EmbeddedSprite.Get("CompletedVessel.png"), "Hidden Achievement Unlocked: Completed Vessel"); GameManager.instance.AwardAchievement("completedVessel"); LocalSaveData.ALLCharmsGainedShown = true; GlobalSaveData.ALLCharmsGainedAchGot = true;
 
             //GameObject map = GameObject.Find("");
             //if (map != null)
@@ -656,6 +657,7 @@ namespace Fyrenest
                 }
                 Log("Re-initialized all rooms.");
             }
+            #endregion
         }
         public bool CheckIfGotAllCharms()
         {
@@ -709,6 +711,7 @@ namespace Fyrenest
                 return false;
             }
         }
+
         public bool insanity = false;
         private void OnSave(On.GameManager.orig_SaveGame orig, GameManager self)
         {
@@ -816,7 +819,7 @@ namespace Fyrenest
              );
         }
 
-        #region Charm Language Replacements
+#region Charm Language Replacements
         private string GetCharmStrings(string key, string sheetName, string orig)
         {
             if (TextEdits.TryGetValue((key, sheetName), out var text))
@@ -825,9 +828,9 @@ namespace Fyrenest
             }
             return orig;
         }
-        #endregion
+#endregion
 
-        #region Random Useless Stuff 
+#region Random Useless Stuff 
         public float grav = 0f;
         public float gravsaved = 0f;
 
@@ -1035,6 +1038,7 @@ namespace Fyrenest
         }
         private void CheckCharmPopup()
         {
+#region Ugly code
             if (PlayerData.instance.colosseumBronzeCompleted && !LocalSaveData.QuickfallDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Quickfall.png"), "Gained Charm"); LocalSaveData.QuickfallDonePopup = true;
             if (PlayerData.instance.colosseumSilverCompleted && !LocalSaveData.SlowfallDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Slowfall.png"), "Gained Charm"); LocalSaveData.SlowfallDonePopup = true;
             if (PlayerData.instance.hasShadowDash && !LocalSaveData.PowerfulDashDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("PowerfulDash.png"), "Gained Charm"); LocalSaveData.PowerfulDashDonePopup = true;
@@ -1065,8 +1069,9 @@ namespace Fyrenest
             // make it buy from salubra
             if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
             if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
+#endregion
         }
-        #endregion
+#endregion
 
         public void Unload()
         {
@@ -1423,7 +1428,7 @@ namespace Fyrenest.Consts
 {
     public class TextureStrings
     {
-        #region Misc
+#region Misc
         public const string QuickfallKey = "Quickfall";
         private const string QuickfallFile = "Fyrenest.Resources.Quickfall.png";
         public const string SlowfallKey = "Slowfall";
@@ -1444,7 +1449,7 @@ namespace Fyrenest.Consts
         private const string WealthyAmuletFile = "Fyrenest.Resources.WealthyAmulet.png";
         public const string TripleJumpKey = "TripleJump";
         private const string TripleJumpFile = "Fyrenest.Resources.TripleJump.png";
-        #endregion Misc
+#endregion Misc
 
         private readonly Dictionary<string, Sprite> _dict;
 

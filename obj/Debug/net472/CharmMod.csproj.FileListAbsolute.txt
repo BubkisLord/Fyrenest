@@ -341,3 +341,9 @@ C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.pdb
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\MenuChanger.xml
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\Satchel.xml
 C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\AbilityChanger.dll
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\RandomizerCore.dll
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\RandomizerMod.dll
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\RandomizerMod.pdb
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\RandomizerMod.xml
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\RandomizerCore.pdb
+C:\Users\oldfi\source\repos\Fyrenest\bin\Debug\net472\RandomizerCore.xml
