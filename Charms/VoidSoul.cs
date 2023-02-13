@@ -3,6 +3,7 @@ namespace Fyrenest
     internal class VoidSoul : Charm
     {
         public static readonly VoidSoul instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "VoidSoul.png";
         public override string Name => "Void Soul";
         public override string Description => "A charm radiating with raw power. Made with both pale shell and pure void, this charm is the focused rage and strength of Fyrenest.\n\nWhen worn, while the bearer's shade is alive, the charm accumulates power from the shade and gaining soul. Your speed, jump height, strength, and power is increased. These can be increased more by gaining soul.";

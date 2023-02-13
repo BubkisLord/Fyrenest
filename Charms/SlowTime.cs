@@ -3,6 +3,7 @@ namespace Fyrenest
     internal class SlowTime : Charm
     {
         public static readonly SlowTime instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "SlowTime.png";
         public override string Name => "Slow Time";
         public override string Description => "When holding this charm, everything seems to slow down slightly.\n\nThis charm alters the very fabric of time. When worn, the bearer and anything around it slows down.";

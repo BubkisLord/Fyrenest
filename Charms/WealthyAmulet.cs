@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class WealthyAmulet : Charm
     {
         public static readonly WealthyAmulet instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "WealthyAmulet.png";
         public override string Name => "Amulet of Wealth";
         public override string Description => "Allows the bearer to accumulate large amounts of geo.\n\nYou gain geo when attacking an enemy, but it costs 100 geo to heal.";

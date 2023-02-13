@@ -9,6 +9,7 @@ namespace Fyrenest
     {
         private int count;
         public static readonly BulbousInfection instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "BulbousInfection.png";
         public override string Name => "Bulbous Infection";
         public override string Description => "Increases levels of infection in enemies, making them bulbous and large.";

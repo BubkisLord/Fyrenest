@@ -3,6 +3,7 @@ namespace Fyrenest
     internal class SturdyNail : Charm
     {
         public static readonly SturdyNail instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "SturdyNail.png";
         public override string Name => "Sturdy Nail";
         public override string Description => "This strong charm allows the bearer to slash with more powerful strikes.\n\nGreatly increases the strength of the bearer's nail.";

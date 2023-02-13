@@ -26,6 +26,11 @@ namespace Fyrenest
         #region LanguageReplacements
         public string LanguageGet(string key, string sheetTitle, string orig)
         {
+            if (key == "VOIDSOUL_NAME")
+            {
+                return "Void Soul";
+            }
+
             if (key == "XERO_TALK")
             {
                 return "Stop there! Those who try to leave this kingdom are cursed, like those who forget the light. Better to stay stuck here, until time itself sleeps.<page>Hope and freedom. I thought that strength alone could grant me these things. In my dreams I would cut that dark with my nails, but then I turned my weapons upon the light.<page>When I awoke in this place, I began to understand. Those who hope for freedom are already doomed, as are those who forget that they do not have it.<page>Do you still hope, wanderer? Will you obey the light? Or will you raise your weapon and doom us both?";

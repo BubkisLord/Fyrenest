@@ -17,7 +17,7 @@ namespace Fyrenest.Rooms
         public override void OnWorldInit()
         {
             SetTransition("Fungus3_47", "right1", "Deepnest_40", "right1");
-
+            Fyrenest.PlaceCharmsAtFixedPositions();
         }
     }
     internal class Deepnest_40 : Room

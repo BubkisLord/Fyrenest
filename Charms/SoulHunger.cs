@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class SoulHunger : Charm
     {
         public static readonly SoulHunger instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "SoulHunger.png";
         public override string Name => "Hungry Soul";
         public override string Description => "This charm hungers for soul.\n\nYou gain an extreme amount of soul for every hit.";

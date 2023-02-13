@@ -8,6 +8,7 @@ namespace Fyrenest
     {
         private int count;
         public static readonly GravityCharm instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "GravityCharm.png";
         public override string Name => "Gravity Charm";
         public override string Description => "Makes all enemies effected by gravity.";

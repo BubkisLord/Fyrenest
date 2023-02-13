@@ -5,6 +5,7 @@ namespace Fyrenest
 {
     internal abstract class Charm: ItemChanger.Items.CharmItem
     {
+        public abstract bool Placeable { get; }
         public abstract string Sprite { get; }
         public abstract string Name { get; }
         public abstract string Description { get; }

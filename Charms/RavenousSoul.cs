@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class RavenousSoul : Charm
     {
         public static readonly RavenousSoul instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "RavenousSoul.png";
         public override string Name => "Ravenous Soul";
         public override string Description => "This charm is ravenous for soul.\n\nYou gain an extraordinary amount of soul for every hit, but take double damage.";

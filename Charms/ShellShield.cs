@@ -11,6 +11,7 @@ namespace Fyrenest
     internal class ShellShield : Charm
     {
         public static readonly ShellShield instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "ShellShield.png";
         public override string Name => "Shell Shield";
         public override string Description => "This magnificent charm bears the likeless of the one, the only Zote The Mighty!\n\nEmbodies the might, the strength, the sheer power of Zote The Mighty into the bearer.";

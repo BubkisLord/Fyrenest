@@ -1,11 +1,43 @@
-namespace Fyrenest
-{
-    // Used as the type of the GlobalSettings for the mod so that it will work without MenuChanger installed
-    // (the MenuChanger attribute on RandoSettings will prevent (de)serialization from working even though it's
-    // not actually used for anything)
-    public class RawRandoSettings
-    {
-        public bool AddCharms = true;
-        public int IncreaseMaxCharmCostBy = 7;
-    }
-}
+//using GlobalSettings = ItemChanger.Internal.GlobalSettings;
+
+//namespace Fyrenest
+//{
+//    public class RandoSettings
+//{
+//    public bool AddCharms;
+
+//    [MenuChanger.Attributes.MenuRange(0, 15)]
+//    public int IncreaseMaxCharmCostBy;
+
+//    public LogicSettings Logic = new();
+
+//    public RandoSettings() { }
+
+//    public RandoSettings(GlobalSettings rs)
+//    {
+//        AddCharms = rs.AddCharms;
+//        IncreaseMaxCharmCostBy = rs.IncreaseMaxCharmCostBy;
+//        if (Modding.ModHooks.GetMod("Randomizer 4") != null)
+//        {
+//            Logic = LoadLogic(rs);
+//        }
+//    }
+
+//    private LogicSettings LoadLogic(GlobalSettings rs) =>
+//        RandomizerMod.RandomizerData.JsonUtil.DeserializeString<LogicSettings>(rs.LogicSettings);
+
+//    public bool Enabled() => AddCharms;
+
+//    internal void WriteTo(GlobalSettings gs)
+//    {
+//        gs.AddCharms = AddCharms;
+//        gs.IncreaseMaxCharmCostBy = IncreaseMaxCharmCostBy;
+//        if (Modding.ModHooks.GetMod("Randomizer 4") != null)
+//        {
+//            gs.LogicSettings = SaveLogic();
+//        }
+//    }
+
+//    private string SaveLogic() => RandomizerMod.RandomizerData.JsonUtil.Serialize(Logic);
+//}
+//}

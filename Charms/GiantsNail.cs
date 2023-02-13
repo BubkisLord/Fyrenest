@@ -3,6 +3,7 @@ namespace Fyrenest
     internal class GiantNail : Charm
     {
         public static readonly GiantNail instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "GiantNail.png";
         public override string Name => "Giant's Nail";
         public override string Description => "This charm enlarges your nail dramatically.\n\nYou gain an extraordinary amount of power, having the your nail transformed into a giant's.";

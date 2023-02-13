@@ -2,65 +2,15 @@
 {
 	internal class TripleJump : Charm
 	{
-		public TripleJump()
-		{
-		}
-
-		public override string Sprite
-		{
-			get
-			{
-				return "TripleJump.png";
-			}
-		}
-
-		public override string Name
-		{
-			get
-			{
-				return "Triple Jump";
-			}
-		}
-
-		public override string Description
-		{
-			get
-			{
-				return "Resembles silvery wings, in which the following words are enscribed: 'Please, don't forget about me... Not again.'\n\nWhen worn, allows the bearer to use monarch wings three times in quick succession.";
-			}
-		}
-
-		public override int DefaultCost
-		{
-			get
-			{
-				return 3;
-			}
-		}
-
-		public override string Scene
-		{
-			get
-			{
-				return "Town";
-			}
-		}
-
-		public override float X
-		{
-			get
-			{
-				return 0;
-			}
-		}
-
-		public override float Y
-		{
-			get
-			{
-				return 0;
-			}
-		}
+        public static readonly TripleJump instance = new();
+        public override bool Placeable => false;
+        public override string Sprite => "TripleJump.png";
+        public override string Name => "Triple Jump";
+        public override string Description => "Resembles silvery wings, in which the following words are enscribed: 'Please, don't forget about me... Not again.'\n\nWhen worn, allows the bearer to use monarch wings three times in quick succession.";
+		public override int DefaultCost => 3;
+		public override string Scene => "Town";
+		public override float X => 0f;
+		public override float Y => 0f;
 
 		public override CharmSettings Settings(SaveSettings s)
 		{
@@ -131,7 +81,5 @@
 				yield break;
 			}
 		}
-
-		public static readonly TripleJump instance = new TripleJump();
 	}
 }

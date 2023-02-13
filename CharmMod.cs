@@ -20,6 +20,13 @@ global using HutongGames.PlayMaker;
 global using ItemChanger.Locations;
 global using ItemChanger.Placements;
 global using UnityEngine.UIElements;
+global using RandomizerMod.Extensions;
+global using RandomizerMod.IC;
+global using RandomizerMod.Menu;
+global using RandomizerMod.Settings;
+global using RandomizerMod;
+global using RandomizerMod.RandomizerData;
+global using RandomizerCore;
 
 namespace Fyrenest
 {
@@ -106,7 +113,7 @@ namespace Fyrenest
             GlassCannon.instance,
             HKBlessing.instance,
             PowerfulDash.instance,
-            Fyrechild.instance,
+            //Fyrechild.instance,
             OpportunisticDefeat.instance,
             SoulSpeed.instance,
             SoulHunger.instance,
@@ -135,7 +142,6 @@ namespace Fyrenest
 
         public Fyrenest() : base("Fyrenest")
         {
-
             //Make sure the main menu text is changed, but disable all other functionalitly
             SetEnabled(false);
             Enabled = true;
@@ -609,7 +615,7 @@ namespace Fyrenest
             if (!LocalSaveData.ShellShieldGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.ShellShieldGot = true;
             if (!LocalSaveData.GravityCharmGot && GravityCharm.instance.Settings(Settings).Got) LocalSaveData.GravityCharmGot = true;
             if (!LocalSaveData.BulbousInfectionGot && BulbousInfection.instance.Settings(Settings).Got) LocalSaveData.BulbousInfectionGot = true;
-            if (!LocalSaveData.FyreChildGot && Fyrechild.instance.Settings(Settings).Got) LocalSaveData.FyreChildGot = true;
+            //if (!LocalSaveData.FyreChildGot && Fyrechild.instance.Settings(Settings).Got) LocalSaveData.FyreChildGot = true;
             if (!LocalSaveData.WyrmFormGot && WyrmForm.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
             if (!LocalSaveData.VoidSoulGot && VoidSoul.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
 
@@ -824,6 +830,24 @@ namespace Fyrenest
         #region Random Useless Stuff 
         public float grav = 0f;
         public float gravsaved = 0f;
+
+        public static void PlaceCharmsAtFixedPositions()
+        {
+            var placements = new List<AbstractPlacement>();
+            foreach (var charm in Charms)
+            {
+                // make it so only some charms get placed, not all of them
+                if (charm.Placeable)
+                {
+                    var name = charm.Name.Replace(" ", "_");
+                    placements.Add(
+                        new CoordinateLocation() { x = charm.X, y = charm.Y, elevation = 0, sceneName = charm.Scene, name = name }
+                        .Wrap()
+                        .Add(Finder.GetItem(name)));
+                }
+            }
+            ItemChangerMod.AddPlacements(placements, conflictResolution: PlacementConflictResolution.Ignore);
+        }
 
         public int SelectCharm(int bubkis)
         {
@@ -1155,7 +1179,7 @@ namespace Fyrenest
             if (LocalSaveData.WealthyAmuletGot) WealthyAmulet.instance.Settings(Settings).Got = true;
             if (LocalSaveData.ZoteBornGot) ZoteBorn.instance.Settings(Settings).Got = true;
             if (LocalSaveData.WyrmFormGot) WyrmForm.instance.Settings(Settings).Got = true;
-            if (LocalSaveData.FyreChildGot) Fyrechild.instance.Settings(Settings).Got = true;
+            //if (LocalSaveData.FyreChildGot) Fyrechild.instance.Settings(Settings).Got = true;
             if (LocalSaveData.GravityCharmGot) GravityCharm.instance.Settings(Settings).Got = true;
             if (LocalSaveData.BulbousInfectionGot) BulbousInfection.instance.Settings(Settings).Got = true;
 
@@ -1359,6 +1383,22 @@ namespace Fyrenest
                 title.transform.SetScaleMatching(3.2f);
             }
         }
+        //public void PlaceItemsRando()
+        //{
+        //    var gs = RandomizerMod.RandomizerMod.RS.GenerationSettings;
+        //    if (gs.PoolSettings.Charms)
+        //    {
+        //        if (RandoSettings.AddCharms)
+        //        {
+        //            PlaceFloristsBlessingRepair();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        PlaceCharmsAtFixedPositions();
+        //        PlaceFloristsBlessingRepair();
+        //    }
+        //}
     }
 
     /// <summary>

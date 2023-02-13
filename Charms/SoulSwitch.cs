@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class SoulSwitch : Charm
     {
         public static readonly SoulSwitch instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "SoulSwitch.png";
         public override string Name => "Switching Soul";
         public override string Description => "Draws power from your shell to give you soul.";

@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class SoulSpell : Charm
     {
         public static readonly SoulSpell instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "SoulSpell.png";
         public override string Name => "Spell Soul";
         public override string Description => "Spells are much bigger, but you get half the soul from enemies.";

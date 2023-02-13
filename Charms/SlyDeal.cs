@@ -3,6 +3,7 @@ namespace Fyrenest
     internal class SlyDeal : Charm
     {
         public static readonly SlyDeal instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "SlyDeal.png";
         public override string Name => "Sly Deal";
         public override string Description => "This small, lightweight charm bears the likeless of a small bug called Sly.\n\nAlso has a side effect and embodies a foul stench of rancid eggs into the bearer.";

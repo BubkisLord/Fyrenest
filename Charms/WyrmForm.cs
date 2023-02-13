@@ -10,65 +10,15 @@ namespace Fyrenest
 {
 	internal class WyrmForm : Charm
 	{
-		public WyrmForm()
-		{
-		}
-
-		public override string Sprite
-		{
-			get
-			{
-				return "WyrmForm.png";
-			}
-		}
-
-		public override string Name
-		{
-			get
-			{
-				return "Wings of Air";
-			}
-		}
-
-		public override string Description
-		{
-			get
-			{
-				return "This smooth, pale charm glistens while in contact air.\n\nWhen worn, allows the bearer to fly, but at the cost of the bearer's nail to be weakened drastically.";
-			}
-		}
-
-		public override int DefaultCost
-		{
-			get
-			{
-				return 4;
-			}
-		}
-
-		public override string Scene
-		{
-			get
-			{
-				return "Town";
-			}
-		}
-
-		public override float X
-		{
-			get
-			{
-				return 0;
-			}
-		}
-
-		public override float Y
-		{
-			get
-			{
-				return 0;
-			}
-		}
+        public static readonly WyrmForm instance = new();
+        public override bool Placeable => false;
+        public override string Sprite => "WyrmForm.png";
+        public override string Name => "Wings of Air";
+        public override string Description => "This smooth, pale charm glistens while in contact air.\n\nWhen worn, allows the bearer to fly, but at the cost of the bearer's nail to be weakened drastically.";
+        public override int DefaultCost => 4;
+        public override string Scene => "Town";
+        public override float X => 0f;
+        public override float Y => 0f;
 
 		public override CharmSettings Settings(SaveSettings s)
 		{
@@ -145,7 +95,5 @@ namespace Fyrenest
 			ReflectionHelper.SetField<HeroController, bool>(HeroController.instance, "doubleJumped", false);
 			yield break;
 		}
-
-		public static readonly WyrmForm instance = new WyrmForm();
 	}
 }

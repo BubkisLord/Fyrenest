@@ -7,6 +7,7 @@ namespace Fyrenest
     internal class SpeedTime : Charm
     {
         public static readonly SpeedTime instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "SpeedTime.png";
         public override string Name => "Speed Time";
         public override string Description => "When holding this charm, everything seems to speed up slightly.\n\nThis charm alters the very fabric of time. When worn, the bearer and anything around it speeds up.";

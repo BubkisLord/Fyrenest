@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class ElderStone : Charm
     {
         public static readonly ElderStone instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "ElderStone.png";
         public override string Name => "ElderStone";
         public override string Description => "This magnificent charm bears the likeless of the Elderbug.\n\nEmbodies the frailness, the weakness, and the wisdom of the Elderbug into the bearer.";

@@ -3,6 +3,7 @@ namespace Fyrenest
     internal class PowerfulDash : Charm
     {
         public static readonly PowerfulDash instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "PowerfulDash.png";
         public override string Name => "Powerful Dash";
         public override string Description => "This dark blue charm propels the wearer through the air.\n\nCan be used with the Sharp Shadow charm and the Dashmaster charm.";

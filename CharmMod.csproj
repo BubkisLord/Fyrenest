@@ -84,6 +84,9 @@
 		<Reference Include="Satchel">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Satchel/Satchel.dll</HintPath>
 		</Reference>
+		<Reference Include="Randomizer">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods/Randomizer/RandomizerMod.dll</HintPath>
+		</Reference>
 		<Reference Include="AbilityChanger">
 			<HintPath>Resources\AbilityChanger.dll</HintPath>
 		</Reference>

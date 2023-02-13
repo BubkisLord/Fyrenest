@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class HealthyShell : Charm
     {
         public static readonly HealthyShell instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "HealthyShell.png";
         public override string Name => "Healthy Shell";
         public override string Description => "Makes your shell glossy and black.\n\nYou continously gain health when hurt.";

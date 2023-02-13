@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class ZoteBorn : Charm
     {
         public static readonly ZoteBorn instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "ZoteBorn.png";
         public override string Name => "ZoteBorn";
         public override string Description => "This magnificent charm bears the likeless of the one, the only Zote The Mighty!\n\nEmbodies the might, the strength, the sheer power of Zote The Mighty into the bearer.";

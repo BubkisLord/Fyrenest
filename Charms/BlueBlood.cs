@@ -5,6 +5,7 @@ namespace Fyrenest
     internal class BlueBlood : Charm
     {
         public static readonly BlueBlood instance = new();
+        public override bool Placeable => false;
         public override string Sprite => "LifeBloodCharm.png";
         public override string Name => "Blue Blood";
         public override string Description => "Allows lifeblood to be regenerated, but only once.";
