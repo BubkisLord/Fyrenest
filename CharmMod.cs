@@ -15,7 +15,6 @@ global using ItemChanger.Internal;
 global using ItemChanger.Modules;
 global using UnityEngine.SceneManagement;
 global using System.Net;
-global using static Fyrenest.Fyrenest;
 global using HutongGames.PlayMaker;
 global using ItemChanger.Locations;
 global using ItemChanger.Placements;
@@ -27,6 +26,7 @@ global using RandomizerMod.Settings;
 global using RandomizerMod;
 global using RandomizerMod.RandomizerData;
 global using RandomizerCore;
+global using static Fyrenest.Fyrenest;
 
 namespace Fyrenest
 {
@@ -207,7 +207,6 @@ namespace Fyrenest
             ModHooks.SavegameLoadHook += ModHooks_SavegameLoadHook;
             On.PlayerData.CountGameCompletion += SetGameCompletion;
             Events.OnEnterGame += GiveStartingItemsAndSetEnabled;
-            // On.GameMap Look at this later
 
             //intialize the Prefabs
             PrefabMan.InitializePrefabs(preloadedObjects);
@@ -215,8 +214,6 @@ namespace Fyrenest
 
             RoomMirrorer.Hook();
             TextReplacements.instance.Hook();
-
-            //GameCompletion.Hook();
 
             FyrenestModeMenu.Register();
 
@@ -227,15 +224,13 @@ namespace Fyrenest
                 Log("Initialized " + room.RoomName);
             }
 
-            //load general text changes
-            //GeneralChanges.ChangeText();
-
             Log("Initialization Part 1 Complete.");
             if (Fyrenest.Loadedinstance != null) return;
             Fyrenest.Loadedinstance = this;
 
             Preloads = preloadedObjects;
 
+            // Keep this for now, BUT DO NOT UNCOMMENT!!!
             //On.HeroController.Awake += delegate (On.HeroController.orig_Awake orig, HeroController self) {
             //    orig.Invoke(self);
 
@@ -305,7 +300,7 @@ namespace Fyrenest
             }
             Log("Initializing Part 2 Complete.\n\nAll Initializing Complete.");
         }
-
+        
         public static void PlaceAllCharms()
         {
             var placements = new List<AbstractPlacement>();
@@ -764,7 +759,7 @@ namespace Fyrenest
                                         string desc = "Current selected charm: "+SelectedCharm; //set desc to the new wanted description
                                         buttonElem.Description = desc; //change description
                                         buttonElem.Update();//Update button
-                                        MenuRef.Update();
+                                        MenuRef.Update(); // Update Menu
 
                                     }, false, Id:"SelectSpecificCharm"),
                                     new MenuButton("Give Specific Charm", "Add the charm to your inventory.", (_) => GiveSpecificCharm(1), false, Id:"GiveSpecCharm"),
