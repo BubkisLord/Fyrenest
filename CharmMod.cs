@@ -1121,7 +1121,6 @@ namespace Fyrenest
                 }
                 Log("World Initialized");
             }
-
             orig(self, permaDeath, bossRush);
         }
 
@@ -1383,22 +1382,6 @@ namespace Fyrenest
                 title.transform.SetScaleMatching(3.2f);
             }
         }
-        //public void PlaceItemsRando()
-        //{
-        //    var gs = RandomizerMod.RandomizerMod.RS.GenerationSettings;
-        //    if (gs.PoolSettings.Charms)
-        //    {
-        //        if (RandoSettings.AddCharms)
-        //        {
-        //            PlaceFloristsBlessingRepair();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        PlaceCharmsAtFixedPositions();
-        //        PlaceFloristsBlessingRepair();
-        //    }
-        //}
     }
 
     /// <summary>
