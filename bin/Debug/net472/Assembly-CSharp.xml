@@ -755,6 +755,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Modding.IMod.GetMenuButtonText">
+            <summary>
+                Returns the text that should be displayed on the mod menu button, if there is one.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Modding.InGameConsoleSettings">
             <summary>
                 Settins related to the in-game console
@@ -979,6 +985,13 @@
             <param name="message">Message to log</param>
             <param name="level">Level of Log</param>
         </member>
+        <member name="M:Modding.Logger.ExpandLines(System.String,System.String)">
+            <summary>
+            Returns a copy of <paramref name="message"/> with the string <paramref name="prefixText"/> prepended to each line.
+            </summary>
+            <param name="prefixText">The prefix text.</param>
+            <param name="message">The message.</param>
+        </member>
         <member name="M:Modding.Logger.Log(System.Object,Modding.LogLevel)">
             <summary>
                 Checks to ensure that the logger level is currently high enough for this message, if it is, write it.
@@ -1087,6 +1100,18 @@
             <summary>
                 No Logging at all
             </summary>
+        </member>
+        <member name="T:Modding.LogLevelExt">
+            <summary>
+                Methods for the logging level enum
+            </summary>
+        </member>
+        <member name="M:Modding.LogLevelExt.ToShortString(Modding.LogLevel)">
+            <summary>
+                Converts the logging level enum into a short string.
+            </summary>
+            <param name="level">The logging level</param>
+            <returns>A 1 character string of the value of the enum</returns>
         </member>
         <member name="T:Modding.Menu.Components.AutoSelector">
             <summary>
@@ -2439,6 +2464,13 @@
                 Called after preloading of all mods.
             </summary>
         </member>
+        <member name="M:Modding.Mod.GetMenuButtonText">
+            <summary>
+                If this mod defines a menu via the <see cref="T:Modding.IMenuMod"/> or <see cref="T:Modding.ICustomMenuMod"/> interfaces, override this method to 
+                change the text of the button to jump to this mod's menu.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Modding.Mod.TryLoadGlobalSettings(System.String,System.Type)">
             <summary>
             Try to load the global settings from the given path. Returns true if the global settings were successfully loaded.
@@ -3219,6 +3251,16 @@
         <member name="F:Modding.ModHooksGlobalSettings.LoggingLevel">
             <summary>
                 Logging Level to use.
+            </summary>
+        </member>
+        <member name="F:Modding.ModHooksGlobalSettings.ShortLoggingLevel">
+            <summary>
+                Determines if the logs should have a short log level instead of the full name.
+            </summary>
+        </member>
+        <member name="F:Modding.ModHooksGlobalSettings.IncludeTimestamps">
+            <summary>
+                Determines if the logs should have a timestamp attached to each line of logging.
             </summary>
         </member>
         <member name="F:Modding.ModHooksGlobalSettings.ConsoleSettings">

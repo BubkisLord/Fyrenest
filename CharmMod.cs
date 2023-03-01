@@ -1,7 +1,6 @@
 global using System;
 global using System.IO;
 global using System.Collections;
-global using Modding;
 global using UnityEngine;
 global using SFCore;
 global using System.Collections.Generic;
