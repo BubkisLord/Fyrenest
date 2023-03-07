@@ -35,16 +35,9 @@ namespace Fyrenest
 				{
 					foreach (GameObject companion in foundCompanions)
 					{
-						PlayMakerFSM companionFsm = FSMUtility.LocateMyFSM(companion, "Control");
-						FsmState fsmState = companionFsm.GetState("Antic");
-						bool flag4 = companion.tag.Equals("Grimmchild");
-						if (flag4)
-						{
-							companionFsm = FSMUtility.LocateMyFSM(companion, "Control");
-							fsmState = companionFsm.GetState("Antic");
-							companion.gameObject.transform.SetScaleX(2f);
-							companion.gameObject.transform.SetScaleY(2f);
-						}
+						//PlayMakerFSM companionFsm = FSMUtility.LocateMyFSM(companion, "Control");
+						companion.gameObject.transform.SetScaleX(2f);
+						companion.gameObject.transform.SetScaleY(2f);
 						this._companions.Add(companion);
 					}
 				}

@@ -209,7 +209,7 @@ namespace Fyrenest
             ModHooks.SavegameLoadHook += ModHooks_SavegameLoadHook;
             On.PlayerData.CountGameCompletion += SetGameCompletion;
             Events.OnEnterGame += GiveStartingItemsAndSetEnabled;
-            On.UIManager.StartNewGame += PlaceItems;
+            //On.UIManager.StartNewGame += PlaceItems;
 
             //intialize the Prefabs
             PrefabMan.InitializePrefabs(preloadedObjects);
@@ -491,37 +491,20 @@ namespace Fyrenest
 
             float Completion = 0;
 
-            // 35% Max
-            Completion += Charms.Count(c => c.Settings(Settings).Got);
+            // 50% Max
+            int CharmMultiplier = 50/Charms.Count();
+            Completion += CharmMultiplier * Charms.Count(c => c.Settings(Settings).Got);
 
-            // 36% Max
-            if (PlayerData.instance.metIselda) Completion++;
-
-            // 37% Max
-            if (PlayerData.instance.iseldaConvoGrimm) Completion++;
-
-            // 42% Max
+            // 55% Max
             if (PlayerData.instance.elderbugGaveFlower) Completion += 5;
 
-            // 43% Max
-            if (PlayerData.instance.tisoDead) Completion++;
-
-            // 45% Max
+            // 57% Max
             if (PlayerData.instance.dreamNailUpgraded) Completion += 2;
 
             // 69% Max
-            Completion += Mathf.Clamp(PlayerData.instance.dreamOrbs, 0, 2400) / 100;
+            Completion += Mathf.Clamp(PlayerData.instance.dreamOrbs, 0, 2400) / 200;
 
-            // 79% Max
-            Completion += Mathf.Clamp(PlayerData.instance.rancidEggs, 0, 10);
-
-            // 83% Max
-            Completion += Mathf.Clamp(PlayerData.instance.royalCharmState, 0, 4);
-
-            // 84% Max
-            if (PlayerData.instance.salubraBlessing) Completion++;
-
-            // 93% Max
+            // 78% Max
             if (PlayerData.instance.notchFogCanyon) Completion++;
             if (PlayerData.instance.notchShroomOgres) Completion++;
             if (PlayerData.instance.gotGrimmNotch) Completion++;
@@ -532,13 +515,25 @@ namespace Fyrenest
             if (PlayerData.instance.slyNotch1) Completion++;
             if (PlayerData.instance.slyNotch2) Completion++;
 
-            // 97% Max
+            // 82% Max
             Completion += Mathf.Clamp(PlayerData.instance.maxHealth, 5, 9) - 5;
 
-            // 100% Max
-            if (PlayerData.instance.metBanker) Completion++;
-            if (PlayerData.instance.metCornifer) Completion++;
+            // 85% Max
+            if (PlayerData.instance.metMoth) Completion += 3;
+
+            // 86% Max
             if (PlayerData.instance.metGiraffe) Completion++;
+
+            // 100% Max
+            if (PlayerData.instance.dreamReward1) Completion++;
+            if (PlayerData.instance.dreamReward2) Completion++;
+            if (PlayerData.instance.dreamReward3) Completion++;
+            if (PlayerData.instance.dreamReward4) Completion++;
+            if (PlayerData.instance.dreamReward5) Completion += 2;
+            if (PlayerData.instance.dreamReward6) Completion += 2;
+            if (PlayerData.instance.dreamReward7) Completion += 2;
+            if (PlayerData.instance.dreamReward8) Completion += 2;
+            if (PlayerData.instance.dreamReward9) Completion += 2;
 
             Completion = Mathf.Clamp(Completion, 0, 100);
 
@@ -711,6 +706,7 @@ namespace Fyrenest
             if (PlayerData.instance.gaveSlykey && PlayerData.instance.slyConvoNailHoned && PlayerData.instance.completionPercentage > 100) SlyDeal.instance.Settings(Settings).Got = true; LocalSaveData.SlyDealGot = true;
             if (PlayerData.instance.honedNail) GiantNail.instance.Settings(Settings).Got = true; LocalSaveData.GiantNailGot = true;
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand) MatosBlessing.instance.Settings(Settings).Got = true; LocalSaveData.MatosBlessingGot = true;
+
             if (!LocalSaveData.SturdyNailGot && SturdyNail.instance.Settings(Settings).Got) LocalSaveData.SturdyNailGot = true;
             if (!LocalSaveData.BetterCDashGot && BetterCDash.instance.Settings(Settings).Got) LocalSaveData.BetterCDashGot = true;
             if (!LocalSaveData.GlassCannonGot && GlassCannon.instance.Settings(Settings).Got) LocalSaveData.GlassCannonGot = true;
@@ -736,7 +732,7 @@ namespace Fyrenest
             if (!LocalSaveData.ShellShieldGot && ShellShield.instance.Settings(Settings).Got) LocalSaveData.ShellShieldGot = true;
             if (!LocalSaveData.GravityCharmGot && GravityCharm.instance.Settings(Settings).Got) LocalSaveData.GravityCharmGot = true;
             if (!LocalSaveData.BulbousInfectionGot && BulbousInfection.instance.Settings(Settings).Got) LocalSaveData.BulbousInfectionGot = true;
-            //if (!LocalSaveData.FyreChildGot && Fyrechild.instance.Settings(Settings).Got) LocalSaveData.FyreChildGot = true;
+            if (!LocalSaveData.FyreChildGot && Fyrechild.instance.Settings(Settings).Got) LocalSaveData.FyreChildGot = true;
             if (!LocalSaveData.WyrmFormGot && WyrmForm.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
             if (!LocalSaveData.VoidSoulGot && VoidSoul.instance.Settings(Settings).Got) LocalSaveData.WyrmFormGot = true;
             #endregion
@@ -1196,8 +1192,6 @@ namespace Fyrenest
             if (PlayerData.instance.hasAllNailArts && PlayerData.instance.hasKingsBrand && !LocalSaveData.MatosBlessingDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("MatosBlessing.png"), "Gained Charm"); LocalSaveData.MatosBlessingDonePopup = true;
             if (PlayerData.instance.honedNail && !LocalSaveData.ShellShieldDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("ShellShield.png"), "Gained Charm"); LocalSaveData.ShellShieldDonePopup = true;
             if (PlayerData.instance.honedNail && !LocalSaveData.VoidSoulDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("VoidSoulPopup.png"), "Gained Charm"); LocalSaveData.VoidSoulDonePopup = true;
-
-            // make it buy from salubra
             if (PlayerData.instance.geo > 100 && PlayerData.instance.hasCityKey && !LocalSaveData.QuickjumpDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Quickjump.png"), "Gained Charm"); LocalSaveData.QuickjumpDonePopup = true;
             if (PlayerData.instance.killedJellyfish && PlayerData.instance.killsJellyCrawler > 20 && !LocalSaveData.SlowjumpDonePopup) MessageController.Enqueue(EmbeddedSprite.Get("Slowjump.png"), "Gained Charm"); LocalSaveData.SlowjumpDonePopup = true;
 #endregion
@@ -1315,7 +1309,7 @@ namespace Fyrenest
             if (LocalSaveData.WealthyAmuletGot) WealthyAmulet.instance.Settings(Settings).Got = true;
             if (LocalSaveData.ZoteBornGot) ZoteBorn.instance.Settings(Settings).Got = true;
             if (LocalSaveData.WyrmFormGot) WyrmForm.instance.Settings(Settings).Got = true;
-            //if (LocalSaveData.FyreChildGot) Fyrechild.instance.Settings(Settings).Got = true;
+            if (LocalSaveData.FyreChildGot) Fyrechild.instance.Settings(Settings).Got = true;
             if (LocalSaveData.GravityCharmGot) GravityCharm.instance.Settings(Settings).Got = true;
             if (LocalSaveData.BulbousInfectionGot) BulbousInfection.instance.Settings(Settings).Got = true;
 
