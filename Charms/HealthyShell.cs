@@ -9,7 +9,7 @@ namespace Fyrenest
         public override string Sprite => "HealthyShell.png";
         public override string Name => "Healthy Shell";
         public override string Description => "Makes your shell glossy and black.\n\nYou continously gain health when hurt.";
-        public override int DefaultCost => 2;
+        public override int DefaultCost => 4;
         public override string Scene => "Town";
         public override float X => 0f;
         public override float Y => 0f;
@@ -24,7 +24,7 @@ namespace Fyrenest
 
         private const int PhysicsFramesPerSecond = 50;
 
-        private const int ChargeInterval = 10 * PhysicsFramesPerSecond;
+        private const int ChargeInterval = 30 * PhysicsFramesPerSecond;
 
         private static int ChargeTimer = 0;
 
@@ -35,15 +35,15 @@ namespace Fyrenest
                 ChargeTimer++;
                 if (ChargeTimer == ChargeInterval)
                 {
-                    Modding.Logger.Log("Timer Up.");
+                    Modding.Logger.Log("Timer for HealthyShell Up.");
                     ChargeTimer = 0;
                     if (PlayerData.instance.health == PlayerData.instance.maxHealth)
                     {
-                        Modding.Logger.Log("Player has max health");
+                        Modding.Logger.Log("Player has max health. Giving player soul.");
                         HeroController.instance.AddMPCharge(11);
                     }
                     else {
-                        Modding.Logger.Log("Giving player health");
+                        Modding.Logger.Log("Giving player health.");
                         HeroController.instance.AddHealth(1);
                         HeroController.instance.TakeMP(11);
                     }

@@ -13,6 +13,7 @@ namespace Fyrenest.Rooms.Abyss
         public Abyss4() : base("Abyss_04") { }
         public override void OnLoad()
         {
+            PlaceGO(Prefabs.SMALL_PLATFORM.Object, 83.5f, 11.8f, null);
             DestroyGO("Direction Pole White Palace (1)");
             PlaceGO(Prefabs.WHITE_PALACE_DIRECTION_POLE.Object, 6.5f, 8.4f, Quaternion.Euler(0, 180, 0));
         }

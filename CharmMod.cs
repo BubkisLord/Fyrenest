@@ -26,6 +26,11 @@ global using RandomizerMod;
 global using RandomizerMod.RandomizerData;
 global using RandomizerCore;
 global using static Fyrenest.Fyrenest;
+using RandomizerMod.RC;
+using RandomizerMod.Logging;
+using MenuChanger.MenuElements;
+using MenuChanger;
+using System.Configuration;
 
 namespace Fyrenest
 {
@@ -112,7 +117,7 @@ namespace Fyrenest
             GlassCannon.instance,
             HKBlessing.instance,
             PowerfulDash.instance,
-            //Fyrechild.instance,
+            Fyrechild.instance,
             OpportunisticDefeat.instance,
             SoulSpeed.instance,
             SoulHunger.instance,
@@ -142,7 +147,7 @@ namespace Fyrenest
         public Fyrenest() : base("Fyrenest")
         {
             //Make sure the main menu text is changed, but disable all other functionalitly
-            SetEnabled(false);
+            SetEnabled(true);
             Enabled = true;
 
             //Instantiate all Room subclasses
@@ -154,8 +159,6 @@ namespace Fyrenest
                 }
             }
         }
-
-
 
         /// <summary>
         /// Called when the mod is loaded
@@ -206,6 +209,7 @@ namespace Fyrenest
             ModHooks.SavegameLoadHook += ModHooks_SavegameLoadHook;
             On.PlayerData.CountGameCompletion += SetGameCompletion;
             Events.OnEnterGame += GiveStartingItemsAndSetEnabled;
+            On.UIManager.StartNewGame += PlaceItems;
 
             //intialize the Prefabs
             PrefabMan.InitializePrefabs(preloadedObjects);
@@ -240,6 +244,15 @@ namespace Fyrenest
             //    }
             //};
             Log("Initializing Part 2...");
+
+            if (ModHooks.GetMod("Randomizer 4") != null)
+            {
+                // The code that references rando needs to be in a separate method
+                // so that the mod will still load without it installed
+                // (trying to run a method whose code references an unavailable
+                // DLL will fail even if the code in question isn't actually run)
+                HookRando();
+            }
 
             foreach (var charm in Charms)
             {
@@ -299,18 +312,141 @@ namespace Fyrenest
             }
             Log("Initializing Part 2 Complete.\n\nAll Initializing Complete.");
         }
-        
-        public static void PlaceAllCharms()
+
+
+        private void PlaceItems(On.UIManager.orig_StartNewGame orig, UIManager self, bool permaDeath, bool bossRush)
         {
-            var placements = new List<AbstractPlacement>();
-            foreach (Charm charm in Charms)
-            {
-                var name = charm.Name.Replace(" ", "_");
-                var placement = new CoordinateLocation() { x = charm.X, y = charm.Y, elevation = 0, sceneName = charm.Scene, name = name }.Wrap() as MutablePlacement;
-                placement.Add(charm);
-            }
-            ItemChangerMod.AddPlacements(placements, conflictResolution: PlacementConflictResolution.Ignore);
+            //if (ModHooks.GetMod("Randomizer 4") != null && IsRandoActive())
+            //{
+            //    PlaceItemsRando();
+            //}
+            //else
+            //{
+            //    ConfigureICModules();
+            //    PlaceCharmsAtFixedPositions();
+            //}
         }
+
+        private static void ConfigureICModules()
+        {
+            // The fix fury isnt really needed, but may make my life easier along the way.
+            ItemChangerMod.Modules.GetOrAdd<FixFury>();
+
+            // Everyone likes skips, am I right?
+            ItemChangerMod.Modules.GetOrAdd<LeftCityChandelier>();
+
+
+            //ItemChangerMod.Modules.GetOrAdd<PlayerDataEditModule>();
+            //ItemChangerMod.Modules.GetOrAdd<RespawnCollectorJars>();
+            //ItemChangerMod.Modules.GetOrAdd<TransitionFixes>();
+            //ItemChangerMod.Modules.GetOrAdd<FixWatcherKnightConditionalLoad>();
+            //ItemChangerMod.Modules.GetOrAdd<HorizontalTransitionQuakeCancel>();
+            //ItemChangerMod.Modules.GetOrAdd<ReusableBeastsDenEntrance>();
+        }
+
+        //private void PlaceItemsRando()
+        //{
+        //    var gs = RandomizerMod.RandomizerMod.RS.GenerationSettings;
+        //    if (!gs.PoolSettings.Charms)
+        //    {
+        //        PlaceCharmsAtFixedPositions();
+        //    }
+        //}
+        
+        //private static void DefineCharmsForRando(RequestBuilder rb)
+        //{
+        //    if (!rb.gs.PoolSettings.Charms)
+        //    {
+        //        return;
+        //    }
+        //    var names = new HashSet<string>();
+        //    foreach (var charm in Charms)
+        //    {
+        //        var name = charm.Name.Replace(" ", "_");
+        //        names.Add(name);
+        //        rb.EditItemRequest(name, info =>
+        //        {
+        //            info.getItemDef = () => new()
+        //            {
+        //                Name = name,
+        //                Pool = "Charm",
+        //                MajorItem = false,
+        //                PriceCap = 666
+        //            };
+        //        });
+        //    }
+
+        //    rb.OnGetGroupFor.Subscribe(0f, (RequestBuilder rb, string item, RequestBuilder.ElementType type, out GroupBuilder gb) => {
+        //        if (names.Contains(item) && (type == RequestBuilder.ElementType.Unknown || type == RequestBuilder.ElementType.Item))
+        //        {
+        //            gb = rb.GetGroupFor("Shaman_Stone");
+        //            return true;
+        //        }
+        //        gb = default;
+        //        return false;
+        //    });
+        //}
+        private void HookRando()
+        {
+            //RequestBuilder.OnUpdate.Subscribe(-9999, SetRandoNotchCosts);
+            //RequestBuilder.OnUpdate.Subscribe(-498, DefineCharmsForRando);
+            //RequestBuilder.OnUpdate.Subscribe(-200, IncreaseMaxCharmCost);
+            //RequestBuilder.OnUpdate.Subscribe(50, AddCharmsToPool);
+            //SettingsLog.AfterLogSettings += LogRandoSettings;
+        }
+        private void IncreaseMaxCharmCost(RequestBuilder rb)
+        {
+            // This limitation could be lifted 
+            if (rb.gs.PoolSettings.Charms && RandoSettings.Instance.AddCharms)
+            {
+                rb.gs.CostSettings.MaximumCharmCost += RandoSettings.Instance.IncreaseMaxCharmCostBy;
+            }
+        }
+        private void AddCharmsToPool(RequestBuilder rb)
+        {
+            if (!(rb.gs.PoolSettings.Charms && RandoSettings.Instance.AddCharms))
+            {
+                return;
+            }
+            foreach (var charm in Charms)
+            {
+                rb.AddItemByName(charm.Name.Replace(" ", "_"));
+            }
+        }
+        private void LogRandoSettings(LogArguments args, TextWriter w)
+        {
+            w.WriteLine("Logging Transcendence settings:");
+            w.WriteLine(JsonUtil.Serialize(RandoSettings.Instance));
+        }
+        //private Dictionary<int, int> DefaultNotchCosts()
+        //{
+        //    var costs = Charms.ToDictionary(c => c.Num, c => c.DefaultCost);
+        //    return costs;
+        //}
+        //private const int MinTotalCost = 25;
+        //private const int MaxTotalCost = 38;
+        //private Dictionary<int, int> RandomizeNotchCosts(int seed)
+        //{
+        //    // This log statement is here to help diagnose a possible bug where charms cost more than
+        //    // they ever should.
+        //    var rng = new System.Random(seed);
+        //    var total = rng.Next(MinTotalCost, MaxTotalCost + 1);
+        //    Log($"Randomizing notch costs; total cost = {total}");
+        //    var costs = Charms.ToDictionary(c => c.Num, c => 0);
+        //    for (var i = 0; i < total; i++)
+        //    {
+        //        var possiblePicks = costs.Where(c => c.Value < 6).Select(c => c.Key).ToList();
+        //        if (possiblePicks.Count == 0)
+        //        {
+        //            break;
+        //        }
+        //        var pick = rng.Next(possiblePicks.Count);
+        //        costs[possiblePicks[pick]]++;
+        //    }
+        //    return costs;
+        //}
+
+
 
         //private static void TestPlacements()
         //{
@@ -628,7 +764,7 @@ namespace Fyrenest
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
                 Log("Initiating OnWorldInit()");
-                PlaceAllCharms();
+                PlaceCharmsAtFixedPositions();
                 //Call OnWorldInit for all Room subclasses
                 foreach (Room room in rooms)
                 {
@@ -642,7 +778,7 @@ namespace Fyrenest
                 // Toggle if Fyrenest is enabled.
                 LocalSaveData.FyrenestEnabled = true;
                 Log("Initiating OnWorldInit()");
-                PlaceAllCharms();
+                PlaceCharmsAtFixedPositions();
                 //Call OnWorldInit for all Room subclasses
                 foreach (Room room in rooms)
                 {
@@ -843,8 +979,9 @@ namespace Fyrenest
                         .Add(Finder.GetItem(name)));
                 }
             }
-            ItemChangerMod.AddPlacements(placements, conflictResolution: PlacementConflictResolution.Ignore);
+            ItemChangerMod.AddPlacements(placements);
         }
+
 
         public int SelectCharm(int bubkis)
         {
@@ -1111,7 +1248,8 @@ namespace Fyrenest
                 LocalSaveData.FyrenestEnabled = true;
                 LocalSaveData.revision = CurrentRevision;
 
-                PlaceAllCharms();
+                PlaceItems(orig, self, permaDeath, bossRush);
+
                 //Call OnWorldInit for all Room subclasses
                 foreach (Room room in rooms)
                 {
@@ -1130,7 +1268,7 @@ namespace Fyrenest
         {
             if (!LocalSaveData.FyrenestEnabled) return;
 
-            Settings set = (Settings)typeof(ItemChangerMod).GetField("SET", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+            ItemChanger.Settings set = (ItemChanger.Settings)typeof(ItemChangerMod).GetField("SET", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
             foreach (var placement in set.GetPlacements())
             {
                 if (placement.Name == LocationNames.Grubfather)
